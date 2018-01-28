@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar no-border-top>
+    <ion-segment [(ngModel)]="segment">
+      <ion-segment-button value="study">
+        学习
+      </ion-segment-button>
+      <ion-segment-button value="teach">
+        教学
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div [ngSwitch]="segment">
+    <ion-list *ngSwitchCase="'study'">
+      <ion-item *ngFor="let studyItem of studyItems" >
+        <ion-thumbnail item-start>
+          <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{studyItem.filepath}}">
+        </ion-thumbnail>
+        <h2>{{studyItem.name}}</h2>
+        <p>{{studyItem.introduction}}</p>
+        <button ion-button (click)="openDetailPage(studyItem.name)" clear item-end>View</button>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngSwitchCase="'teach'">
+      <ion-item *ngFor="let teachItem of teachItems">
+        <ion-thumbnail item-start>
+          <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{teachItem.filepath}}">
+        </ion-thumbnail>
+        <h2>{{teachItem.name}}</h2>
+        <p>{{teachItem.introduction}}</p>
+        <button ion-button (click)="openDetailPage(teachItem.name)" clear item-end>View</button>
+      </ion-item>
+    </ion-list>
+
+  </div>
+</ion-content>

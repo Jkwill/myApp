@@ -1,0 +1,14 @@
+{
+  "name": "myApp",
+  "app_id": "",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  },
+  "proxies": [
+    {
+      "path": "/lms",
+      "proxyUrl": "http://lms.ccnl.scut.edu.cn/lms"
+    }
+  ]
+}
