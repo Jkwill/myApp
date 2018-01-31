@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ToastController,ModalController } from 'ionic-angular';
+import { ToastController,ModalController ,String} from 'ionic-angular';
 import { Platform } from 'ionic-angular';
 import { BackButtonService } from "../../services/uiService/backButton.service";
 import { AccountService} from "../../services/httpService/account.service"
@@ -18,33 +18,55 @@ import {TabsPage} from "../tabs/tabs";
   templateUrl: 'login.html',
 })
 export class LoginPage {
+  savePassword:boolean;
+  username:string;
+  password:string;
 
   constructor(public modalCtrl: ModalController,   private backButtonService: BackButtonService,
-              public platform: Platform, public toastCtrl: ToastController,private accountService:AccountService) {
+              public platform: Platform, public toastCtrl: ToastController,private accountService:AccountService,
+              ) {
     platform.ready().then(() => {
       this.backButtonService.registerBackButtonAction(null);
     });
   }
 
+  ngOnInit() {
+      this.username=localStorage.getItem("username");
+      this.password=localStorage.getItem("password");
+      if(localStorage.getItem("isSavePasssword")==null){
+        this.savePassword=true;
+      }else{
+        this.savePassword=localStorage.getItem("isSavePasssword");
+      }
+  }
 
-  logIn(username: HTMLInputElement, password: HTMLInputElement) {
-    if (username.value.length == 0) {
+
+  logIn() {
+    if (this.username.length == 0) {
       this.toastCtrl.create({
         message: '请输入账号',
         duration: 1000,
         position: 'top'
       }).present();
-    } else if (password.value.length == 0) {
+    } else if (this.password.length == 0) {
       this.toastCtrl.create({
         message: '请输入密码',
         duration: 1000,
         position: 'top'
       }).present();
     } else {
-      this.accountService.login(username.value,password.value).subscribe(res => {
+      this.accountService.login(this.username,this.password).subscribe(res => {
         let result:string=res.result;
 
         if(result=='success'){
+          localStorage.setItem("username",this.username);
+          if(this.savePassword){
+            localStorage.setItem("password",this.password);
+            localStorage.setItem("isSavePasssword",true);
+          }else{
+            localStorage.setItem("password","");
+            localStorage.setItem("isSavePasssword",false);
+          }
           let modal = this.modalCtrl.create(TabsPage);
           modal.present();
         }else{
