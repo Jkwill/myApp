@@ -37,7 +37,7 @@
   <div [ngSwitch]="choose">
     <ion-item-group *ngSwitchCase="'homework'" >
       <ion-item-divider  color="light">A</ion-item-divider>
-      <button ion-item (click)="openVideoPage()" icon-start><ion-icon name="logo-youtube" [ngStyle]="{'color': '#4169E1'}" item-start></ion-icon>Basic C++</button>
+      <button ion-item icon-start><ion-icon name="logo-youtube" [ngStyle]="{'color': '#4169E1'}" item-start></ion-icon>Basic C++</button>
       <button ion-item icon-start><ion-icon name="logo-youtube" [ngStyle]="{'color': '#4169E1'}" item-start></ion-icon>Python</button>
       <ion-item-divider color="light">B</ion-item-divider>
       <button ion-item icon-start><ion-icon name="logo-youtube" [ngStyle]="{'color': '#4169E1'}" item-start></ion-icon>Telphone</button>
@@ -45,7 +45,7 @@
     <div *ngSwitchCase="'chapter'">
       <ion-list  *ngFor="let section of courseResource">
         <ion-list-header>{{section.name}}</ion-list-header>
-        <button ion-item *ngFor="let chapter of section.unit" (click)="openVideoPage()" icon-start>
+        <button ion-item *ngFor="let chapter of section.unit" (click)="openVideoPage(chapter.id)" icon-start>
           <ion-icon name="logo-youtube" [ngStyle]="{'color': '#4169E1'}" item-start></ion-icon>
           {{chapter.name}}</button>
       </ion-list>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ToastController,ModalController ,String} from 'ionic-angular';
+import { ToastController,ModalController} from 'ionic-angular';
 import { Platform } from 'ionic-angular';
 import { BackButtonService } from "../../services/uiService/backButton.service";
 import { AccountService} from "../../services/httpService/account.service"
@@ -36,7 +36,12 @@ export class LoginPage {
       if(localStorage.getItem("isSavePasssword")==null){
         this.savePassword=true;
       }else{
-        this.savePassword=localStorage.getItem("isSavePasssword");
+        if(localStorage.getItem("isSavePasssword")=='Y'){
+          this.savePassword=true;
+        }else{
+          this.savePassword=false;
+        }
+        
       }
   }
 
@@ -62,10 +67,10 @@ export class LoginPage {
           localStorage.setItem("username",this.username);
           if(this.savePassword){
             localStorage.setItem("password",this.password);
-            localStorage.setItem("isSavePasssword",true);
+            localStorage.setItem("isSavePasssword",'Y');
           }else{
             localStorage.setItem("password","");
-            localStorage.setItem("isSavePasssword",false);
+            localStorage.setItem("isSavePasssword",'N');
           }
           let modal = this.modalCtrl.create(TabsPage);
           modal.present();

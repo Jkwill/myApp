@@ -23,6 +23,28 @@ export class CourseService {
         let url:string = this.httpRequestService.listTeacherResource+"?"+this.httpRequestService.serialize(paramObj);
         return this.httpRequestService.get(url);
       }
+
+    }
+    getCourseWare(paramObj){
+      let url:string = this.httpRequestService.getCourseWare+"?"+this.httpRequestService.serialize(paramObj);
+      return this.httpRequestService.get(url);
+    }
+    buildVideoUrl(id, lmsSessionId, weblibSessionId){
+      let paramsObj = '';
+      if (id.indexOf(".") == -1) {
+        if (typeof(weblibSessionId) != 'undefined' && weblibSessionId != '') {
+          paramsObj = "/weblib/group/downloadResource.action?id=" + id + "&isInline=1" + "&sessionId=" + weblibSessionId;
+        } else {
+          paramsObj = "/weblib/group/downloadResource.action?id=" + id + "&isInline=1";
+        }
+      } else {
+        if (typeof(lmsSessionId) != 'undefined' || lmsSessionId != '') {
+          paramsObj = "/lms/json/learning/download;jsessionid=" + lmsSessionId + "?id=" + id;
+        } else {
+          paramsObj = "/lms/json/learning/download?id=" + id;
+        }
+      }
+      return paramsObj;
     }
 }
 

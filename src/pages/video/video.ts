@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {  NavController, NavParams } from 'ionic-angular';
-
+import {  NavController, NavParams, Platform } from 'ionic-angular';
+import { CourseService} from "../../services/httpService/course.service"
 /**
  * Generated class for the VideoPage page.
  *
@@ -14,9 +14,53 @@ import {  NavController, NavParams } from 'ionic-angular';
 })
 export class VideoPage {
   resourceUrl:string;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.resourceUrl = navParams.data.item;
+  courseWare = {};
+  constructor(public navCtrl: NavController, public navParams: NavParams,public courseService:CourseService,public platform: Platform) {
+    platform.ready().then(() => {
+      this.getCourseware(this.navParams.data.id);
+    });
   }
-
+  getCourseware(uid){
+    let paramObj = {
+      unitId: uid
+    };
+    this.courseService.getCourseWare(paramObj).subscribe(res =>{
+      console.log(res);
+      if (res.result == 'success') {
+        if (res.filepath != "" || res.filetype != "") {
+          if (res.filetype == 'mp4') {
+            let cookies = document.cookie.split(';');
+            let lmsSessionId = '';
+            let weblibSessionId = '';
+            for (let c in cookies) {
+              let cookieName = cookies[c].split('=')[0].trim();
+              if (cookieName != "JSESSIONID")
+                continue;
+              let cookieValue = cookies[c].split('=')[1];
+              if (cookieValue.indexOf('.') == -1) {
+                lmsSessionId = cookieValue;
+              } else {
+                weblibSessionId = cookieValue;
+              }
+            }
+            this.resourceUrl = "http://lms.ccnl.scut.edu.cn"+this.courseService.buildVideoUrl(res.filepath, lmsSessionId, weblibSessionId);
+            console.log("video_url: "+this.resourceUrl);
+          } else if (res.filetype == 'flv') {
+            alert("不支持该视频格式")
+          } else if (res.filetype == 'swf') {
+            alert("不支持该视频格式")
+          }
+        } else if (res.filepath == "" || res.filetype == "") {
+          // collect.pdfUrl = Account.initPDF(res.data.syllabus);
+          // // console.log(res.data.filepath+"wu");
+          // console.log(res.data.syllabus);
+          //
+          // Account.initPDF(res.data.syllabus);
+        }
+      }
+    },error =>{
+      console.log("error: "+error);
+    })
+  }
 
 }
