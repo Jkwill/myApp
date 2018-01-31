@@ -11,6 +11,18 @@ export class CourseService {
     	let url: string=this.httpRequestService.listValidCourse;
     	return this.httpRequestService.get(url);
     }
-
+    courseDetail(paramObj){
+      let url:string = this.httpRequestService.courseDetail+"?"+this.httpRequestService.serialize(paramObj);
+      return this.httpRequestService.get(url);
+    }
+    courseResource(paramObj,type){
+      if(type == "student"){
+        let url:string = this.httpRequestService.listStudentResource+"?"+this.httpRequestService.serialize(paramObj);
+        return this.httpRequestService.get(url);
+      }else{
+        let url:string = this.httpRequestService.listTeacherResource+"?"+this.httpRequestService.serialize(paramObj);
+        return this.httpRequestService.get(url);
+      }
+    }
 }
 

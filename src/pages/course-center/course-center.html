@@ -20,7 +20,7 @@
         </ion-thumbnail>
         <h2>{{studyItem.name}}</h2>
         <p>{{studyItem.introduction}}</p>
-        <button ion-button (click)="openDetailPage(studyItem.name)" clear item-end>View</button>
+        <button ion-button (click)="openDetailPageByStu(studyItem.id)" clear item-end>View</button>
       </ion-item>
     </ion-list>
 
@@ -31,7 +31,7 @@
         </ion-thumbnail>
         <h2>{{teachItem.name}}</h2>
         <p>{{teachItem.introduction}}</p>
-        <button ion-button (click)="openDetailPage(teachItem.name)" clear item-end>View</button>
+        <button ion-button (click)="openDetailPageByTea(teachItem.id)" clear item-end>View</button>
       </ion-item>
     </ion-list>
 

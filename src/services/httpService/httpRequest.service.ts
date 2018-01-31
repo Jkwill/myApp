@@ -70,5 +70,15 @@ export class HttpRequestService {
             withCredentials: true
         }).map(res => res.json());
     }
+
+    //对象参数序列化
+    serialize(paramObj){
+      let keysArr = Object.keys(paramObj), res = '';
+      for (let i = 0; i < keysArr.length; i++) {
+        res += keysArr[i] + '=' + paramObj[keysArr[i]] + '&';
+      }
+      res = res.substring(0, (res.length - 1));
+      return res;
+    }
 }
 

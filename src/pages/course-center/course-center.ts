@@ -25,10 +25,12 @@ export class CourseCenterPage {
       this.getAllCourseList();
     });
   }
-  openDetailPage(title){
-    this.navCtrl.push(DetailPage,  { item: title });
+  openDetailPageByStu(id){
+    this.navCtrl.push(DetailPage,  { item: id ,type:'student'});
   }
-
+  openDetailPageByTea(id){
+    this.navCtrl.push(DetailPage,  { item: id ,type:'teacher'});
+  }
   getAllCourseList(){
     this.courseService.listValidCourse().subscribe(res => {
       if(res.result=='success'){
@@ -51,5 +53,6 @@ export class CourseCenterPage {
     });
 
   }
+
 
 }
