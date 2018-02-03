@@ -65,8 +65,12 @@
       <ion-list *ngFor="let section of courseResource">
         <ion-list-header>{{section.name}}</ion-list-header>
         <ion-item-sliding *ngFor="let chapter of section.unit">
-          <button ion-item (click)="openVideoPage(chapter.id)" icon-start>
+          <button ion-item *ngIf="chapter.slidesType != ''" (click)="openVideoPage(chapter.id)" icon-start>
             <ion-icon name="logo-youtube" [ngStyle]="{'color': '#4169E1'}" item-start></ion-icon>
+            {{chapter.name}}
+          </button>
+          <button ion-item *ngIf="chapter.slidesType == ''" icon-start>
+            <ion-icon name="download" color="secondary" item-start></ion-icon>
             {{chapter.name}}
           </button>
           <ion-item-options>
@@ -99,7 +103,7 @@
             <ion-note item-end>3:43 pm</ion-note>
           </ion-item>
           <ion-item>
-            <button ion-button small clear item-end>
+            <button ion-button small clear icon-start item-end>
               <ion-icon name="thumbs-up"></ion-icon>
               (260)
             </button>
@@ -122,7 +126,7 @@
             <ion-note item-end>1:12 pm</ion-note>
           </ion-item>
           <ion-item>
-            <button ion-button small clear item-end>
+            <button ion-button small clear icon-start item-end>
               <ion-icon name="thumbs-up"></ion-icon>(99)
             </button>
             <button ion-button small clear item-end>
@@ -147,7 +151,7 @@
             <ion-note item-end>10:03 am</ion-note>
           </ion-item>
           <ion-item>
-            <button ion-button small clear item-end>
+            <button ion-button small clear icon-start item-end>
               <ion-icon name="thumbs-up"></ion-icon>(248)
             </button>
             <button ion-button small clear item-end>
