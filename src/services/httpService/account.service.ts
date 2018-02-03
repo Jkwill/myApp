@@ -27,6 +27,11 @@ export class AccountService {
     return this.httpRequestService.post(url, paramObj);
   }
 
+  getUserInfo(){
+    let url: string = this.httpRequestService.getUser;
+    return this.httpRequestService.get(url);
+  }
+
   login(paramObj) {
     let url: string = this.httpRequestService.login + '?' + this.httpRequestService.serialize(paramObj);
     return this.httpRequestService.get(url);
@@ -35,6 +40,11 @@ export class AccountService {
   logout() {
     let url: string = this.httpRequestService.logout;
     return this.httpRequestService.get(url);
+  }
+
+  saveAccount(paramObj){
+    let url: string = this.httpRequestService.saveAccount;
+    return this.httpRequestService.post(url,paramObj);
   }
 
 }

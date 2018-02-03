@@ -1,19 +1,37 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController,ToastController } from 'ionic-angular';
+import { NavController, ModalController,ToastController,Platform } from 'ionic-angular';
 import { CreateLessionPage } from '../create-lession/create-lession'
 import { LoginPage } from "../login/login";
 import { AccountService} from "../../services/httpService/account.service"
+import {PersonalInfoPage} from "../personalInfo/personalInfo";
 
 @Component({
-  selector: 'page-contact',
-  templateUrl: 'contact.html'
+  selector: 'page-mine',
+  templateUrl: 'mine.html'
 })
-export class ContactPage {
-  constructor(public nav: NavController,public modalCtrl: ModalController,public toastCtrl: ToastController,public accountService:AccountService) {
+export class MinePage {
+  userInfo;
+  constructor(public navCtrl: NavController,public modalCtrl: ModalController,public toastCtrl: ToastController,public accountService:AccountService,
+              public platform: Platform) {
+
   }
+  ionViewWillEnter(){
+    this.getUserInfo();
+  }
+  getUserInfo() {
+    this.accountService.getUserInfo().subscribe(res=>{
+      this.userInfo=res;
+    },error=>{
+      console.log("error:"+error);
+    })
+  }
+
+  changePersonalInfo(){
+    this.navCtrl.push(PersonalInfoPage,  this.userInfo );
+  }
+
   createLession(){
-    let modal = this.modalCtrl.create(CreateLessionPage);
-    modal.present();
+    this.navCtrl.push(CreateLessionPage);
   }
   logOut() {
     this.accountService.logout().subscribe(res => {
