@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {  NavController, NavParams, Platform } from 'ionic-angular';
 import { CourseService} from "../../services/httpService/course.service"
+import { AccountService} from "../../services/httpService/account.service"
 /**
  * Generated class for the VideoPage page.
  *
@@ -15,9 +16,14 @@ import { CourseService} from "../../services/httpService/course.service"
 export class VideoPage {
   resourceUrl:string;
   courseWare = {};
-  constructor(public navCtrl: NavController, public navParams: NavParams,public courseService:CourseService,public platform: Platform) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public accountService:AccountService,public courseService:CourseService,public platform: Platform) {
     platform.ready().then(() => {
-      this.getCourseware(this.navParams.data.id);
+          let isLogin:string=localStorage.getItem("isLoginWeblib");
+          if(isLogin=="Y"){
+              this.getCourseware(this.navParams.data.id);
+          }else{
+              alert("weblib未登录")
+          }
     });
   }
   getCourseware(uid){
@@ -60,7 +66,7 @@ export class VideoPage {
       }
     },error =>{
       console.log("error: "+error);
-    })
+    });
   }
 
 }
