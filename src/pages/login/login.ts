@@ -41,7 +41,6 @@ export class LoginPage {
         }else{
           this.savePassword=false;
         }
-
       }
   }
 
@@ -60,7 +59,11 @@ export class LoginPage {
         position: 'top'
       }).present();
     } else {
-      this.accountService.login(this.username,this.password).subscribe(res => {
+      let paramObj = {
+      username: this.username,
+      password:this.password
+      };
+      this.accountService.login(paramObj).subscribe(res => {
         let result:string=res.result;
 
         if(result=='success'){
@@ -72,8 +75,21 @@ export class LoginPage {
             localStorage.setItem("password","");
             localStorage.setItem("isSavePasssword",'N');
           }
-          let modal = this.modalCtrl.create(TabsPage);
-          modal.present();
+          this.weblibLoginStatus().subscribe(res=>{
+            if(res.status="login"){
+              localStorage.setItem("isLoginWeblib","Y");
+              let modal = this.modalCtrl.create(TabsPage);
+              modal.present();
+            }
+          },error=>{
+            this.initStoreType().subscribe(res=>{
+              if(res.resule="success"){
+                this.loginWeblib(res.weblibUsername,res.weblibPasswd);
+              }
+            },error=>{
+              console.log("error: "+error);
+            })
+          });
         }else{
           this.toastCtrl.create({
             message: '账号或密码错误',
@@ -88,8 +104,39 @@ export class LoginPage {
           duration: 2000,
           position: 'bottom'
         }).present();
-        console.log(error);
+        console.log("error: "+error);
       });
     }
+  }
+  loginWeblib(username,password){
+    let weblibLoginParam = "account="+username+"&password="+password;
+    this.accountService.loginWeblib(weblibLoginParam).subscribe(res=>{
+      let result=res.members;
+      if(result==null){
+      }else{
+        let weblibSelectMemParam = "memberId="+result[0].id;
+        this.accountService.weblibSelectMember(weblibSelectMemParam).subscribe(res=>{
+
+        },error => {
+          console.log("error: "+error);
+        })
+      }
+    },error =>{
+      console.log("error: "+error);
+    },()=>{
+      localStorage.setItem("isLoginWeblib","Y");
+      let modal = this.modalCtrl.create(TabsPage);
+      modal.present();
+    });
+  }
+  weblibLoginStatus(){
+    let paramObj = {
+    };
+    return this.accountService.weblibLoginStatus(paramObj);
+  }
+  initStoreType(){
+    let paramObj = {
+    };
+    return this.accountService.initStoreType(paramObj);
   }
 }

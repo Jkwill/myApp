@@ -16,9 +16,9 @@ export class HttpRequestService {
   host: string='http:\/\/lms.ccnl.scut.edu.cn';
 
   initParam: string='/lms/json/learning/initStoreType';//初始化Common类的三个变量
-  ifLoginWeblib: string='/weblib/user/status.action?_=' + Math.random();//检查weblib登录状态
   loginWeblib:string= '/weblib/login/authenticate.action';
   selectMember:string= '/weblib/login/selectMember.action?temp=' + Math.random();
+  weblibLoginStatus:string="/weblib/user/status.action";
   downloadResource:string= '/weblib/group/downloadResource.action?id=';
   downloadlms:string= '/lms/json/learning/download?id=';
   custom: string='/lms/custom/';
@@ -52,7 +52,7 @@ export class HttpRequestService {
     //get请求
     get(url: string): Observable<any> {
 
-        return this.http.get(url, {
+        return this.http.get(this.host+url, {
             headers: new Headers({
                  "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
             }),
@@ -62,14 +62,16 @@ export class HttpRequestService {
 
 
     //post请求
-    post(url: string, body: any): Observable<any> {
-        return this.http.post(url, body, {
-            headers: new Headers({
-                "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+    post(url: string,body): Observable<any> {
+        return this.http.post(this.host+url, body,
+          { headers: new Headers({
+              "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
             }),
-            withCredentials: true
-        }).map(res => res.json());
+            withCredentials: true}
+        ).map(res => res.json());
     }
+
+
 
     //对象参数序列化
     serialize(paramObj){
