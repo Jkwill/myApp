@@ -5,6 +5,7 @@ import { CourseCenterPage } from '../course-center/course-center';
 import { ContactPage } from '../contact/contact';
 import { HomePage } from '../home/home';
 import { BackButtonService } from "../../services/uiService/backButton.service";
+import { AccountService } from "../../services/httpService/account.service"
 
 @Component({
   templateUrl: 'tabs.html'
@@ -14,7 +15,7 @@ export class TabsPage {
   tabRoots: Object[];
 
   constructor(public backButtonService: BackButtonService,
-              public platform: Platform) {
+              public platform: Platform,public accountService:AccountService) {
     this.tabRoots = [
       {
         root: HomePage,
@@ -33,6 +34,8 @@ export class TabsPage {
       }
     ];
     platform.ready().then(() => {
+      accountService.initParam();
+      //accountService.loginWeblib();
       this.backButtonService.registerBackButtonAction(this.tabRef);
     });
   }
