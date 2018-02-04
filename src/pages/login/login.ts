@@ -31,17 +31,19 @@ export class LoginPage {
   }
 
   ngOnInit() {
-      this.username=localStorage.getItem("username");
-      this.password=localStorage.getItem("password");
-      if(localStorage.getItem("isSavePasssword")==null){
-        this.savePassword=true;
-      }else{
-        if(localStorage.getItem("isSavePasssword")=='Y'){
+
+        this.username=localStorage.getItem("username");
+        this.password=localStorage.getItem("password");
+        if(localStorage.getItem("isSavePasssword")==null){
           this.savePassword=true;
         }else{
-          this.savePassword=false;
+          if(localStorage.getItem("isSavePasssword")=='Y'){
+            this.savePassword=true;
+          }else{
+            this.savePassword=false;
+          }
         }
-      }
+
   }
 
 
