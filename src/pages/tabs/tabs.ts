@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Platform, Tabs } from 'ionic-angular';
 
 import { CourseCenterPage } from '../course-center/course-center';
-import { ContactPage } from '../contact/contact';
+import { MinePage } from '../mine/mine';
 import { HomePage } from '../home/home';
 import { BackButtonService } from "../../services/uiService/backButton.service";
 
@@ -27,7 +27,7 @@ export class TabsPage {
         tabIcon: 'book'
       },
       {
-        root: ContactPage,
+        root: MinePage,
         tabTitle: '我的',
         tabIcon: 'person'
       }

@@ -16,9 +16,9 @@ export class HttpRequestService {
   host: string='http:\/\/lms.ccnl.scut.edu.cn';
 
   initParam: string='/lms/json/learning/initStoreType';//初始化Common类的三个变量
-  ifLoginWeblib: string='/weblib/user/status.action?_=' + Math.random();//检查weblib登录状态
   loginWeblib:string= '/weblib/login/authenticate.action';
   selectMember:string= '/weblib/login/selectMember.action?temp=' + Math.random();
+  weblibLoginStatus:string="/weblib/user/status.action";
   downloadResource:string= '/weblib/group/downloadResource.action?id=';
   downloadlms:string= '/lms/json/learning/download?id=';
   custom: string='/lms/custom/';
@@ -33,6 +33,10 @@ export class HttpRequestService {
   listTeacherResource: string='/lms/json/learning/listTeacherResource';//教的课程列表teacher
   listValidCourse: string='/lms/json/learning/listValidCourse';//课程列表信息
   getCourseWare:string= '/lms/json/learning/getCourseware';//教学元素的课件资源
+  listDiscuss:string="/lms/json/learning/listDiscuss";
+  listSHomework:string="/lms/json/learning/listSHomework";
+  listMessage:string="/lms/json/learning/listMessage";
+
   listAllCourse:string= '/lms/json/learning/listAllCourse';//课程列表信息
   listQuiz:string= '/lms/json/learning/listQuiz';//小测试试题列表(学生)
   formQuiz:string='/lms/json/creator/formQuiz';//小测试试题列表(教师)
@@ -52,7 +56,7 @@ export class HttpRequestService {
     //get请求
     get(url: string): Observable<any> {
 
-        return this.http.get(url, {
+        return this.http.get(this.host+url, {
             headers: new Headers({
                  "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
             }),
@@ -62,13 +66,25 @@ export class HttpRequestService {
 
 
     //post请求
-    post(url: string, body: any): Observable<any> {
-        return this.http.post(url, body, {
-            headers: new Headers({
-                "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+    post(url: string,body): Observable<any> {
+        return this.http.post(this.host+url, body,
+          { headers: new Headers({
+              "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
             }),
-            withCredentials: true
-        }).map(res => res.json());
+            withCredentials: true}
+        ).map(res => res.json());
+    }
+
+
+
+    //对象参数序列化
+    serialize(paramObj){
+      let keysArr = Object.keys(paramObj), res = '';
+      for (let i = 0; i < keysArr.length; i++) {
+        res += keysArr[i] + '=' + paramObj[keysArr[i]] + '&';
+      }
+      res = res.substring(0, (res.length - 1));
+      return res;
     }
 }
 

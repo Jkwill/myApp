@@ -6,12 +6,13 @@ import { HttpModule } from '@angular/http';
 
 import { LoginPage } from '../pages/login/login'
 import { CourseCenterPage } from '../pages/course-center/course-center';
-import { ContactPage } from '../pages/contact/contact';
+import { MinePage } from '../pages/mine/mine';
 import { CreateLessionPage } from '../pages/create-lession/create-lession'
 import { HomePage } from '../pages/home/home';
 import { DetailPage } from '../pages/detail/detail'
 import { TabsPage } from '../pages/tabs/tabs';
 import { VideoPage } from '../pages/video/video'
+import { PersonalInfoPage } from '../pages/personalInfo/personalInfo'
 
 import { BackButtonService } from '../services/uiService/backButton.service';
 import { HttpRequestService } from '../services/httpService/httpRequest.service';
@@ -22,14 +23,16 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { GetDataProvider } from '../services/get-data/get-data';
 
+
 @NgModule({
   declarations: [
     MyApp,
     LoginPage,
     CourseCenterPage,
-    ContactPage,
+    MinePage,
     CreateLessionPage,
     HomePage,
+    PersonalInfoPage,
     DetailPage,
     TabsPage,
     VideoPage
@@ -44,7 +47,8 @@ import { GetDataProvider } from '../services/get-data/get-data';
     MyApp,
     LoginPage,
     CourseCenterPage,
-    ContactPage,
+    PersonalInfoPage,
+    MinePage,
     CreateLessionPage,
     HomePage,
     DetailPage,

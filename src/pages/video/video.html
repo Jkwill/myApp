@@ -7,13 +7,15 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>video</ion-title>
+    <ion-title>视频</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
   <ion-card>
-    <video id="videoPlay"  controls="controls"  autoplay="autoplay" width="100%" ><source src="{{resourceUrl}}" type="video/mp4"></video>
+    <!--<video id="videoPlay"  controls="controls"  width="100%" ><source src="http://lms.ccnl.scut.edu.cn{{resourceUrl}}" type="video/mp4"></video>-->
+    <video width="100%" src="{{resourceUrl}}" controls="controls">
+    </video>
   </ion-card>
 </ion-content>

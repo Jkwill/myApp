@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import {  NavController, NavParams } from 'ionic-angular';
+import {  NavController, NavParams,Platform,ToastController } from 'ionic-angular';
 import { VideoPage } from '../video/video'
+import { CourseService} from "../../services/httpService/course.service"
 
 /**
  * Generated class for the DetailPage page.
@@ -14,13 +15,102 @@ import { VideoPage } from '../video/video'
   templateUrl: 'detail.html',
 })
 export class DetailPage {
-  item;
+  courseDetail={};
+  courseResource:Object[];
+  discussList:Object[];
+  messageList:Object[];
+  homeworkList:Object[];
+
   resource:string="../../assets/source/clear.mp4";
   choose: string = "chapter";
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.item = navParams.data.item;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public courseService:CourseService,public toastCtrl: ToastController,public platform: Platform) {
+    platform.ready().then(() => {
+      this.getCourseInfo(navParams.data.item);
+      this.getCourseResource(navParams.data.item, navParams.data.type);
+      this.getDiscussList(navParams.data.item);
+      this.getMessageList(navParams.data.item);
+      this.getHomeworkList(navParams.data.item);
+
+    });
   }
-  openVideoPage(){
-    this.navCtrl.push(VideoPage,  { item: this.resource });
+  openVideoPage(uid){
+    this.navCtrl.push(VideoPage,  { id : uid });
   }
+  getDiscussList(cid){
+    let paramObj = {
+      courseId: cid
+    };
+    this.courseService.listDiscuss(paramObj).subscribe( res => {
+      if(res.result=='success') {
+        this.discussList=res.discuss;
+      }
+      },error=>{
+          console.log("error:"+error);
+      })
+  }
+
+  getMessageList(cid){
+    let paramObj = {
+      courseId: cid
+    };
+    this.courseService.listMessage(paramObj).subscribe( res => {
+      if(res.result=='success') {
+        this.messageList=res.message;
+      }
+    },error=>{
+      console.log("error:"+error);
+    })
+  }
+  getHomeworkList(cid){
+    let paramObj = {
+      courseId: cid
+    };
+    this.courseService.listSHomework(paramObj).subscribe( res => {
+      if(res.result=='success') {
+        this.homeworkList=res.homeworkList;
+      }
+    },error=>{
+      console.log("error:"+error);
+    })
+  }
+  getCourseInfo(cid){
+    let paramObj = {
+      courseId: cid
+    };
+    this.courseService.courseDetail(paramObj).subscribe( res => {
+      if(res.result=='success'){
+        this.courseDetail = res;
+        //console.log(res);
+      }else{
+        this.toastCtrl.create({
+          message: '获取课程详情出错',
+          duration: 1000,
+          position: 'top'
+        }).present();
+      }
+    },error => {
+      console.log("error: "+error);
+    });
+  }
+  getCourseResource(cid,type){
+    let paramObj = {
+      courseId: cid
+    };
+    this.courseService.courseResource(paramObj,type).subscribe(res =>{
+      if(res.result=='success'){
+        this.courseResource = res.section;
+        //console.log(res);
+      }else{
+        this.toastCtrl.create({
+          message: '获取课程章节出错',
+          duration: 1000,
+          position: 'top'
+        }).present();
+      }
+    },error => {
+      console.log("error: "+error);
+    })
+  }
+
+
 }

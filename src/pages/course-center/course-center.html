@@ -18,9 +18,9 @@
         <ion-thumbnail item-start>
           <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{studyItem.filepath}}">
         </ion-thumbnail>
-        <h2>{{studyItem.name}}</h2>
+        <h3>{{studyItem.name}}</h3>
         <p>{{studyItem.introduction}}</p>
-        <button ion-button (click)="openDetailPage(studyItem.name)" clear item-end>View</button>
+        <button ion-button (click)="openDetailPageByStu(studyItem.id)" clear item-end>查看</button>
       </ion-item>
     </ion-list>
 
@@ -29,9 +29,9 @@
         <ion-thumbnail item-start>
           <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{teachItem.filepath}}">
         </ion-thumbnail>
-        <h2>{{teachItem.name}}</h2>
+        <h3>{{teachItem.name}}</h3>
         <p>{{teachItem.introduction}}</p>
-        <button ion-button (click)="openDetailPage(teachItem.name)" clear item-end>View</button>
+        <button ion-button (click)="openDetailPageByTea(teachItem.id)" clear item-end>查看</button>
       </ion-item>
     </ion-list>
 
