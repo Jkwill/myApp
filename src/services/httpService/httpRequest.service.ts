@@ -33,6 +33,10 @@ export class HttpRequestService {
   listTeacherResource: string='/lms/json/learning/listTeacherResource';//教的课程列表teacher
   listValidCourse: string='/lms/json/learning/listValidCourse';//课程列表信息
   getCourseWare:string= '/lms/json/learning/getCourseware';//教学元素的课件资源
+  listDiscuss:string="/lms/json/learning/listDiscuss";
+  listSHomework:string="/lms/json/learning/listSHomework";
+  listMessage:string="/lms/json/learning/listMessage";
+
   listAllCourse:string= '/lms/json/learning/listAllCourse';//课程列表信息
   listQuiz:string= '/lms/json/learning/listQuiz';//小测试试题列表(学生)
   formQuiz:string='/lms/json/creator/formQuiz';//小测试试题列表(教师)

@@ -36,31 +36,47 @@
       <ion-segment-button value="homework">
         作业
       </ion-segment-button>
-      <ion-segment-button value="exchange">
-        问答
+      <ion-segment-button value="discuss">
+        讨论区
       </ion-segment-button>
-      <ion-segment-button value="progress">
-        进度
+      <ion-segment-button value="message">
+        通知
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
   <div [ngSwitch]="choose">
-    <ion-item-group *ngSwitchCase="'homework'">
-      <ion-item-divider color="light">A</ion-item-divider>
-      <button ion-item icon-start>
-        <ion-icon name="logo-youtube" [ngStyle]="{'color': '#4169E1'}" item-start></ion-icon>
-        Basic C++
-      </button>
-      <button ion-item icon-start>
-        <ion-icon name="logo-youtube" [ngStyle]="{'color': '#4169E1'}" item-start></ion-icon>
-        Python
-      </button>
-      <ion-item-divider color="light">B</ion-item-divider>
-      <button ion-item icon-start>
-        <ion-icon name="logo-youtube" [ngStyle]="{'color': '#4169E1'}" item-start></ion-icon>
-        Telphone
-      </button>
-    </ion-item-group>
+    <div *ngSwitchCase="'homework'">
+      <ion-list *ngFor="let homework of homeworkList">
+        <ion-card>
+          <ion-item>
+          <h2 >
+            <ion-icon name="book" [ngStyle]="{'color': '#4169E1'}"></ion-icon>
+            {{homework.hName}}
+          </h2>
+          <p >章节：{{homework.section}}</p>
+          <p >介绍：{{homework.hIntroduction}}</p>
+          <p >截止日期：{{homework.deadlineDate}}</p>
+          </ion-item>
+        </ion-card>
+      </ion-list>
+    </div>
+
+    <div *ngSwitchCase="'message'">
+      <ion-list *ngFor="let message of messageList">
+        <ion-card>
+          <ion-item>
+              <ion-icon name="notifications" [ngStyle]="{'color': '#4169E1'}"></ion-icon>
+            <h2 >
+              {{message.content}}
+            </h2>
+            <p >课程：{{message.courseName}}</p>
+            <p >发布人：{{message.creatorName}} 老师</p>
+            <p >发布时间：{{message.createDate}}</p>
+          </ion-item>
+        </ion-card>
+      </ion-list>
+    </div>
+
     <div *ngSwitchCase="'chapter'">
       <ion-list *ngFor="let section of courseResource">
         <ion-list-header>{{section.name}}</ion-list-header>
@@ -91,77 +107,24 @@
       </ion-list>
     </div>
 
-    <div class="list-avatar-page">
-      <ion-list *ngSwitchCase="'exchange'">
+    <div class="list-avatar-page" *ngSwitchCase="'discuss'">
+      <ion-list  *ngFor="let discuss of discussList">
         <ion-card>
           <ion-item>
             <ion-avatar item-start>
               <img src="../../assets/imgs/tou.jpg">
             </ion-avatar>
-            <h2>Woody</h2>
-            <p>This town ain't big enough for the two of us!</p>
-            <ion-note item-end>3:43 pm</ion-note>
+            <h2>{{discuss.creatorName}}</h2>
+            <p>{{discuss.content}}</p>
+            <ion-note item-end>{{discuss.createDate}}</ion-note>
           </ion-item>
           <ion-item>
             <button ion-button small clear icon-start item-end>
               <ion-icon name="thumbs-up"></ion-icon>
-              (260)
+              {{discuss.upvoteCount}}
             </button>
             <button ion-button small clear item-end>
-              <ion-icon name="text"></ion-icon>
-            </button>
-            <button ion-button small clear item-end>
-              <ion-icon name="create"></ion-icon>
-            </button>
-            <button ion-button small clear item-end>
-              <ion-icon name="trash"></ion-icon>
-            </button>
-          </ion-item>
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="../../assets/imgs/tou.jpg">
-            </ion-avatar>
-            <h2>Buzz Lightyear</h2>
-            <p>My eyeballs could have been sucked from their sockets!</p>
-            <ion-note item-end>1:12 pm</ion-note>
-          </ion-item>
-          <ion-item>
-            <button ion-button small clear icon-start item-end>
-              <ion-icon name="thumbs-up"></ion-icon>(99)
-            </button>
-            <button ion-button small clear item-end>
-              <ion-icon name="text"></ion-icon>
-            </button>
-            <button ion-button small clear item-end>
-              <ion-icon name="create"></ion-icon>
-            </button>
-            <button ion-button small clear item-end>
-              <ion-icon name="trash"></ion-icon>
-            </button>
-          </ion-item>
-        </ion-card>
-
-        <ion-card>
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="../../assets/imgs/tou.jpg">
-            </ion-avatar>
-            <h2>Jessie</h2>
-            <p>Well aren't you just the sweetest space toy I ever did meet!</p>
-            <ion-note item-end>10:03 am</ion-note>
-          </ion-item>
-          <ion-item>
-            <button ion-button small clear icon-start item-end>
-              <ion-icon name="thumbs-up"></ion-icon>(248)
-            </button>
-            <button ion-button small clear item-end>
-              <ion-icon name="text"></ion-icon>
-            </button>
-            <button ion-button small clear item-end>
-              <ion-icon name="create"></ion-icon>
-            </button>
-            <button ion-button small clear item-end>
-              <ion-icon name="trash"></ion-icon>
+              <ion-icon name="text">  {{discuss.replyCount}}</ion-icon>
             </button>
           </ion-item>
         </ion-card>

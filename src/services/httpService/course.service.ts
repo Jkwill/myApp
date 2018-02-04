@@ -15,6 +15,19 @@ export class CourseService {
       let url:string = this.httpRequestService.courseDetail+"?"+this.httpRequestService.serialize(paramObj);
       return this.httpRequestService.get(url);
     }
+    listDiscuss(paramObj){
+      let url:string = this.httpRequestService.listDiscuss+"?"+this.httpRequestService.serialize(paramObj);
+      return this.httpRequestService.get(url);
+    }
+  listSHomework(paramObj){
+    let url:string = this.httpRequestService.listSHomework+"?"+this.httpRequestService.serialize(paramObj);
+    return this.httpRequestService.get(url);
+  }
+  listMessage(paramObj){
+    let url:string = this.httpRequestService.listMessage+"?"+this.httpRequestService.serialize(paramObj);
+    return this.httpRequestService.get(url);
+  }
+
     courseResource(paramObj,type){
       if(type == "student"){
         let url:string = this.httpRequestService.listStudentResource+"?"+this.httpRequestService.serialize(paramObj);

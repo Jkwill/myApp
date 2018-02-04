@@ -17,16 +17,61 @@ import { CourseService} from "../../services/httpService/course.service"
 export class DetailPage {
   courseDetail={};
   courseResource:Object[];
+  discussList:Object[];
+  messageList:Object[];
+  homeworkList:Object[];
+
   resource:string="../../assets/source/clear.mp4";
   choose: string = "chapter";
   constructor(public navCtrl: NavController, public navParams: NavParams, public courseService:CourseService,public toastCtrl: ToastController,public platform: Platform) {
     platform.ready().then(() => {
       this.getCourseInfo(navParams.data.item);
       this.getCourseResource(navParams.data.item, navParams.data.type);
+      this.getDiscussList(navParams.data.item);
+      this.getMessageList(navParams.data.item);
+      this.getHomeworkList(navParams.data.item);
+
     });
   }
   openVideoPage(uid){
     this.navCtrl.push(VideoPage,  { id : uid });
+  }
+  getDiscussList(cid){
+    let paramObj = {
+      courseId: cid
+    };
+    this.courseService.listDiscuss(paramObj).subscribe( res => {
+      if(res.result=='success') {
+        this.discussList=res.discuss;
+      }
+      },error=>{
+          console.log("error:"+error);
+      })
+  }
+
+  getMessageList(cid){
+    let paramObj = {
+      courseId: cid
+    };
+    this.courseService.listMessage(paramObj).subscribe( res => {
+      if(res.result=='success') {
+        this.messageList=res.message;
+      }
+    },error=>{
+      console.log("error:"+error);
+    })
+  }
+  getHomeworkList(cid){
+    let paramObj = {
+      courseId: cid
+    };
+    this.courseService.listSHomework(paramObj).subscribe( res => {
+      if(res.result=='success') {
+        this.homeworkList=res.homeworkList;
+      }
+    },error=>{
+      console.log("error:"+error);
+    })
   }
   getCourseInfo(cid){
     let paramObj = {
