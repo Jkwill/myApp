@@ -66,6 +66,7 @@ export class DetailPage {
       courseId: cid
     };
     this.courseService.listSHomework(paramObj).subscribe( res => {
+      console.log(res);
       if(res.result=='success') {
         this.homeworkList=res.homeworkList;
       }
