@@ -59,5 +59,21 @@ export class CourseService {
       }
       return paramsObj;
     }
+    openCourseResource(paramObj){
+      let url:string = this.httpRequestService.listOpenResource+"?"+this.httpRequestService.serialize(paramObj);
+      return this.httpRequestService.get(url);
+    }
+    doUpvote(paramObj){
+      let url:string = this.httpRequestService.doUpvote;
+      return this.httpRequestService.post(url,paramObj);
+    }
+    listQuiz(paramObj){
+      let url:string = this.httpRequestService.listQuiz+"?"+this.httpRequestService.serialize(paramObj);
+      return this.httpRequestService.get(url);
+    }
+    listQuizResult(paramObj){
+      let url:string = this.httpRequestService.listQuizResult+"?"+this.httpRequestService.serialize(paramObj);
+      return this.httpRequestService.get(url);
+    }
 }
 

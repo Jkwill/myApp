@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {  NavController, NavParams,Platform,ToastController } from 'ionic-angular';
 import { VideoPage } from '../video/video'
+import { QuizPage } from '../quiz/quiz'
 import { CourseService} from "../../services/httpService/course.service"
 
 /**
@@ -17,7 +18,7 @@ import { CourseService} from "../../services/httpService/course.service"
 export class DetailPage {
   courseDetail={};
   courseResource:Object[];
-  discussList:Object[];
+  discussList:any[];
   messageList:Object[];
   homeworkList:Object[];
 
@@ -49,6 +50,35 @@ export class DetailPage {
       })
   }
 
+  doUpvote(id){
+    let paramObj = {
+      id:id
+    }
+    this.courseService.doUpvote(paramObj).subscribe(res => {
+      if(res.result == "success"){
+        for(let i =0;i<this.discussList.length;i++){
+          if(this.discussList[i].id == id){
+            this.discussList[i].id = res.count;
+            break;
+          }
+        }
+      }
+      else{
+        this.toastCtrl.create({
+          message: res.message,
+          duration: 1000,
+          position: 'bottom'
+        }).present();
+        console.log("doUpvote Failed");
+      }
+    }, error => {
+      console.log("error:"+error);
+    });
+  }
+  IntoQuiz(ifFinished,sectionId){
+    this.navCtrl.push(QuizPage, { id: sectionId, ifFin:ifFinished });
+
+  }
   getMessageList(cid){
     let paramObj = {
       courseId: cid

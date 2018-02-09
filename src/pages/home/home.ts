@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController,ToastController,Platform } from 'ionic-angular';
 import { CourseService} from "../../services/httpService/course.service"
+import { OpenPage } from  "../open/open"
 
 @Component({
   selector: 'page-home',
@@ -35,6 +36,10 @@ export class HomePage {
       }).present();
       console.log(error);
     });
+  }
+
+  pushOpenPage(courseId){
+    this.navCtrl.push(OpenPage, { 'id':courseId });
   }
 }
 

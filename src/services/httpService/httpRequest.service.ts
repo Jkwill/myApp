@@ -36,6 +36,8 @@ export class HttpRequestService {
   listDiscuss:string="/lms/json/learning/listDiscuss";
   listSHomework:string="/lms/json/learning/listSHomework";
   listMessage:string="/lms/json/learning/listMessage";
+  listOpenResource: string = "/lms/json/learning/listOpenResource" //获取某一公开课的详细信息
+  doUpvote:string = "/lms/json/learning/doUpvote" //点赞处理
 
   listAllCourse:string= '/lms/json/learning/listAllCourse';//课程列表信息
   listQuiz:string= '/lms/json/learning/listQuiz';//小测试试题列表(学生)
@@ -56,7 +58,7 @@ export class HttpRequestService {
     //get请求
     get(url: string): Observable<any> {
 
-        return this.http.get(this.host+url, {
+        return this.http.get(url, {
             headers: new Headers({
                  "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
             }),
@@ -67,7 +69,7 @@ export class HttpRequestService {
 
     //post请求
     post(url: string,body): Observable<any> {
-        return this.http.post(this.host+url, body,
+        return this.http.post(url, body,
           { headers: new Headers({
               "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
             }),

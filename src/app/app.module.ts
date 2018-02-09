@@ -13,6 +13,8 @@ import { DetailPage } from '../pages/detail/detail'
 import { TabsPage } from '../pages/tabs/tabs';
 import { VideoPage } from '../pages/video/video'
 import { PersonalInfoPage } from '../pages/personalInfo/personalInfo'
+import { OpenPage } from '../pages/open/open'
+import { QuizPage } from '../pages/quiz/quiz'
 
 import { BackButtonService } from '../services/uiService/backButton.service';
 import { HttpRequestService } from '../services/httpService/httpRequest.service';
@@ -35,7 +37,9 @@ import { GetDataProvider } from '../services/get-data/get-data';
     PersonalInfoPage,
     DetailPage,
     TabsPage,
-    VideoPage
+    VideoPage,
+    OpenPage,
+    QuizPage
   ],
   imports: [
     BrowserModule,
@@ -53,7 +57,9 @@ import { GetDataProvider } from '../services/get-data/get-data';
     HomePage,
     DetailPage,
     TabsPage,
-    VideoPage
+    VideoPage,
+    OpenPage,
+    QuizPage
   ],
   providers: [
     StatusBar,

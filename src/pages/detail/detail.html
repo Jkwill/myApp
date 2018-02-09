@@ -50,7 +50,7 @@
         <ion-card>
           <ion-item>
           <h2 >
-            <ion-icon name="book" [ngStyle]="{'color': '#4169E1'}"></ion-icon>
+            <ion-icon name="paper" [ngStyle]="{'color': '#4169E1'}"></ion-icon>
             {{homework.hName}}
           </h2>
           <p >章节：{{homework.section}}</p>
@@ -100,10 +100,42 @@
             </button>
           </ion-item-options>
         </ion-item-sliding>
-        <button ion-item icon-start>
-          <ion-icon name="add-circle" color="secondary" item-start></ion-icon>
-          教学元素
-        </button>
+        <ion-item-sliding *ngFor="let item of section.homework">
+          <button ion-item  icon-start>
+            <ion-icon name="paper" [ngStyle]="{'color': '#4169E1'}" item-start></ion-icon>
+            {{item.name}}--{{item.endDate}}
+          </button>
+          <ion-item-options>
+            <button ion-button color="primary" icon-start>
+              <ion-icon name="create"></ion-icon>
+              Edit
+            </button>
+            <button ion-button color="secondary" icon-start>
+              <ion-icon name="trash"></ion-icon>
+              Del
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+        <ion-item-sliding *ngIf="section.quiz=='true'">
+          <button ion-item (click)="IntoQuiz(section.ifFinishedQuiz,section.id)" icon-start>
+            <ion-icon name="star" [ngStyle]="{'color': '#4169E1'}" item-start></ion-icon>
+             小测验
+          </button>
+          <ion-item-options>
+            <button ion-button color="primary" icon-start>
+              <ion-icon name="create"></ion-icon>
+              Edit
+            </button>
+            <button ion-button color="secondary" icon-start>
+              <ion-icon name="trash"></ion-icon>
+              Del
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+        <!--<button ion-item icon-start>-->
+          <!--<ion-icon name="add-circle" color="secondary" item-start></ion-icon>-->
+          <!--教学元素-->
+        <!--</button>-->
       </ion-list>
     </div>
 
@@ -119,7 +151,7 @@
             <ion-note item-end>{{discuss.createDate}}</ion-note>
           </ion-item>
           <ion-item>
-            <button ion-button small clear icon-start item-end>
+            <button ion-button (click)="doUpvote(discuss.id)" small clear icon-start item-end>
               <ion-icon name="thumbs-up"></ion-icon>
               {{discuss.upvoteCount}}
             </button>
