@@ -65,7 +65,7 @@ export class CourseService {
     }
     doUpvote(paramObj){
       let url:string = this.httpRequestService.doUpvote;
-      return this.httpRequestService.post(url,paramObj);
+      return this.httpRequestService.post(url,this.httpRequestService.serialize(paramObj));
     }
     listQuiz(paramObj){
       let url:string = this.httpRequestService.listQuiz+"?"+this.httpRequestService.serialize(paramObj);

@@ -22,9 +22,10 @@
     <ion-badge color="secondary">{{correct}}|{{total}}</ion-badge>
   </ion-col>
   <ion-col text-center>
-    <ion-icon name="trophy" color="primary"></ion-icon>
-    得分：
-    <ion-badge color="secondary">{{score}}</ion-badge>
+    <ion-chip>
+      <ion-icon name="trophy" color="primary"></ion-icon>
+      <ion-label>得分：{{score}}</ion-label>
+    </ion-chip>
   </ion-col>
 </ion-row>
   <ion-list *ngFor="let chapter of quizs">
