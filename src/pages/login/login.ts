@@ -78,19 +78,21 @@ export class LoginPage {
             localStorage.setItem("isSavePasssword",'N');
           }
           this.weblibLoginStatus().subscribe(res=>{
-            if(res.status="login"){
+            if(res.status=="login"){
               localStorage.setItem("isLoginWeblib","Y");
               let modal = this.modalCtrl.create(TabsPage);
               modal.present();
-            }
-          },error=>{
-            this.initStoreType().subscribe(res=>{
+            }else{
+              this.initStoreType().subscribe(res=>{
               if(res.resule="success"){
                 this.loginWeblib(res.weblibUsername,res.weblibPasswd);
               }
             },error=>{
               console.log("error: "+error);
             })
+            }
+          },error=>{
+            console.log("error: "+error);
           });
         }else{
           this.toastCtrl.create({
