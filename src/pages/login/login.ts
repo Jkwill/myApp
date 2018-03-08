@@ -84,12 +84,12 @@ export class LoginPage {
               modal.present();
             }else{
               this.initStoreType().subscribe(res=>{
-                if(res.resule="success"){
-                  this.loginWeblib(res.weblibUsername,res.weblibPasswd);
-                }
-              },error=>{
-                console.log("error: "+error);
-              })
+              if(res.resule="success"){
+                this.loginWeblib(res.weblibUsername,res.weblibPasswd);
+              }
+            },error=>{
+              console.log("error: "+error);
+            })
             }
           },error=>{
             console.log("error: "+error);
