@@ -30,7 +30,7 @@ export class QuizPage {
     };
     if(ifFinished == '1'){
       this.courseService.listQuizResult(paramObj).subscribe(res => {
-        console.log(res);
+        console.log('quiz:'+res.quiz);
         this.quizs = res.quiz;
         this.sectionName = res.sectionName;
         this.correct = res.correct;

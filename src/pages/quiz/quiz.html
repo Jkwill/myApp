@@ -17,9 +17,10 @@
 
 <ion-row>
   <ion-col text-center>
-    <ion-icon name="checkmark-circle" color="primary"></ion-icon>
-    答对：
-    <ion-badge color="secondary">{{correct}}|{{total}}</ion-badge>
+    <ion-chip>
+      <ion-icon name="checkmark-circle" color="primary"></ion-icon>
+      <ion-label>答对: {{correct}}|{{total}}</ion-label>
+    </ion-chip>
   </ion-col>
   <ion-col text-center>
     <ion-chip>

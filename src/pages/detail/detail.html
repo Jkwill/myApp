@@ -7,9 +7,15 @@
 
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>课程</ion-title>
-  </ion-navbar>
+  <ion-toolbar>
+    <ion-buttons left>
+      <button ion-button (click)="goBack()" icon-start>
+        <ion-icon name="arrow-back"></ion-icon>
+        back
+      </button>
+    </ion-buttons>
+    <ion-title align-items-center>课程</ion-title>
+  </ion-toolbar>
 
 </ion-header>
 <ion-content class="card-background-page">
@@ -20,6 +26,7 @@
       <button ion-fab>考试</button>
       <button ion-fab>课件</button>
       <button ion-fab>通知</button>
+      <button *ngIf="courseDetail.isOpen == '4'" (click)="ifQuitCourse()" ion-fab>退课</button>
     </ion-fab-list>
   </ion-fab>
 

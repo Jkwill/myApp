@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
-import {  NavController, NavParams,Platform,ToastController } from 'ionic-angular';
+import {  NavController, NavParams,Platform,ToastController, AlertController } from 'ionic-angular';
 import { VideoPage } from '../video/video'
 import { QuizPage } from '../quiz/quiz'
 import { CourseService} from "../../services/httpService/course.service"
+import {TabsPage} from "../tabs/tabs";
+import {OpenPage} from "../open/open";
+import {CourseCenterPage} from "../course-center/course-center";
 
 /**
  * Generated class for the DetailPage page.
@@ -24,16 +27,22 @@ export class DetailPage {
 
   resource:string="../../assets/source/clear.mp4";
   choose: string = "chapter";
-  constructor(public navCtrl: NavController, public navParams: NavParams, public courseService:CourseService,public toastCtrl: ToastController,public platform: Platform) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public courseService:CourseService,public toastCtrl: ToastController,public platform: Platform,public alertCtrl: AlertController) {
     platform.ready().then(() => {
-      this.getCourseInfo(navParams.data.item);
-      this.getCourseResource(navParams.data.item, navParams.data.type);
-      this.getDiscussList(navParams.data.item);
-      this.getMessageList(navParams.data.item);
-      this.getHomeworkList(navParams.data.item);
+      let courseId = navParams.get('id');
+      this.getCourseInfo(courseId);
+      this.getCourseResource(courseId, navParams.get('type'));
+      this.getDiscussList(courseId);
+      this.getMessageList(courseId);
+      this.getHomeworkList(courseId);
 
     });
   }
+
+  ionViewDidEnter(){
+    console.log('view len:'+this.navCtrl.length());
+  }
+
   openVideoPage(uid){
     this.navCtrl.push(VideoPage,  { id : uid });
   }
@@ -111,7 +120,7 @@ export class DetailPage {
     this.courseService.courseDetail(paramObj).subscribe( res => {
       if(res.result=='success'){
         this.courseDetail = res;
-        //console.log(res);
+        console.log(res);
       }else{
         this.toastCtrl.create({
           message: '获取课程详情出错',
@@ -143,5 +152,41 @@ export class DetailPage {
     })
   }
 
+  quitOpenCourse(cid){
+    let paramObj = {
+      courseId: cid
+    };
+    this.courseService.quitOpenCourse(paramObj).subscribe( res => {
+      console.log(res);
+      this.navCtrl.remove(1);
+      this.navCtrl.push(OpenPage, { id : cid });
+    }, error => {
+      console.log("joinOpenCourse error:"+error);
+    })
+  }
+
+  ifQuitCourse() {
+    let confirm = this.alertCtrl.create({
+      title: '即将退出此门课程',
+      buttons: [
+        {
+          text: '确定',
+          handler: () => {
+            this.quitOpenCourse(this.navParams.get('id'));
+          }
+        },
+        {
+          text: '取消',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
+  goBack() {
+    this.navCtrl.pop();
+  }
 
 }

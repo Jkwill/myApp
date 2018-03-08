@@ -12,8 +12,13 @@ export class HomePage {
   constructor(public navCtrl: NavController, public courseService: CourseService,
               public toastCtrl: ToastController, public platform: Platform) {
     platform.ready().then(() => {
-      this.getOpenCourseList();
+
     });
+  }
+
+  ionViewDidEnter(){
+    this.getOpenCourseList();
+    console.log('view len:'+this.navCtrl.length());
   }
 
   getOpenCourseList() {

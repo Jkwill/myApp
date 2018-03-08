@@ -22,20 +22,27 @@ export class CourseCenterPage {
   constructor(public navCtrl: NavController, public courseService:CourseService,
               public toastCtrl: ToastController, public platform: Platform) {
     platform.ready().then(() => {
-      this.getAllCourseList();
+
     });
   }
+
+  ionViewDidEnter(){
+    this.getAllCourseList();
+    console.log('view len:'+this.navCtrl.length());
+  }
+
   openDetailPageByStu(id){
-    this.navCtrl.push(DetailPage,  { item: id ,type:'student'});
+    this.navCtrl.push(DetailPage,  { id: id ,type:'student'});
   }
   openDetailPageByTea(id){
-    this.navCtrl.push(DetailPage,  { item: id ,type:'teacher'});
+    this.navCtrl.push(DetailPage,  { id: id ,type:'teacher'});
   }
   getAllCourseList(){
     this.courseService.listValidCourse().subscribe(res => {
       if(res.result=='success'){
         this.studyItems=res.student;
         this.teachItems=res.teacher;
+        console.log(this.studyItems.length);
       }else{
         this.toastCtrl.create({
           message: '获取课程列表出错',

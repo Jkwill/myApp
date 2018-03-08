@@ -37,6 +37,8 @@ export class HttpRequestService {
   listSHomework:string="/lms/json/learning/listSHomework";
   listMessage:string="/lms/json/learning/listMessage";
   listOpenResource: string = "/lms/json/learning/listOpenResource" //获取某一公开课的详细信息
+  joinOpenCourse: string = "/lms/json/learning/joinOpenCourse"  //加入某一门公开课
+  quitOpenCourse: string = "/lms/json/learning/quitOpenCourse" //退出某一门公开课
   doUpvote:string = "/lms/json/learning/doUpvote" //点赞处理
 
   listAllCourse:string= '/lms/json/learning/listAllCourse';//课程列表信息

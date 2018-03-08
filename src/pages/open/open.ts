@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform } from 'ionic-angular';
+import {NavController, NavParams, Platform, ModalController, ViewController} from 'ionic-angular';
 import { CourseService} from "../../services/httpService/course.service"
+import { DetailPage } from "../detail/detail";
+import {TabsPage} from "../tabs/tabs";
 
 /**
  * Generated class for the OpenPage page.
@@ -15,19 +17,25 @@ import { CourseService} from "../../services/httpService/course.service"
 export class OpenPage {
   openCourse ={};
   openSection :Object[];
+  courseId: string;
   choose: string = "chapter";
-  constructor(public navCtrl: NavController, public navParams: NavParams,public courseService:CourseService,public platform: Platform) {
+  constructor(public navCtrl: NavController,public viewCtrl: ViewController,public navParams: NavParams,public courseService:CourseService,public platform: Platform) {
     platform.ready().then(() => {
-      this.getOpenResourse(this.navParams.data.id);
-
+      this.courseId = this.navParams.data.id;
+      this.getOpenResourse(this.courseId);
     });
   }
+
+  ionViewDidEnter(){
+    console.log('view len:'+this.navCtrl.length());
+  }
+
   getOpenResourse(id){
     let paramObj = {
       courseId:id
     };
     this.courseService.openCourseResource(paramObj).subscribe( res => {
-      console.log(res);
+      //console.log(res);
       this.openCourse = res.course;
       this.openSection = res.section;
     }, error => {
@@ -35,4 +43,22 @@ export class OpenPage {
     })
   }
 
+  joinOpenCourse(id){
+    let paramObj = {
+      courseId:id
+    };
+    this.courseService.joinOpenCourse(paramObj).subscribe( res => {
+      console.log(res);
+      this.navCtrl.remove(1);
+      this.navCtrl.push(DetailPage,  { id: id ,type:'student'});
+      // let modal = this.modalCtrl.create(DetailPage,  { id: id ,type:'student'});
+      // modal.present();
+    }, error => {
+      console.log("joinOpenCourse error:"+error);
+    })
+  }
+
+  goBack() {
+    this.navCtrl.pop();
+  }
 }
