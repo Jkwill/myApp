@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import {NavController, NavParams, Platform, ModalController, ViewController} from 'ionic-angular';
+import {NavController, NavParams, Platform, ViewController} from 'ionic-angular';
 import { CourseService} from "../../services/httpService/course.service"
 import { DetailPage } from "../detail/detail";
-import {TabsPage} from "../tabs/tabs";
 
 /**
  * Generated class for the OpenPage page.

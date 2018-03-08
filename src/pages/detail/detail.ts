@@ -3,9 +3,7 @@ import {  NavController, NavParams,Platform,ToastController, AlertController } f
 import { VideoPage } from '../video/video'
 import { QuizPage } from '../quiz/quiz'
 import { CourseService} from "../../services/httpService/course.service"
-import {TabsPage} from "../tabs/tabs";
 import {OpenPage} from "../open/open";
-import {CourseCenterPage} from "../course-center/course-center";
 
 /**
  * Generated class for the DetailPage page.

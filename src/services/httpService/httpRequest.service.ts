@@ -60,7 +60,7 @@ export class HttpRequestService {
     //get请求
     get(url: string): Observable<any> {
 
-        return this.http.get(url, {
+        return this.http.get(this.host+url, {
             headers: new Headers({
                  "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
             }),
@@ -71,7 +71,7 @@ export class HttpRequestService {
 
     //post请求
     post(url: string,body): Observable<any> {
-        return this.http.post(url, body,
+        return this.http.post(this.host+url, body,
           { headers: new Headers({
               "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
             }),
