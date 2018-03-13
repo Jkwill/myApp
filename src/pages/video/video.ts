@@ -8,7 +8,7 @@ import { AccountService} from "../../services/httpService/account.service"
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
+ declare let cordova: any;
 @Component({
   selector: 'page-video',
   templateUrl: 'video.html',
@@ -16,6 +16,8 @@ import { AccountService} from "../../services/httpService/account.service"
 export class VideoPage {
   resourceUrl:string;
   courseWare = {};
+  syllabus:string;
+  syllabusFile:string;
   constructor(public navCtrl: NavController, public navParams: NavParams,public accountService:AccountService,public courseService:CourseService,public platform: Platform) {
     platform.ready().then(() => {
           let isLogin:string=localStorage.getItem("isLoginWeblib");
@@ -26,6 +28,17 @@ export class VideoPage {
           }
     });
   }
+  viewPDF(){
+    let paramObj = {
+      id: this.syllabus
+    };
+    //window.open('http://www.baidu.com', '_system','hidden=yes');
+
+    this.courseService.downloadResource(paramObj).subscribe(res=>{
+    },error=>{
+      console.log("error: "+error);
+    });
+  }
   getCourseware(uid){
     let paramObj = {
       unitId: uid
@@ -33,6 +46,8 @@ export class VideoPage {
     this.courseService.getCourseWare(paramObj).subscribe(res =>{
       console.log(res);
       if (res.result == 'success') {
+        this.syllabus=res.syllabus;
+        this.syllabusFile=res.syllabusFile;
         if (res.filepath != "" || res.filetype != "") {
           if (res.filetype == 'mp4') {
             let cookies = document.cookie.split(';');
