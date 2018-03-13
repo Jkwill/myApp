@@ -72,6 +72,7 @@ export class CourseService {
     return this.httpRequestService.get(url);
   }
 
+
   downloadResource(paramObj) {
     let url: string = this.httpRequestService.downloadResource + "?" + this.httpRequestService.serialize(paramObj);
     return this.httpRequestService.get(url);
