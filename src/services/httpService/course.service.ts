@@ -72,6 +72,11 @@ export class CourseService {
     return this.httpRequestService.get(url);
   }
 
+  downloadResource(paramObj) {
+    let url: string = this.httpRequestService.downloadResource + "?" + this.httpRequestService.serialize(paramObj);
+    return this.httpRequestService.get(url);
+  }
+
   doUpvote(paramObj) {
     let url: string = this.httpRequestService.doUpvote;
     return this.httpRequestService.post(url, this.httpRequestService.serialize(paramObj));
@@ -98,4 +103,3 @@ export class CourseService {
   }
 
 }
-

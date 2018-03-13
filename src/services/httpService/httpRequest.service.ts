@@ -19,7 +19,7 @@ export class HttpRequestService {
   loginWeblib:string= '/weblib/login/authenticate.action';
   selectMember:string= '/weblib/login/selectMember.action?temp=' + Math.random();
   weblibLoginStatus:string="/weblib/user/status.action";
-  downloadResource:string= '/weblib/group/downloadResource.action?id=';
+  downloadResource:string= '/weblib/group/downloadResource.action';
   downloadlms:string= '/lms/json/learning/download?id=';
   custom: string='/lms/custom/';
 
