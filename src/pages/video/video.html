@@ -13,13 +13,23 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
-    <!--<video id="videoPlay"  controls="controls"  width="100%" ><source src="http://lms.ccnl.scut.edu.cn{{resourceUrl}}" type="video/mp4"></video>-->
-    <video width="100%" src="{{resourceUrl}}" controls="controls">
-    </video>
-  </ion-card>
-    <ion-card>
-     <button ion-button color="primary" (click)="viewPDF()" block>查看课件</button>
-  </ion-card>
-  
+  <ion-list>
+    <ion-item>
+      <button ion-button (click)="playVideo()" block>点击播放视频</button>
+      <ion-card *ngIf="play">
+        <!--<video id="videoPlay"  controls="controls"  width="100%" ><source src="http://lms.ccnl.scut.edu.cn{{resourceUrl}}" type="video/mp4"></video>-->
+        <video width="100%" src="{{videoUrl}}" controls="controls">
+        </video>
+      </ion-card>
+    </ion-item>
+    <ion-item>
+      <button ion-button (click)="viewPDF()" block>点击查看课件</button>
+      <ion-card *ngIf="watch">video
+        <pdf-viewer [src]="pdfSrc" [render-text]="true"  [original-size]="false" style="display: block;"></pdf-viewer>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+
+
+
 </ion-content>

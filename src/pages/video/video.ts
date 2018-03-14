@@ -14,10 +14,12 @@ import { AccountService} from "../../services/httpService/account.service"
   templateUrl: 'video.html',
 })
 export class VideoPage {
-  resourceUrl:string;
-  courseWare = {};
+  videoUrl:string;
   syllabus:string;
   syllabusFile:string;
+  pdfSrc:string;
+  play:boolean = false;
+  watch:boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,public accountService:AccountService,public courseService:CourseService,public platform: Platform) {
     platform.ready().then(() => {
           let isLogin:string=localStorage.getItem("isLoginWeblib");
@@ -28,17 +30,21 @@ export class VideoPage {
           }
     });
   }
-  viewPDF(){
-    let paramObj = {
-      id: this.syllabus
-    };
-    //window.open('http://www.baidu.com', '_system','hidden=yes');
 
-    this.courseService.downloadResource(paramObj).subscribe(res=>{
-    },error=>{
-      console.log("error: "+error);
-    });
+  viewPDF()
+  {
+    this.play = false;
+    this.watch = true;
+    console.log("pdf:"+this.pdfSrc);
   }
+
+  playVideo()
+  {
+    this.play = true;
+    this.watch = false;
+    console.log("video:"+this.videoUrl);
+  }
+
   getCourseware(uid){
     let paramObj = {
       unitId: uid
@@ -48,6 +54,7 @@ export class VideoPage {
       if (res.result == 'success') {
         this.syllabus=res.syllabus;
         this.syllabusFile=res.syllabusFile;
+        this.pdfSrc = "http://lms.ccnl.scut.edu.cn/weblib/group/downloadResource.action?id="+this.syllabus+"&isInline=1";
         if (res.filepath != "" || res.filetype != "") {
           if (res.filetype == 'mp4') {
             let cookies = document.cookie.split(';');
@@ -64,8 +71,8 @@ export class VideoPage {
                 weblibSessionId = cookieValue;
               }
             }
-            this.resourceUrl = "http://lms.ccnl.scut.edu.cn"+this.courseService.buildVideoUrl(res.filepath, lmsSessionId, weblibSessionId);
-            console.log("video_url: "+this.resourceUrl);
+            this.videoUrl = "http://lms.ccnl.scut.edu.cn"+this.courseService.buildVideoUrl(res.filepath, lmsSessionId, weblibSessionId);
+            console.log(".getCourseWare success"+res.syllabus+' '+res.filepath);
           } else if (res.filetype == 'flv') {
             alert("不支持该视频格式")
           } else if (res.filetype == 'swf') {

@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 import { LoginPage } from '../pages/login/login'
 import { CourseCenterPage } from '../pages/course-center/course-center';
@@ -44,6 +45,7 @@ import { GetDataProvider } from '../services/get-data/get-data';
   imports: [
     BrowserModule,
     HttpModule,
+    PdfViewerModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
