@@ -7,7 +7,7 @@
 
 
     <ion-list>
-      <ion-item >
+      <ion-item (click)="changePersonalInfo()">
         <ion-avatar item-start>
           <img src="../../assets/imgs/tou.jpg" alt="">
         </ion-avatar>
@@ -16,7 +16,7 @@
         <p>{{userInfo?.introduction}}</p>
       </ion-item>
       <button ion-item  icon-start><ion-icon name="add" [ngStyle]="{'color':'#000'}"item-start></ion-icon>创建课程</button>
-      <button ion-item (click)="logOut()" icon-start><ion-icon name="exit" [ngStyle]="{'color':'#000'}"item-start></ion-icon>退出账号</button>
+      <button ion-item (click)="confirmLogout()" icon-start><ion-icon name="exit" [ngStyle]="{'color':'#000'}"item-start></ion-icon>退出账号</button>
     </ion-list>
 
 

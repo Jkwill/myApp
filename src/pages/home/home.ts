@@ -16,15 +16,13 @@ export class HomePage {
     });
   }
 
-  ionViewDidEnter(){
+  ionViewWillEnter(){
     this.getOpenCourseList();
-    console.log('view len:'+this.navCtrl.length());
   }
 
   getOpenCourseList() {
     this.courseService.listValidCourse().subscribe(res => {
       if (res.result == 'success') {
-        console.log(res);
         this.openItems = res.open;
       } else {
         this.toastCtrl.create({

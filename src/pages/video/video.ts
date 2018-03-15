@@ -16,10 +16,9 @@ import { AccountService} from "../../services/httpService/account.service"
 export class VideoPage {
   videoUrl:string;
   syllabus:string;
-  syllabusFile:string;
   pdfSrc:string;
-  play:boolean = false;
-  watch:boolean = false;
+  btnViewPDF:boolean =true;
+  spinner:boolean =false;
   constructor(public navCtrl: NavController, public navParams: NavParams,public accountService:AccountService,public courseService:CourseService,public platform: Platform) {
     platform.ready().then(() => {
           let isLogin:string=localStorage.getItem("isLoginWeblib");
@@ -30,20 +29,43 @@ export class VideoPage {
           }
     });
   }
-
   viewPDF()
   {
-    this.play = false;
-    this.watch = true;
-    console.log("pdf:"+this.pdfSrc);
-  }
+    this.btnViewPDF=false;
+    this.spinner=true;
 
-  playVideo()
-  {
-    this.play = true;
-    this.watch = false;
-    console.log("video:"+this.videoUrl);
+    let paramObj = {
+      id: this.syllabus
+    }
+
+      if (typeof (FileReader) !== 'undefined') {
+      let reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.pdfSrc = e.target.result;
+     };
+
+    let url=this.courseService.getDownloadPDFUrl(paramObj);
+
+    var xmlHttp = new XMLHttpRequest();  
+    xmlHttp.onreadystatechange = function(){  
+      if (xmlHttp.readyState==4){
+        if (xmlHttp.status==200) {
+           reader.readAsArrayBuffer(xmlHttp.response);
+        }
+        else{
+        }
+     }
+    }
+    xmlHttp.responseType = 'blob';
+    xmlHttp.open("get",url,true);  
+    xmlHttp.send(null);  
   }
+}
+
+afterLoadPDF(){
+   this.spinner=false;
+}
+
 
   getCourseware(uid){
     let paramObj = {
@@ -53,8 +75,6 @@ export class VideoPage {
       console.log(res);
       if (res.result == 'success') {
         this.syllabus=res.syllabus;
-        this.syllabusFile=res.syllabusFile;
-        this.pdfSrc = "http://lms.ccnl.scut.edu.cn/weblib/group/downloadResource.action?id="+this.syllabus+"&isInline=1";
         if (res.filepath != "" || res.filetype != "") {
           if (res.filetype == 'mp4') {
             let cookies = document.cookie.split(';');

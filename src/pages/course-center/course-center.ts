@@ -26,9 +26,8 @@ export class CourseCenterPage {
     });
   }
 
-  ionViewDidEnter(){
+  ionViewWillEnter(){
     this.getAllCourseList();
-    console.log('view len:'+this.navCtrl.length());
   }
 
   openDetailPageByStu(id){
@@ -42,7 +41,6 @@ export class CourseCenterPage {
       if(res.result=='success'){
         this.studyItems=res.student;
         this.teachItems=res.teacher;
-        console.log(this.studyItems.length);
       }else{
         this.toastCtrl.create({
           message: '获取课程列表出错',

@@ -80,7 +80,6 @@ export class HttpRequestService {
     }
 
 
-
     //对象参数序列化
     serialize(paramObj){
       let keysArr = Object.keys(paramObj), res = '';

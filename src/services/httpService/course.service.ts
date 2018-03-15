@@ -73,9 +73,9 @@ export class CourseService {
   }
 
 
-  downloadResource(paramObj) {
+  getDownloadPDFUrl(paramObj) {
     let url: string = this.httpRequestService.downloadResource + "?" + this.httpRequestService.serialize(paramObj);
-    return this.httpRequestService.get(url);
+    return this.httpRequestService.host+url;
   }
 
   doUpvote(paramObj) {

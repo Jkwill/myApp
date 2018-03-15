@@ -37,8 +37,7 @@ export class TabsPage {
       this.backButtonService.registerBackButtonAction(this.tabRef);
     });
   }
-  ionViewDidEnter() {
-    console.log('view len:'+this.navCtrl.length());
+  ionViewWillEnter() {
     this.tabRef.select(1);
   }
 }
