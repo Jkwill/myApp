@@ -19,6 +19,7 @@ export class VideoPage {
   pdfSrc:string;
   btnViewPDF:boolean =true;
   spinner:boolean =false;
+  hasPDF:boolean = true;
   constructor(public navCtrl: NavController, public navParams: NavParams,public accountService:AccountService,public courseService:CourseService,public platform: Platform) {
     platform.ready().then(() => {
           let isLogin:string=localStorage.getItem("isLoginWeblib");
@@ -33,7 +34,6 @@ export class VideoPage {
   {
     this.btnViewPDF=false;
     this.spinner=true;
-
     let paramObj = {
       id: this.syllabus
     }
@@ -46,8 +46,8 @@ export class VideoPage {
 
     let url=this.courseService.getDownloadPDFUrl(paramObj);
 
-    var xmlHttp = new XMLHttpRequest();  
-    xmlHttp.onreadystatechange = function(){  
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function(){
       if (xmlHttp.readyState==4){
         if (xmlHttp.status==200) {
            reader.readAsArrayBuffer(xmlHttp.response);
@@ -57,8 +57,8 @@ export class VideoPage {
      }
     }
     xmlHttp.responseType = 'blob';
-    xmlHttp.open("get",url,true);  
-    xmlHttp.send(null);  
+    xmlHttp.open("get",url,true);
+    xmlHttp.send(null);
   }
 }
 
@@ -75,6 +75,10 @@ afterLoadPDF(){
       console.log(res);
       if (res.result == 'success') {
         this.syllabus=res.syllabus;
+        if(this.syllabus == '')
+        {
+          this.hasPDF = false;
+        }
         if (res.filepath != "" || res.filetype != "") {
           if (res.filetype == 'mp4') {
             let cookies = document.cookie.split(';');

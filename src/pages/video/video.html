@@ -21,11 +21,11 @@
         </video>
       </ion-card>
     </ion-item>
-    <ion-item>
+    <ion-item *ngIf="hasPDF" text-center>
       <button *ngIf="btnViewPDF" ion-button (click)="viewPDF()" block>点击查看课件</button>
-       <ion-spinner *ngIf="spinner"></ion-spinner>
+       <ion-spinner name="dots" *ngIf="spinner"></ion-spinner>
       <ion-card >
-        <pdf-viewer  [src]="pdfSrc" (after-load-complete)="afterLoadPDF()" [render-text]="true" [original-size]="false" style="display: block;"> 
+        <pdf-viewer  [src]="pdfSrc" (after-load-complete)="afterLoadPDF()" [render-text]="true" [original-size]="false" style="display: block;">
         </pdf-viewer>
       </ion-card>
     </ion-item>
