@@ -14,7 +14,7 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item>
+    <ion-item *ngIf="hasVideo">
       <ion-card >
         <!--<video id="videoPlay"  controls="controls"  width="100%" ><source src="http://lms.ccnl.scut.edu.cn{{resourceUrl}}" type="video/mp4"></video>-->
         <video width="100%" src="{{videoUrl}}" controls="controls">

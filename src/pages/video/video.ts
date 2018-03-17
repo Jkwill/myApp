@@ -8,7 +8,6 @@ import { AccountService} from "../../services/httpService/account.service"
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
- declare let cordova: any;
 @Component({
   selector: 'page-video',
   templateUrl: 'video.html',
@@ -20,6 +19,7 @@ export class VideoPage {
   btnViewPDF:boolean =true;
   spinner:boolean =false;
   hasPDF:boolean = true;
+  hasVideo:boolean = true;
   constructor(public navCtrl: NavController, public navParams: NavParams,public accountService:AccountService,public courseService:CourseService,public platform: Platform) {
     platform.ready().then(() => {
           let isLogin:string=localStorage.getItem("isLoginWeblib");
@@ -108,6 +108,9 @@ afterLoadPDF(){
           // console.log(res.data.syllabus);
           //
           // Account.initPDF(res.data.syllabus);
+          this.hasVideo = false;
+          this.btnViewPDF = false;
+          this.viewPDF();
         }
       }
     },error =>{

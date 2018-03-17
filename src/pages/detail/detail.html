@@ -92,8 +92,8 @@
             <ion-icon name="logo-youtube" [ngStyle]="{'color': '#4169E1'}" item-start></ion-icon>
             {{chapter.name}}
           </button>
-          <button ion-item *ngIf="chapter.slidesType == ''" icon-start>
-            <ion-icon name="download" color="secondary" item-start></ion-icon>
+          <button ion-item *ngIf="chapter.slidesType == ''" (click)="openVideoPage(chapter.id)" icon-start>
+            <ion-icon name="document" color="secondary" item-start></ion-icon>
             {{chapter.name}}
           </button>
           <ion-item-options>
