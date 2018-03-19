@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController,ToastController,Platform } from 'ionic-angular';
 import { DetailPage } from '../detail/detail';
+import { TeacherPage } from '../teacher/teacher'
 import { CourseService} from "../../services/httpService/course.service"
 
 /**
@@ -30,12 +31,14 @@ export class CourseCenterPage {
     this.getAllCourseList();
   }
 
-  openDetailPageByStu(id){
-    this.navCtrl.push(DetailPage,  { id: id ,type:'student'});
+  openDetailPageOfStu(id){
+    this.navCtrl.push(DetailPage,  { id: id });
   }
-  openDetailPageByTea(id){
-    this.navCtrl.push(DetailPage,  { id: id ,type:'teacher'});
+
+  openTeacherPage(id){
+    this.navCtrl.push(TeacherPage,  { id: id });
   }
+
   getAllCourseList(){
     this.courseService.listValidCourse().subscribe(res => {
       if(res.result=='success'){
@@ -58,6 +61,5 @@ export class CourseCenterPage {
     });
 
   }
-
 
 }

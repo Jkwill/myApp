@@ -19,6 +19,7 @@ export class QuizPage {
   correct:string;
   total:string;
   score:string;
+  isResult:boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,public courseService:CourseService, public platform: Platform) {
     platform.ready().then(() => {
       this.getQuizResult(navParams.data.id,navParams.data.ifFin);
@@ -29,6 +30,7 @@ export class QuizPage {
       sectionId:sectionId
     };
     if(ifFinished == '1'){
+      this.isResult = true;
       this.courseService.listQuizResult(paramObj).subscribe(res => {
         console.log('quiz:'+res.quiz);
         this.quizs = res.quiz;
@@ -42,11 +44,24 @@ export class QuizPage {
     }
     else{
       this.courseService.listQuiz(paramObj).subscribe(res => {
-        console.log(res);
+        this.quizs = res.quiz;
+        this.sectionName = res.sectionName;
       },error => {
         console.log(error);
       });
     }
+  }
+
+  submintQuiz(){
+    let sectionId = this.navParams.data.id;
+    let body = {
+      sectionId:sectionId
+    };
+    this.courseService.submitQuiz(body).subscribe( res => {
+      console.log("submit success:"+res);
+    }, error => {
+
+    })
   }
 
 }

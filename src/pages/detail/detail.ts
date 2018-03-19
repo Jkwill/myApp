@@ -31,13 +31,12 @@ export class DetailPage {
   choose: string = "chapter";
   constructor(public navCtrl: NavController, public navParams: NavParams,public http:Http, public courseService:CourseService,public toastCtrl: ToastController,public platform: Platform,public alertCtrl: AlertController) {
     platform.ready().then(() => {
-      this.courseId = navParams.get('id');
-      this.getCourseInfo(this.courseId);
-      this.getCourseResource(this.courseId, navParams.get('type'));
-      this.getDiscussList(this.courseId);
-      this.getMessageList(this.courseId);
-      this.getHomeworkList(this.courseId);
-
+      let courseId = navParams.get('id');
+      this.getCourseInfo(courseId);
+      this.getCourseResource(courseId, "student");
+      this.getDiscussList(courseId);
+      this.getMessageList(courseId);
+      this.getHomeworkList(courseId);
     });
   }
   upload(e,index){
@@ -90,6 +89,7 @@ export class DetailPage {
   openVideoPage(uid){
     this.navCtrl.push(VideoPage,  { id : uid });
   }
+
   getDiscussList(cid){
     let paramObj = {
       courseId: cid
