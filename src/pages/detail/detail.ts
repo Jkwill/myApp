@@ -29,7 +29,7 @@ export class DetailPage {
     platform.ready().then(() => {
       let courseId = navParams.get('id');
       this.getCourseInfo(courseId);
-      this.getCourseResource(courseId, navParams.get('type'));
+      this.getCourseResource(courseId, "student");
       this.getDiscussList(courseId);
       this.getMessageList(courseId);
       this.getHomeworkList(courseId);
@@ -44,6 +44,7 @@ export class DetailPage {
   openVideoPage(uid){
     this.navCtrl.push(VideoPage,  { id : uid });
   }
+
   getDiscussList(cid){
     let paramObj = {
       courseId: cid

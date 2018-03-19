@@ -103,4 +103,9 @@ export class CourseService {
     return this.httpRequestService.get(url);
   }
 
+  submitQuiz(paramObj) {
+    let url: string = this.httpRequestService.submitQuiz;
+    return this.httpRequestService.post(url, paramObj);
+  }
+
 }

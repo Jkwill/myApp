@@ -20,12 +20,12 @@
 </ion-header>
 <ion-content class="card-background-page">
   <ion-fab top right edge>
-    <button ion-fab color="vibrant" mini><ion-icon name="more"></ion-icon></button>
+    <button ion-fab color="vibrant" mini><ion-icon name="add"></ion-icon></button>
     <ion-fab-list>
-      <button ion-fab>笔记</button>
-      <button ion-fab>资料</button>
-      <button ion-fab>评价</button>
-      <button *ngIf="courseDetail.isOpen == '4'" (click)="ifQuitCourse()" ion-fab>退课</button>
+      <button ion-fab>课程</button>
+      <button ion-fab>章节</button>
+      <button ion-fab>考试</button>
+      <button ion-fab>师生</button>
     </ion-fab-list>
   </ion-fab>
 
@@ -37,16 +37,22 @@
   <ion-toolbar no-border-top>
     <ion-segment [(ngModel)]="choose">
       <ion-segment-button value="chapter">
-        章节
+        课程
       </ion-segment-button>
       <ion-segment-button value="homework">
         作业
       </ion-segment-button>
+      <ion-segment-button value="exam">
+        测验
+      </ion-segment-button>
       <ion-segment-button value="discuss">
-        讨论区
+        讨论
       </ion-segment-button>
       <ion-segment-button value="message">
         通知
+      </ion-segment-button>
+      <ion-segment-button value="progress">
+        进度
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -55,13 +61,13 @@
       <ion-list *ngFor="let homework of homeworkList">
         <ion-card>
           <ion-item>
-          <h2 >
-            <ion-icon name="paper" [ngStyle]="{'color': '#4169E1'}"></ion-icon>
-            {{homework.hName}}
-          </h2>
-          <p >章节：{{homework.section}}</p>
-          <p >介绍：{{homework.hIntroduction}}</p>
-          <p >截止日期：{{homework.deadlineDate}}</p>
+            <h2 >
+              <ion-icon name="paper" [ngStyle]="{'color': '#4169E1'}"></ion-icon>
+              {{homework.hName}}
+            </h2>
+            <p >章节：{{homework.section}}</p>
+            <p >介绍：{{homework.hIntroduction}}</p>
+            <p >截止日期：{{homework.deadlineDate}}</p>
           </ion-item>
         </ion-card>
       </ion-list>
@@ -71,7 +77,7 @@
       <ion-list *ngFor="let message of messageList">
         <ion-card>
           <ion-item>
-              <ion-icon name="notifications" [ngStyle]="{'color': '#4169E1'}"></ion-icon>
+            <ion-icon name="notifications" [ngStyle]="{'color': '#4169E1'}"></ion-icon>
             <h2 >
               {{message.content}}
             </h2>
@@ -86,28 +92,78 @@
     <div *ngSwitchCase="'chapter'">
       <ion-list *ngFor="let section of courseResource">
         <ion-list-header>{{section.name}}</ion-list-header>
-        <ion-item *ngFor="let chapter of section.unit">
-          <button ion-item *ngIf="chapter.slidesType != ''" (click)="openVideoPage(chapter.id)" icon-start>
+
+        <ion-item-sliding *ngFor="let chapter of section.unit">
+          <button ion-item *ngIf="chapter.slidesType != ''" icon-start>
             <ion-icon name="logo-youtube" [ngStyle]="{'color': '#4169E1'}" item-start></ion-icon>
             {{chapter.name}}
           </button>
-          <button ion-item *ngIf="chapter.slidesType == ''" (click)="openVideoPage(chapter.id)" icon-start>
+          <button ion-item *ngIf="chapter.slidesType == ''" icon-start>
             <ion-icon name="document" color="secondary" item-start></ion-icon>
             {{chapter.name}}
           </button>
-        </ion-item>
-        <ion-item *ngFor="let item of section.homework">
+          <ion-item-options>
+            <button ion-button color="primary" icon-start>
+              <ion-icon name="create"></ion-icon>
+              Edit
+            </button>
+            <button ion-button color="secondary" icon-start>
+              <ion-icon name="trash"></ion-icon>
+              Del
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+
+        <ion-item-sliding *ngFor="let item of section.homework">
           <button ion-item  icon-start>
             <ion-icon name="paper" [ngStyle]="{'color': '#4169E1'}" item-start></ion-icon>
             {{item.name}}--{{item.endDate}}
           </button>
-        </ion-item>
-        <ion-item *ngIf="section.quiz=='true'">
-          <button ion-item (click)="IntoQuiz(section.ifFinishedQuiz,section.id)" icon-start>
+          <ion-item-options>
+            <button ion-button color="primary" icon-start>
+              <ion-icon name="create"></ion-icon>
+              Edit
+            </button>
+            <button ion-button color="secondary" icon-start>
+              <ion-icon name="trash"></ion-icon>
+              Del
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+
+        <ion-item-sliding *ngIf="section.quiz=='true'">
+          <button ion-item icon-start>
             <ion-icon name="star" [ngStyle]="{'color': '#4169E1'}" item-start></ion-icon>
-             小测验
+            小测验
+          </button>
+          <ion-item-options>
+            <button ion-button color="primary" icon-start>
+              <ion-icon name="create"></ion-icon>
+              Edit
+            </button>
+            <button ion-button color="secondary" icon-start>
+              <ion-icon name="trash"></ion-icon>
+              Del
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+
+        <ion-item>
+          <ion-icon name="add-circle" color="primary" item-start></ion-icon>
+          <button ion-button [ngStyle]="{'width': '25%'}" icon-start>
+            教学元素
+          </button>
+          <button ion-button [ngStyle]="{'width': '25%'}" icon-start>
+            课堂测验
+          </button>
+          <button ion-button [ngStyle]="{'width': '15%'}" icon-start>
+            作业
+          </button>
+          <button ion-button [ngStyle]="{'width': '25%'}" icon-start>
+            编辑章节
           </button>
         </ion-item>
+
       </ion-list>
     </div>
 
