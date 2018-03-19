@@ -4,6 +4,7 @@ import { VideoPage } from '../video/video'
 import { QuizPage } from '../quiz/quiz'
 import { CourseService} from "../../services/httpService/course.service"
 import {OpenPage} from "../open/open";
+import {Http, Headers} from "@angular/http";
 
 /**
  * Generated class for the DetailPage page.
@@ -21,20 +22,65 @@ export class DetailPage {
   courseResource:Object[];
   discussList:any[];
   messageList:Object[];
-  homeworkList:Object[];
+  homeworkList:any;
+  groupId:string;
+  parentId:string;
+  courseId;
 
   resource:string="../../assets/source/clear.mp4";
   choose: string = "chapter";
-  constructor(public navCtrl: NavController, public navParams: NavParams, public courseService:CourseService,public toastCtrl: ToastController,public platform: Platform,public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public http:Http, public courseService:CourseService,public toastCtrl: ToastController,public platform: Platform,public alertCtrl: AlertController) {
     platform.ready().then(() => {
-      let courseId = navParams.get('id');
-      this.getCourseInfo(courseId);
-      this.getCourseResource(courseId, navParams.get('type'));
-      this.getDiscussList(courseId);
-      this.getMessageList(courseId);
-      this.getHomeworkList(courseId);
+      this.courseId = navParams.get('id');
+      this.getCourseInfo(this.courseId);
+      this.getCourseResource(this.courseId, navParams.get('type'));
+      this.getDiscussList(this.courseId);
+      this.getMessageList(this.courseId);
+      this.getHomeworkList(this.courseId);
 
     });
+  }
+  upload(e,index){
+    if(this.homeworkList[index].deadline != "false"){
+      alert("已过提交日期");
+    }else if(e.target.files[0]){
+      const file = e.target.files[0];
+      let url = "http://lms.ccnl.scut.edu.cn/weblib/group/uploadResourceReturnId.action";
+      //let groupId:string = "1646";
+      //let parentId:string = "0";
+      let homeworkId:string = this.homeworkList[index].hsId;
+      let attach ;
+
+      let formData:FormData = new FormData();
+      formData.append('groupId',this.groupId);
+      formData.append('parentId',this.parentId);
+      formData.append('homeworkId',homeworkId);
+      formData.append('attach',"");
+      formData.append('attachType',"");
+      formData.append('attachName',"");
+      formData.append('filedata',file,file.name);
+      console.log(this.homeworkList[0].hsId);
+
+      this.http.post(url,formData).map(res => res.json()).subscribe(res =>{
+        attach = res.file[0].id;
+        //console.log(res);
+      })
+      this.submit(homeworkId,attach,file.type,file.name);
+      this.getHomeworkList(this.courseId);
+    }
+  }
+  submit(homeworkId,attach,attachType,attachName){
+    let formData:FormData = new FormData();
+    let url = "http://lms.ccnl.scut.edu.cn/lms/json/learning/submitHomework";
+    formData.append('groupId',this.groupId);
+    formData.append('parentId',this.parentId);
+    formData.append('homeworkId',homeworkId);
+    formData.append('attach',attach);
+    formData.append('attachType',attachType);
+    formData.append('attachName',attachName);
+    this.http.post(url,formData).map(res => res.json()).subscribe(res =>{
+        alert(res.message);
+    })
   }
 
   ionViewDidEnter(){
@@ -137,6 +183,8 @@ export class DetailPage {
     this.courseService.courseResource(paramObj,type).subscribe(res =>{
       if(res.result=='success'){
         this.courseResource = res.section;
+        this.parentId = res.parentId;
+        this.groupId = res.groupId;
         //console.log(res);
       }else{
         this.toastCtrl.create({
