@@ -4,7 +4,7 @@ import { VideoPage } from '../video/video'
 import { QuizPage } from '../quiz/quiz'
 import { CourseService} from "../../services/httpService/course.service"
 import {OpenPage} from "../open/open";
-import {Http, Headers} from "@angular/http";
+import {Http, Headers,RequestOptions} from "@angular/http";
 
 /**
  * Generated class for the DetailPage page.
@@ -31,12 +31,12 @@ export class DetailPage {
   choose: string = "chapter";
   constructor(public navCtrl: NavController, public navParams: NavParams,public http:Http, public courseService:CourseService,public toastCtrl: ToastController,public platform: Platform,public alertCtrl: AlertController) {
     platform.ready().then(() => {
-      let courseId = navParams.get('id');
-      this.getCourseInfo(courseId);
-      this.getCourseResource(courseId, "student");
-      this.getDiscussList(courseId);
-      this.getMessageList(courseId);
-      this.getHomeworkList(courseId);
+      this.courseId = navParams.get('id');
+      this.getCourseInfo(this.courseId);
+      this.getCourseResource(this.courseId, "student");
+      this.getDiscussList(this.courseId);
+      this.getMessageList(this.courseId);
+      this.getHomeworkList(this.courseId);
     });
   }
   upload(e,index){
@@ -45,10 +45,9 @@ export class DetailPage {
     }else if(e.target.files[0]){
       const file = e.target.files[0];
       let url = "http://lms.ccnl.scut.edu.cn/weblib/group/uploadResourceReturnId.action";
-      //let groupId:string = "1646";
-      //let parentId:string = "0";
+
       let homeworkId:string = this.homeworkList[index].hsId;
-      let attach ;
+      let attach,attachType;
 
       let formData:FormData = new FormData();
       formData.append('groupId',this.groupId);
@@ -58,27 +57,35 @@ export class DetailPage {
       formData.append('attachType',"");
       formData.append('attachName',"");
       formData.append('filedata',file,file.name);
-      console.log(this.homeworkList[0].hsId);
+      //console.log(this.homeworkList[0].hsId);
 
       this.http.post(url,formData).map(res => res.json()).subscribe(res =>{
+        //console.log("res");
         attach = res.file[0].id;
+        attachType = res.file[0].ext;
+        this.submit(homeworkId,attach,attachType,file.name);
         //console.log(res);
       })
-      this.submit(homeworkId,attach,file.type,file.name);
-      this.getHomeworkList(this.courseId);
     }
   }
   submit(homeworkId,attach,attachType,attachName){
-    let formData:FormData = new FormData();
     let url = "http://lms.ccnl.scut.edu.cn/lms/json/learning/submitHomework";
-    formData.append('groupId',this.groupId);
-    formData.append('parentId',this.parentId);
-    formData.append('homeworkId',homeworkId);
-    formData.append('attach',attach);
-    formData.append('attachType',attachType);
-    formData.append('attachName',attachName);
-    this.http.post(url,formData).map(res => res.json()).subscribe(res =>{
+
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json; charset=UTF-8');
+    let header = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' });
+    let options = new RequestOptions({headers:header});
+
+    let dData = new URLSearchParams();
+    dData.set('groupId',this.groupId);
+    dData.set('parentId',this.parentId);
+    dData.set('homeworkId',homeworkId);
+    dData.set('attach',attach);
+    dData.set('attachType',attachType);
+    dData.set('attachName',attachName);
+    this.http.post(url,dData.toString(),options).map(res => res.json()).subscribe(res =>{
         alert(res.message);
+        this.getHomeworkList(this.courseId);
     })
   }
 
