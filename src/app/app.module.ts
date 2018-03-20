@@ -16,6 +16,7 @@ import { VideoPage } from '../pages/video/video'
 import { PersonalInfoPage } from '../pages/personalInfo/personalInfo'
 import { OpenPage } from '../pages/open/open'
 import { QuizPage } from '../pages/quiz/quiz'
+import {HomeworkPage}from '../pages/homework/homework'
 import { TeacherPage } from '../pages/teacher/teacher'
 
 import { BackButtonService } from '../services/uiService/backButton.service';
@@ -25,7 +26,6 @@ import { CourseService } from '../services/httpService/course.service';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { GetDataProvider } from '../services/get-data/get-data';
 
 
 @NgModule({
@@ -36,6 +36,7 @@ import { GetDataProvider } from '../services/get-data/get-data';
     MinePage,
     CreateLessionPage,
     HomePage,
+    HomeworkPage,
     PersonalInfoPage,
     DetailPage,
     TabsPage,
@@ -59,6 +60,7 @@ import { GetDataProvider } from '../services/get-data/get-data';
     MinePage,
     CreateLessionPage,
     HomePage,
+    HomeworkPage,
     DetailPage,
     TabsPage,
     VideoPage,
@@ -74,7 +76,6 @@ import { GetDataProvider } from '../services/get-data/get-data';
     AccountService,
     CourseService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    GetDataProvider,
   ]
 })
 export class AppModule {}

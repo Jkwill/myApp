@@ -20,6 +20,9 @@ export class HttpRequestService {
   selectMember:string= '/weblib/login/selectMember.action?temp=' + Math.random();
   weblibLoginStatus:string="/weblib/user/status.action";
   downloadResource:string= '/weblib/group/downloadResource.action';
+  uploadResourse:string='/weblib/group/uploadResourceReturnId.action';
+  submitHomework:string='/lms/json/learning/submitHomework';
+
   downloadlms:string= '/lms/json/learning/download?id=';
   custom: string='/lms/custom/';
 
@@ -51,6 +54,7 @@ export class HttpRequestService {
   formAccount:string= '/lms/json/account/';
   saveAccount: string='/lms/json/account/save';//修改个人信息
 
+
   courseThumbnail:string='/lms/json/learning/formThumbnail';//获取课程缩略图
 
     constructor(private http: Http) {
@@ -70,10 +74,18 @@ export class HttpRequestService {
 
 
     //post请求
-    post(url: string,body): Observable<any> {
+    post(url,body): Observable<any> {
         return this.http.post(this.host+url, body,
           { headers: new Headers({
               "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+            }),
+            withCredentials: true}
+        ).map(res => res.json());
+    }
+
+    resoursePost(url,body): Observable<any> {
+        return this.http.post(this.host+url, body,
+          { headers: new Headers({
             }),
             withCredentials: true}
         ).map(res => res.json());
