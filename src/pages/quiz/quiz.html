@@ -44,10 +44,10 @@
         <ion-list-header>{{item.orderId}}.{{item.question}}</ion-list-header>
         <ion-item *ngFor="let choice of item.options">
           <ion-label>{{choice.option}}</ion-label>
-          <ion-checkbox color="secondary"></ion-checkbox>
+          <ion-checkbox  color="secondary"></ion-checkbox>
         </ion-item>
       </ion-list>
-      <button ion-button type="submit" (click)="submintQuiz()">提交</button>
+      <button ion-button type="submit" (click)="submitQuiz()">提交</button>
     </form>
   </div>
 

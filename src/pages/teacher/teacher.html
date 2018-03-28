@@ -22,8 +22,8 @@
   <ion-fab top right edge>
     <button ion-fab color="vibrant" mini><ion-icon name="add"></ion-icon></button>
     <ion-fab-list>
-      <button ion-fab>课程</button>
-      <button ion-fab>章节</button>
+      <button ion-fab (click)="pushForm('course')">课程</button>
+      <button (click)="pushForm('section')" ion-fab>章节</button>
       <button ion-fab>考试</button>
       <button ion-fab>师生</button>
     </ion-fab-list>
@@ -153,13 +153,13 @@
           <button ion-button [ngStyle]="{'width': '25%'}" icon-start>
             教学元素
           </button>
-          <button ion-button [ngStyle]="{'width': '25%'}" icon-start>
+          <button *ngIf="section.quiz!='true'" ion-button  [ngStyle]="{'width': '25%'}" icon-start>
             课堂测验
           </button>
           <button ion-button [ngStyle]="{'width': '15%'}" icon-start>
             作业
           </button>
-          <button ion-button [ngStyle]="{'width': '25%'}" icon-start>
+          <button ion-button (click)="editSection(section.id)" [ngStyle]="{'width': '25%'}" icon-start>
             编辑章节
           </button>
         </ion-item>
@@ -189,6 +189,20 @@
             </button>
           </ion-item>
         </ion-card>
+      </ion-list>
+    </div>
+
+    <div class="list-avatar-page" *ngSwitchCase="'progress'">
+      <ion-list *ngFor="let item of progressList">
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{item.photo}}" alt="">
+          </ion-avatar>
+          <h2>{{item.username}}</h2>
+          <p *ngIf="item.lastLearning != 'null'">最近学习：{{item.lastLearning}}</p>
+          <p *ngIf="item.lastUnit != 'null'">上次学习：{{item.lastUnit}}</p>
+          <ion-note item-end>已学习{{item.finish}}节--{{item.percent}}%</ion-note>
+        </ion-item>
       </ion-list>
     </div>
 

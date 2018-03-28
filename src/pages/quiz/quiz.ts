@@ -52,7 +52,7 @@ export class QuizPage {
     }
   }
 
-  submintQuiz(){
+  submitQuiz(){
     let sectionId = this.navParams.data.id;
     let body = {
       sectionId:sectionId

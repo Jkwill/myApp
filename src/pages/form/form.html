@@ -1,0 +1,104 @@
+<!--
+  Generated template for the FormPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <!--<form action="" #pageForm="ngForm" (ngSubmit)="logForm(pageForm)" >-->
+    <!--<ion-row>-->
+      <!--<label for="name">名称</label>-->
+      <!--<input type="text" id="name" name="name" [(ngModel)]="newSection.name" required>-->
+    <!--</ion-row>-->
+    <!--<ion-row>-->
+      <!--<label for="startDate">开始时间</label>-->
+      <!--<input type="date" id="startDate" name="startDate" [(ngModel)]="newSection.startDate" required>-->
+    <!--</ion-row>-->
+    <!--<ion-row>-->
+      <!--<label for="introduction">章节介绍</label>-->
+      <!--<textarea id="introduction" name="introduction" [(ngModel)]="newSection.introduction" rows="5" cols="10"></textarea>-->
+    <!--</ion-row>-->
+    <!--<button ion-button type="submit" full>保存</button>-->
+  <!--</form>-->
+  <ion-list *ngIf="showSection">
+    <ion-item>
+      <ion-label>名称</ion-label>
+      <ion-input type="text" [(ngModel)]="sectionInfo.name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>开始时间</ion-label>
+      <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="sectionInfo.startDate" ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>结束时间</ion-label>
+      <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="sectionInfo.endDate" ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>介绍</ion-label>
+      <ion-textarea [(ngModel)]="sectionInfo.introduction"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <button ion-button (click)="saveSection()" block>保存</button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="showCourse">
+    <ion-item>
+      <ion-label>课程名称</ion-label>
+      <ion-input type="text" [(ngModel)]="courseInfo.name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>课程教材</ion-label>
+      <ion-input type="text" [(ngModel)]="courseInfo.textbook"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>课程类别</ion-label>
+      <ion-select [(ngModel)]="courseInfo.type">
+        <ion-option  *ngFor="let type of courseType" value="{{type.code}}">{{type.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>认证学分</ion-label>
+      <ion-input type="number" [(ngModel)]="courseInfo.credit"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>总学时</ion-label>
+      <ion-input type="number" [(ngModel)]="courseInfo.classHour"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>开课单位</ion-label>
+      <ion-select [(ngModel)]="courseInfo.department">
+        <ion-option *ngFor="let unit of department" value="{{unit.code}}">{{unit.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>介绍</ion-label>
+      <ion-textarea [(ngModel)]="courseInfo.introduction"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>是否设为公开课</ion-label>
+      <ion-checkbox [(ngModel)]="this.isOpen"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>开始时间</ion-label>
+      <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="courseInfo.startDate" ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>结束时间</ion-label>
+      <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="courseInfo.endDate" ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <button ion-button (click)="saveCourse()" block>保存</button>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

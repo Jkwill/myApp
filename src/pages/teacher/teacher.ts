@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, Platform, ToastController} from 'ionic-angular';
 import {CourseService} from "../../services/httpService/course.service";
+import {FormPage} from "../form/form";
+import {TeacherService} from "../../services/httpService/teacher.service";
 
 /**
  * Generated class for the TeacherPage page.
@@ -15,27 +17,41 @@ import {CourseService} from "../../services/httpService/course.service";
 })
 export class TeacherPage {
   courseDetail={};
+  courseId:string;
   courseResource:Object[];
   discussList:any[];
   messageList:Object[];
   homeworkList:Object[];
+  progressList:Object[];
+
 
   choose: string = "chapter";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public courseService:CourseService, public toastCtrl: ToastController, public platform: Platform) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public courseService:CourseService,public teacherService:TeacherService, public toastCtrl: ToastController, public platform: Platform) {
     platform.ready().then(() => {
-      let courseId = navParams.get('id');
-      this.getCourseInfo(courseId);
-      this.getCourseResource(courseId, "teacher");
-      this.getDiscussList(courseId);
-      this.getMessageList(courseId);
-      this.getHomeworkList(courseId);
+      this.courseId = navParams.get('id');
     });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TeacherPage');
+  ionViewWillEnter() {
+    this.getCourseInfo(this.courseId);
+    this.getCourseResource(this.courseId, "teacher");
+    this.getDiscussList(this.courseId);
+    this.getMessageList(this.courseId);
+    this.getHomeworkList(this.courseId);
+    this.getProgress(this.courseId);
   }
+
+  pushForm(formType)
+  {
+    this.navCtrl.push(FormPage, { id : this.courseId, type : formType });
+  }
+
+  editSection(id)
+  {
+    this.navCtrl.push(FormPage, { sectionId : id, id:this.courseId, type : 'section' });
+  }
+
 
   getDiscussList(cid){
     let paramObj = {
@@ -78,7 +94,6 @@ export class TeacherPage {
     this.courseService.courseDetail(paramObj).subscribe( res => {
       if(res.result=='success'){
         this.courseDetail = res;
-        console.log(res);
       }else{
         this.toastCtrl.create({
           message: '获取课程详情出错',
@@ -98,7 +113,6 @@ export class TeacherPage {
     this.courseService.courseResource(paramObj,type).subscribe(res =>{
       if(res.result=='success'){
         this.courseResource = res.section;
-        console.log(res);
       }else{
         this.toastCtrl.create({
           message: '获取课程章节出错',
@@ -129,13 +143,36 @@ export class TeacherPage {
       courseId: cid
     };
     this.courseService.listSHomework(paramObj).subscribe( res => {
-      console.log(res);
       if(res.result=='success') {
         this.homeworkList=res.homeworkList;
       }
     },error=>{
       console.log("error:"+error);
     })
+  }
+
+  getProgress(cid){
+    let paramObj = {
+      courseId: cid
+    };
+    this.teacherService.listProgress(paramObj).subscribe( res => {
+      console.log(res);
+      if(res.result == "success")
+      {
+        this.progressList = res.progress;
+      }
+      else
+      {
+        this.toastCtrl.create({
+          message: '获取学习进度失败',
+          duration: 1000,
+          position: 'top'
+        }).present();
+      }
+
+    }, error => {
+
+    });
   }
 
   goBack() {

@@ -4,6 +4,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { FormsModule } from '@angular/forms';
 
 import { LoginPage } from '../pages/login/login'
 import { CourseCenterPage } from '../pages/course-center/course-center';
@@ -17,6 +18,7 @@ import { PersonalInfoPage } from '../pages/personalInfo/personalInfo'
 import { OpenPage } from '../pages/open/open'
 import { QuizPage } from '../pages/quiz/quiz'
 import { TeacherPage } from '../pages/teacher/teacher'
+import { FormPage } from "../pages/form/form";
 
 import { BackButtonService } from '../services/uiService/backButton.service';
 import { HttpRequestService } from '../services/httpService/httpRequest.service';
@@ -26,6 +28,7 @@ import { CourseService } from '../services/httpService/course.service';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { GetDataProvider } from '../services/get-data/get-data';
+import {TeacherService} from "../services/httpService/teacher.service";
 
 
 @NgModule({
@@ -42,12 +45,14 @@ import { GetDataProvider } from '../services/get-data/get-data';
     VideoPage,
     OpenPage,
     QuizPage,
-    TeacherPage
+    TeacherPage,
+    FormPage
   ],
   imports: [
     BrowserModule,
     HttpModule,
     PdfViewerModule,
+    FormsModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -64,7 +69,8 @@ import { GetDataProvider } from '../services/get-data/get-data';
     VideoPage,
     OpenPage,
     QuizPage,
-    TeacherPage
+    TeacherPage,
+    FormPage
   ],
   providers: [
     StatusBar,
@@ -73,6 +79,7 @@ import { GetDataProvider } from '../services/get-data/get-data';
     HttpRequestService,
     AccountService,
     CourseService,
+    TeacherService,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GetDataProvider,
   ]

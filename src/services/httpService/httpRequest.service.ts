@@ -1,4 +1,4 @@
-import {Http, Headers} from "@angular/http";
+import {Http, Headers, RequestOptions} from "@angular/http";
 import {Injectable} from "@angular/core";
 import "rxjs/add/operator/toPromise";
 import "rxjs/Rx";
@@ -41,6 +41,8 @@ export class HttpRequestService {
   quitOpenCourse: string = "/lms/json/learning/quitOpenCourse" //退出某一门公开课
   doUpvote:string = "/lms/json/learning/doUpvote" //点赞处理
 
+  listProgress:string = "/lms/json/learning/listProgress" //列表显示全班学生的学习进度
+
   listAllCourse:string= '/lms/json/learning/listAllCourse';//课程列表信息
   listQuiz:string= '/lms/json/learning/listQuiz';//小测试试题列表(学生)
   formQuiz:string='/lms/json/creator/formQuiz';//小测试试题列表(教师)
@@ -53,6 +55,11 @@ export class HttpRequestService {
 
   courseThumbnail:string='/lms/json/learning/formThumbnail';//获取课程缩略图
 
+  //教师调用
+  formCourse:string = '/lms/json/creator/formCourse' //用于显示课程详细信息和编辑或新增课程信息
+  saveCourse:string = '/lms/json/creator/saveCourse' //保存课程基本信息
+  formSection:string = '/lms/json/creator/formSection' //用于显示章节详细信息和编辑或新增章节信息
+  saveSection:string = '/lms/json/creator/saveSection' //保存章节基本信息
     constructor(private http: Http) {
 
     }
@@ -77,6 +84,14 @@ export class HttpRequestService {
             }),
             withCredentials: true}
         ).map(res => res.json());
+    }
+
+    post1(url:string,body:Object): Observable<any> {
+        let formData = JSON.stringify(body);
+      let headers      = new Headers({ 'Content-Type': 'application/json' });
+      let options       = new RequestOptions({ headers: headers });
+      return this.http.post(this.host+url, formData, options).map(res => res.json())
+        .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
     }
 
 
