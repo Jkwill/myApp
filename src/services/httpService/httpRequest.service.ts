@@ -1,4 +1,4 @@
-import {Http, Headers, RequestOptions} from "@angular/http";
+import {Http, Headers} from "@angular/http";
 import {Injectable} from "@angular/core";
 import "rxjs/add/operator/toPromise";
 import "rxjs/Rx";
@@ -54,6 +54,7 @@ export class HttpRequestService {
   saveAccount: string='/lms/json/account/save';//修改个人信息
 
   courseThumbnail:string='/lms/json/learning/formThumbnail';//获取课程缩略图
+  upload:string = '/lms/json/learning/upload'; //统一的文件上传接口，负责所有的文件上传操作
 
   //教师调用
   formCourse:string = '/lms/json/creator/formCourse' //用于显示课程详细信息和编辑或新增课程信息
@@ -86,11 +87,10 @@ export class HttpRequestService {
         ).map(res => res.json());
     }
 
-    post1(url:string,body:Object): Observable<any> {
-        let formData = JSON.stringify(body);
-      let headers      = new Headers({ 'Content-Type': 'application/json' });
-      let options       = new RequestOptions({ headers: headers });
-      return this.http.post(this.host+url, formData, options).map(res => res.json())
+    postFile(url:string,body:Object): Observable<any> {
+      // let headers      = new Headers({ 'Content-Type': 'multipart/form-data;boundary=----WebKitFormBoundary4PCP0w0H0qxg16VB' });
+      // let options       = new RequestOptions({ headers: headers });
+      return this.http.post(this.host+url, body).map(res => res.json())
         .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
     }
 
@@ -104,5 +104,6 @@ export class HttpRequestService {
       res = res.substring(0, (res.length - 1));
       return res;
     }
+
 }
 

@@ -1,6 +1,7 @@
 export class CourseInfo {
   courseId: string;
   name: string;
+  filename: string;
   textbook: string;
   credit:number;
   classHour:number;
@@ -10,9 +11,10 @@ export class CourseInfo {
   endDate:string;
   type:string;
   department:string;
-  constructor(id:string, name:string, textbook:string, credit:number, classHour:number, introduction:string, isOpen:string, startDare:string, endDate:string, type:string, department:string){
+  constructor(id:string, name:string, filename:string, textbook:string, credit:number, classHour:number, introduction:string, isOpen:string, startDare:string, endDate:string, type:string, department:string){
     this.courseId = id;
     this.name = name;
+    this.filename = filename;
     this.textbook = textbook;
     this.credit = credit;
     this.classHour = classHour;
@@ -23,4 +25,5 @@ export class CourseInfo {
     this.type = type;
     this.department = department;
   }
+
 }

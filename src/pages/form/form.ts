@@ -19,15 +19,19 @@ export class FormPage {
   title:string="form";
   showCourse:boolean = false;
   showSection:boolean = false;
-  courseInfo:CourseInfo = new CourseInfo(' ',' ',' ',0,0,' ',' ',' ',' ', ' ', ' ');
+  file: any;
+  imgSrc:string;
+  showImg:boolean = false;
+  courseInfo:CourseInfo = new CourseInfo(' ',' ','',' ',0,0,' ',' ','2018-01-01','2018-03-24', ' ', ' ');
   isOpen:boolean = false;
   courseType:Object[];
   department:Object[];
-  sectionInfo:SectionInfo = new SectionInfo('','','','','','','');
+  sectionInfo:SectionInfo = new SectionInfo('','','','',0,'','2018-01-01','2018-01-01');
   constructor(public navCtrl: NavController, public teacherService:TeacherService,public toastCtrl: ToastController,  public navParams: NavParams) {
     let formType = this.navParams.get('type');
     let courseId = this.navParams.get('id');
     let sectionId = this.navParams.get('sectionId');
+    let orderId =  this.navParams.get('order');
     if(formType == "course")
     {
       this.title = "编辑课程";
@@ -37,7 +41,6 @@ export class FormPage {
     }
     else
     {
-      console.log(sectionId);
       this.title = "新增章节";
       this.showSection = true;
       this.showCourse = false;
@@ -45,7 +48,48 @@ export class FormPage {
       {
         this.formSection(courseId, sectionId);
       }
+      else
+      {
+        this.sectionInfo.courseId = courseId;
+        this.sectionInfo.sectionId = '0';
+        this.sectionInfo.orderId = orderId;
+      }
+
     }
+  }
+
+  imageUploaded(event) {
+    this.file = event.target.files[0];
+    let type = this.file.type.split('/')[0];
+    if (type !='image') {
+      alert('请上传图片');
+      return;
+    }
+    let size = Math.round(this.file.size / 1024 / 1024);
+    if (size > 10) {
+      alert('图片大小不得超过3M');
+      return;
+    };
+    var reader = new FileReader(); //新建FileReader对象
+    reader.readAsDataURL(this.file); //读取为base64
+    var that = this;
+    reader.onloadend = function (e) {
+      that.imgSrc = reader.result;
+      that.showImg = true;
+      that.teacherService.upload(that.file).subscribe( res => {
+        if(res.result == 'success')
+        {
+          that.courseInfo.filename = res.file[0].id;
+        }
+      }, error => {
+      });
+    }
+  }
+
+  imageRemoved() {
+    this.file = null;
+    this.imgSrc = '';
+    this.showImg = false;
   }
 
   formCourse(courseId)
@@ -66,13 +110,23 @@ export class FormPage {
         {
           this.isOpen = true;
         }
+        if(res.filepath != '')
+        {
+          this.showImg = true;
+          this.imgSrc = "http://lms.ccnl.scut.edu.cn/lms/custom/"+res.filepath;
+        }
+        else
+        {
+          this.showImg = false;
+        }
         let startDate:string = res.startDate;
         startDate = startDate.split(' ')[0];
         let endDate :string = res.endDate;
         endDate = endDate.split(' ')[0];
         let credit:number = parseInt(res.credit);
         let classHour:number = parseInt(res.classHour);
-        this.courseInfo = new CourseInfo(courseId, res.name, res.textbook, credit, classHour, res.introduction, res.isOpen, startDate, endDate, res.type, res.department);
+
+        this.courseInfo = new CourseInfo(courseId, res.name, res.filepath, res.textbook, credit, classHour, res.introduction, res.isOpen, startDate, endDate, res.type, res.department);
       }
     }, error => {
 
@@ -88,6 +142,10 @@ export class FormPage {
     else
     {
       this.courseInfo.isOpen = '1';
+    }
+    if(!this.showImg)
+    {
+      this.courseInfo.filename = '';
     }
     this.teacherService.saveCourse(this.courseInfo).subscribe( res => {
       if(res.result == 'success')
@@ -116,8 +174,8 @@ export class FormPage {
       startDate = startDate.split(' ')[0];
       let endDate :string = res.endDate;
       endDate = endDate.split(' ')[0];
-      console.log(res.name);
-      this.sectionInfo = new SectionInfo(courseId, sectionId, res.name, res.introduction, res.attach, startDate, endDate);
+      let orderId = parseInt(res.orderId);
+      this.sectionInfo = new SectionInfo(courseId, sectionId, res.name, res.introduction, orderId, res.attach, startDate, endDate);
       console.log(this.sectionInfo);
     }, error => {
 

@@ -4,7 +4,7 @@ import { VideoPage } from '../video/video'
 import { QuizPage } from '../quiz/quiz'
 import { CourseService} from "../../services/httpService/course.service"
 import {OpenPage} from "../open/open";
-import {Http, Headers} from "@angular/http";
+import {Http} from "@angular/http";
 
 /**
  * Generated class for the DetailPage page.

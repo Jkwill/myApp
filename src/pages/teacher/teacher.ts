@@ -23,6 +23,7 @@ export class TeacherPage {
   messageList:Object[];
   homeworkList:Object[];
   progressList:Object[];
+  sectionNum:number = 0;
 
 
   choose: string = "chapter";
@@ -44,7 +45,7 @@ export class TeacherPage {
 
   pushForm(formType)
   {
-    this.navCtrl.push(FormPage, { id : this.courseId, type : formType });
+    this.navCtrl.push(FormPage, { id : this.courseId, type : formType, order:this.sectionNum });
   }
 
   editSection(id)
@@ -113,6 +114,7 @@ export class TeacherPage {
     this.courseService.courseResource(paramObj,type).subscribe(res =>{
       if(res.result=='success'){
         this.courseResource = res.section;
+        this.sectionNum = this.courseResource.length;
       }else{
         this.toastCtrl.create({
           message: '获取课程章节出错',

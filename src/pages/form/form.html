@@ -35,6 +35,14 @@
       <ion-input type="text" [(ngModel)]="sectionInfo.name"></ion-input>
     </ion-item>
     <ion-item>
+      <ion-label>介绍</ion-label>
+      <ion-textarea [(ngModel)]="sectionInfo.introduction"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>序号</ion-label>
+      <ion-input type="number" [(ngModel)]="sectionInfo.orderId"></ion-input>
+    </ion-item>
+    <ion-item>
       <ion-label>开始时间</ion-label>
       <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="sectionInfo.startDate" ></ion-datetime>
     </ion-item>
@@ -42,10 +50,7 @@
       <ion-label>结束时间</ion-label>
       <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="sectionInfo.endDate" ></ion-datetime>
     </ion-item>
-    <ion-item>
-      <ion-label>介绍</ion-label>
-      <ion-textarea [(ngModel)]="sectionInfo.introduction"></ion-textarea>
-    </ion-item>
+
     <ion-item>
       <button ion-button (click)="saveSection()" block>保存</button>
     </ion-item>
@@ -55,6 +60,15 @@
     <ion-item>
       <ion-label>课程名称</ion-label>
       <ion-input type="text" [(ngModel)]="courseInfo.name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-card>
+        <img *ngIf="showImg" src="{{imgSrc}}" alt="">
+        <ion-card-content>
+          <input *ngIf="!showImg" type="file" (change)="imageUploaded($event)">
+          <button ion-button *ngIf="showImg" (click)="imageRemoved()" small block>删除</button>
+        </ion-card-content>
+      </ion-card>
     </ion-item>
     <ion-item>
       <ion-label>课程教材</ion-label>

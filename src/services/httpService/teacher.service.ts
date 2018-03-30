@@ -8,6 +8,13 @@ export class TeacherService{
 
   }
 
+  upload(file) {
+    let url:string = this.httpRequestService.upload;
+    let formData:FormData = new FormData();
+    formData.append('filedata',file,file.name);
+    return this.httpRequestService.postFile(url,formData);
+  }
+
   listProgress(paramObj) {
     let url: string = this.httpRequestService.listProgress + "?" + this.httpRequestService.serialize(paramObj);
     return this.httpRequestService.get(url);
@@ -21,7 +28,8 @@ export class TeacherService{
   saveCourse(model)
   {
     let url: string = this.httpRequestService.saveCourse;
-    return this.httpRequestService.post(url,this.httpRequestService.serialize(model));
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url,param);
   }
 
   formSection(paramObj) {
@@ -32,6 +40,7 @@ export class TeacherService{
   saveSection(model)
   {
     let url:string = this.httpRequestService.saveSection;
-    return this.httpRequestService.post(url, this.httpRequestService.serialize(model));
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url, param);
   }
 }
