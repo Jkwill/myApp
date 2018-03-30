@@ -108,6 +108,15 @@ export class CourseService {
     return this.httpRequestService.post(url, paramObj);
   }
 
+  submitHomework(paramObj) {
+    let url: string = this.httpRequestService.submitHomework;
+    return this.httpRequestService.post(url, paramObj);
+  }
+
+  uploadResourse(paramObj) {
+    let url: string = this.httpRequestService.uploadResourse;
+    return this.httpRequestService.resoursePost(url, paramObj);
+  }
 
 
 }

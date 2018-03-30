@@ -20,6 +20,9 @@ export class HttpRequestService {
   selectMember:string= '/weblib/login/selectMember.action?temp=' + Math.random();
   weblibLoginStatus:string="/weblib/user/status.action";
   downloadResource:string= '/weblib/group/downloadResource.action';
+  uploadResourse:string='/weblib/group/uploadResourceReturnId.action';
+  submitHomework:string='/lms/json/learning/submitHomework';
+
   downloadlms:string= '/lms/json/learning/download?id=';
   custom: string='/lms/custom/';
 
@@ -53,6 +56,7 @@ export class HttpRequestService {
   formAccount:string= '/lms/json/account/';
   saveAccount: string='/lms/json/account/save';//修改个人信息
 
+
   courseThumbnail:string='/lms/json/learning/formThumbnail';//获取课程缩略图
   upload:string = '/lms/json/learning/upload'; //统一的文件上传接口，负责所有的文件上传操作
 
@@ -78,7 +82,7 @@ export class HttpRequestService {
 
 
     //post请求
-    post(url: string,body): Observable<any> {
+    post(url,body): Observable<any> {
         return this.http.post(this.host+url, body,
           { headers: new Headers({
               "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
@@ -88,10 +92,17 @@ export class HttpRequestService {
     }
 
     postFile(url:string,body:Object): Observable<any> {
-      // let headers      = new Headers({ 'Content-Type': 'multipart/form-data;boundary=----WebKitFormBoundary4PCP0w0H0qxg16VB' });
-      // let options       = new RequestOptions({ headers: headers });
-      return this.http.post(this.host+url, body).map(res => res.json())
-        .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+      return this.http.post(this.host + url, body).map(res => res.json())
+        .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
+    }
+
+    resoursePost(url,body): Observable<any> {
+      return this.http.post(this.host + url, body,
+        {
+          headers: new Headers({}),
+          withCredentials: true
+        }
+      ).map(res => res.json());
     }
 
 

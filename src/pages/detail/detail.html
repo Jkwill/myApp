@@ -53,17 +53,15 @@
   <div [ngSwitch]="choose">
     <div *ngSwitchCase="'homework'">
       <ion-list *ngFor="let homework of homeworkList;let i = index">
-        <ion-card>
+        <ion-card (click)=openHomework(i)>
           <ion-item>
-          <h2 >
+          <h2>
             <ion-icon name="paper" [ngStyle]="{'color': '#4169E1'}"></ion-icon>
             {{homework.hName}}
           </h2>
           <p >章节：{{homework.section}}</p>
-          <p >介绍：{{homework.hIntroduction}}</p>
           <p >截止日期：{{homework.deadlineDate}}</p>
           <p >已提交作业：{{homework.hsAttachName}}</p>
-          <p>上传作业：<input type="file" (change)="upload($event,i)"></p>
           </ion-item>
         </ion-card>
       </ion-list>
@@ -99,9 +97,9 @@
           </button>
         </ion-item>
         <ion-item *ngFor="let item of section.homework">
-          <button ion-item  icon-start>
+          <button ion-item  (click)="openHomeworkFromId(item.id)" icon-start>
             <ion-icon name="paper" [ngStyle]="{'color': '#4169E1'}" item-start></ion-icon>
-            {{item.name}}--{{item.endDate}}
+            课程作业{{item.name}}
           </button>
         </ion-item>
         <ion-item *ngIf="section.quiz=='true'">

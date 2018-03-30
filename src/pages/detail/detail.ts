@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import {  NavController, NavParams,Platform,ToastController, AlertController } from 'ionic-angular';
 import { VideoPage } from '../video/video'
 import { QuizPage } from '../quiz/quiz'
+import { HomeworkPage } from '../homework/homework'
 import { CourseService} from "../../services/httpService/course.service"
 import {OpenPage} from "../open/open";
-import {Http} from "@angular/http";
 
 /**
  * Generated class for the DetailPage page.
@@ -27,64 +27,48 @@ export class DetailPage {
   parentId:string;
   courseId;
 
-  resource:string="../../assets/source/clear.mp4";
   choose: string = "chapter";
-  constructor(public navCtrl: NavController, public navParams: NavParams,public http:Http, public courseService:CourseService,public toastCtrl: ToastController,public platform: Platform,public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public courseService:CourseService,
+    public toastCtrl: ToastController,public platform: Platform,public alertCtrl: AlertController) {
     platform.ready().then(() => {
-      let courseId = navParams.get('id');
-      this.getCourseInfo(courseId);
-      this.getCourseResource(courseId, "student");
-      this.getDiscussList(courseId);
-      this.getMessageList(courseId);
-      this.getHomeworkList(courseId);
+      this.courseId = navParams.get('id');
     });
   }
-  upload(e,index){
+
+  ionViewWillEnter(){
+    this.getCourseInfo(this.courseId);
+    this.getCourseResource(this.courseId, "student");
+    this.getDiscussList(this.courseId);
+    this.getMessageList(this.courseId);
+    this.getHomeworkList(this.courseId);
+  }
+
+  openHomework(index){
     if(this.homeworkList[index].deadline != "false"){
-      alert("已过提交日期");
-    }else if(e.target.files[0]){
-      const file = e.target.files[0];
-      let url = "http://lms.ccnl.scut.edu.cn/weblib/group/uploadResourceReturnId.action";
-      //let groupId:string = "1646";
-      //let parentId:string = "0";
-      let homeworkId:string = this.homeworkList[index].hsId;
-      let attach ;
+      this.toastCtrl.create({
+          message: '已过提交日期',
+          duration: 2000,
+          position: 'top'
+        }).present();
+    }else{
+      //let homeworkId:string = this.homeworkList[index].hsId;
+      this.navCtrl.push(HomeworkPage,{ homework:this.homeworkList[index],groupId:this.groupId,parentId:this.parentId});
+  }
+ }
 
-      let formData:FormData = new FormData();
-      formData.append('groupId',this.groupId);
-      formData.append('parentId',this.parentId);
-      formData.append('homeworkId',homeworkId);
-      formData.append('attach',"");
-      formData.append('attachType',"");
-      formData.append('attachName',"");
-      formData.append('filedata',file,file.name);
-      console.log(this.homeworkList[0].hsId);
-
-      this.http.post(url,formData).map(res => res.json()).subscribe(res =>{
-        attach = res.file[0].id;
-        //console.log(res);
-      })
-      this.submit(homeworkId,attach,file.type,file.name);
-      this.getHomeworkList(this.courseId);
+  openHomeworkFromId(id){
+  let index;
+  console.log(id);
+    for(let i=0;i<this.homeworkList.length;i++){
+      console.log(this.homeworkList[i].hsId);
+      if(this.homeworkList[i].hId==id){
+        index=i;
+        break;
+      }
     }
-  }
-  submit(homeworkId,attach,attachType,attachName){
-    let formData:FormData = new FormData();
-    let url = "http://lms.ccnl.scut.edu.cn/lms/json/learning/submitHomework";
-    formData.append('groupId',this.groupId);
-    formData.append('parentId',this.parentId);
-    formData.append('homeworkId',homeworkId);
-    formData.append('attach',attach);
-    formData.append('attachType',attachType);
-    formData.append('attachName',attachName);
-    this.http.post(url,formData).map(res => res.json()).subscribe(res =>{
-        alert(res.message);
-    })
+    this.openHomework(index);
   }
 
-  ionViewDidEnter(){
-    console.log('view len:'+this.navCtrl.length());
-  }
 
   openVideoPage(uid){
     this.navCtrl.push(VideoPage,  { id : uid });
