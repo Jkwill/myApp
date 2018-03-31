@@ -41,13 +41,10 @@ export class HomeworkPage {
       formData.append('attachName',"");
       formData.append('filedata',file,file.name);
 
-
       this.courseService.uploadResourse(formData).subscribe(res =>{
-        //console.log("res");
         attach = res.file[0].id;
         attachType = res.file[0].ext;
         this.submit(this.homework.hsId,attach,attachType,file.name);
-        //console.log(res);
       })
     }
   }

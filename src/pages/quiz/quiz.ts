@@ -20,27 +20,21 @@ export class QuizPage {
   total:string;
   score:string;
   isResult:boolean = false;
+  cucumberMap:Map<string,Set<string>>=new Map();
+  cucumber:boolean=false;
+  sectionId:string;
   constructor(public navCtrl: NavController, public navParams: NavParams,public courseService:CourseService, public platform: Platform) {
     platform.ready().then(() => {
-      this.getQuizResult(navParams.data.id,navParams.data.ifFin);
+      this.sectionId=navParams.data.id;
+      this.getQuizResult(navParams.data.ifFin);
     });
   }
-  getQuizResult(sectionId,ifFinished){
+  getQuizResult(ifFinished){
     let paramObj = {
-      sectionId:sectionId
+      sectionId:this.sectionId
     };
     if(ifFinished == '1'){
-      this.isResult = true;
-      this.courseService.listQuizResult(paramObj).subscribe(res => {
-        console.log('quiz:'+res.quiz);
-        this.quizs = res.quiz;
-        this.sectionName = res.sectionName;
-        this.correct = res.correct;
-        this.total = res.total;
-        this.score = res.score;
-      },error => {
-        console.log(error);
-      });
+        this.showQuizResult();
     }
     else{
       this.courseService.listQuiz(paramObj).subscribe(res => {
@@ -52,16 +46,58 @@ export class QuizPage {
     }
   }
 
-  submitQuiz(){
-    let sectionId = this.navParams.data.id;
-    let body = {
-      sectionId:sectionId
+  showQuizResult(){
+    let paramObj = {
+      sectionId:this.sectionId
     };
-    this.courseService.submitQuiz(body).subscribe( res => {
-      console.log("submit success:"+res);
+      this.isResult = true;
+      this.courseService.listQuizResult(paramObj).subscribe(res => {
+      //console.log('quiz:'+res.quiz);
+      this.quizs = res.quiz;
+      this.sectionName = res.sectionName;
+      this.correct = res.correct;
+      this.total = res.total;
+      this.score = res.score;
+       },error => {
+        console.log(error);
+      });
+  }
+
+  updateCucumber(event,quizId,optionId){
+    if(event.checked){
+      if(this.cucumberMap.has(quizId)){
+          let options=this.cucumberMap.get(quizId);
+          options.add(optionId);
+      }else{
+        let options=new Set();
+        options.add(optionId);
+        this.cucumberMap.set(quizId,options);
+      }
+    }else{
+        let options=this.cucumberMap.get(quizId);
+        options.delete(optionId);
+    }
+  }
+
+  submintQuiz(){
+    this.courseService.submitQuiz(this.getQuizAnswer()).subscribe(res => {
+      this.showQuizResult();
     }, error => {
 
     })
+  }
+  getQuizAnswer(){
+    let sectionId = this.navParams.data.id;
+    let formData:URLSearchParams = new URLSearchParams();
+    formData.append('sectionId',sectionId);
+    for(let i=0;i<this.quizs.length;i++){
+      let quiz=this.quizs[i];
+      formData.append('quiz'+(i+1),quiz.quizId);
+      this.cucumberMap.get(quiz.quizId).forEach(function (element, index, array) {
+        formData.append('option'+(quiz.quizId),element);
+        });
+    }
+    return formData.toString();
   }
 
 }
