@@ -91,10 +91,9 @@ export class QuizPage {
     let formData:URLSearchParams = new URLSearchParams();
     formData.append('sectionId',sectionId);
     for(let i=0;i<this.quizs.length;i++){
-      let quiz=this.quizs[i];
-      formData.append('quiz'+(i+1),quiz.quizId);
-      this.cucumberMap.get(quiz.quizId).forEach(function (element, index, array) {
-        formData.append('option'+(quiz.quizId),element);
+      formData.append('quiz'+(i+1),this.quizs[i].quizId);
+      this.cucumberMap.get(this.quizs[i].quizId).forEach(function (element, index, array) {
+        formData.append('option'+(this.quizs[i].quizId),element);
         });
     }
     return formData.toString();

@@ -15,7 +15,7 @@ export class MinePage {
               public platform: Platform,public alertCtrl: AlertController) {
 
   }
-  ionViewWillEnter(){
+  ionViewWillEnter(){ 
     this.getUserInfo();
   }
   getUserInfo() {

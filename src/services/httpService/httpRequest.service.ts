@@ -22,6 +22,13 @@ export class HttpRequestService {
   downloadResource:string= '/weblib/group/downloadResource.action';
   uploadResourse:string='/weblib/group/uploadResourceReturnId.action';
   submitHomework:string='/lms/json/learning/submitHomework';
+  listStudent:string='/lms/json/learning/listStudent';
+  listTeacher:string='/lms/json/creator/listTeacher';
+  getAccountInfo:string='/lms/json/account/getAccountInfo';
+  addNewTeacher:string='/lms/json/creator/addNewTeacher';
+  addSingleStudent:string='/lms/json/learning/addSingleStudent';
+  removeTeacher:string='/lms/json/creator/removeTeacher';
+  removeStudent:string='/lms/json/learning/deleteStudent';
 
   downloadlms:string= '/lms/json/learning/download?id=';
   custom: string='/lms/custom/';

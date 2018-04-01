@@ -20,6 +20,8 @@ import { QuizPage } from '../pages/quiz/quiz'
 import {HomeworkPage}from '../pages/homework/homework'
 import { TeacherPage } from '../pages/teacher/teacher'
 import { FormPage } from "../pages/form/form";
+import { CourseSTPage } from "../pages/courseST/courseST";
+import { CourseSTFormPage } from "../pages/courseSTForm/courseSTForm";
 
 import { BackButtonService } from '../services/uiService/backButton.service';
 import { HttpRequestService } from '../services/httpService/httpRequest.service';
@@ -47,7 +49,9 @@ import {TeacherService} from "../services/httpService/teacher.service";
     OpenPage,
     QuizPage,
     TeacherPage,
-    FormPage
+    FormPage,
+    CourseSTPage,
+    CourseSTFormPage
   ],
   imports: [
     BrowserModule,
@@ -72,7 +76,9 @@ import {TeacherService} from "../services/httpService/teacher.service";
     OpenPage,
     QuizPage,
     TeacherPage,
-    FormPage
+    FormPage,
+    CourseSTPage,
+    CourseSTFormPage
   ],
   providers: [
     StatusBar,

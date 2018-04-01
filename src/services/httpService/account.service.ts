@@ -32,6 +32,11 @@ export class AccountService {
     return this.httpRequestService.get(url);
   }
 
+  getAccountInfo(paramObj){
+    let url: string = this.httpRequestService.getAccountInfo+ '?' + this.httpRequestService.serialize(paramObj);
+    return this.httpRequestService.get(url);
+  }
+
   login(paramObj) {
     let url: string = this.httpRequestService.login + '?' + this.httpRequestService.serialize(paramObj);
     return this.httpRequestService.get(url);

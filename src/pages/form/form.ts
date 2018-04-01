@@ -41,7 +41,7 @@ export class FormPage {
     }
     else
     {
-      this.title = "新增章节";
+      this.title = "编辑章节";
       this.showSection = true;
       this.showCourse = false;
       if(typeof (sectionId) != "undefined")

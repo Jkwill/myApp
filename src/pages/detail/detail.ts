@@ -215,8 +215,4 @@ export class DetailPage {
     confirm.present();
   }
 
-  goBack() {
-    this.navCtrl.pop();
-  }
-
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,ToastController,LoadingController } from 'ionic-angular';
 import { CourseService} from "../../services/httpService/course.service"
 
 /**
@@ -19,15 +19,15 @@ export class HomeworkPage {
   groupId;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public courseService:CourseService,
-    public toastCtrl: ToastController) {
+    public toastCtrl: ToastController,public loadingCtrl: LoadingController) {
     this.homework = this.navParams.data.homework;
     this.parentId=this.navParams.data.parentId;
     this.groupId=this.navParams.data.groupId;
   }
 
   upload(e){
-
-    if(e.target.files[0]){
+    let type = e.target.files[0].name.split('.')[1];
+    if(e.target.files[0]&&this.isHomework(type)){
       const file = e.target.files[0];
 
       let attach,attachType;
@@ -40,14 +40,33 @@ export class HomeworkPage {
       formData.append('attachType',"");
       formData.append('attachName',"");
       formData.append('filedata',file,file.name);
-
+      let loading = this.loadingCtrl.create({
+        content: '正在提交...'
+      });
+      loading.present();
       this.courseService.uploadResourse(formData).subscribe(res =>{
+        loading.dismiss();
         attach = res.file[0].id;
         attachType = res.file[0].ext;
         this.submit(this.homework.hsId,attach,attachType,file.name);
       })
+    }else{
+      this.toastCtrl.create({
+          message: "文件类型应为pdf/doc/txt",
+          duration: 3000,
+          position: 'middle'
+        }).present();
     }
   }
+
+  isHomework(type){
+    if(type=='pdf'||type=='doc'||type=='docx'||type=='txt'){
+      return true
+    }else{
+      return false;
+    }
+  }
+
   submit(homeworkId,attach,attachType,attachName){
 
     let dData = new URLSearchParams();

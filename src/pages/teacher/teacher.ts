@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, Platform, ToastController} from 'ionic-angular';
 import {CourseService} from "../../services/httpService/course.service";
 import {FormPage} from "../form/form";
+import {CourseSTPage} from '../courseST/courseST';
 import {TeacherService} from "../../services/httpService/teacher.service";
 
 /**
@@ -153,6 +154,10 @@ export class TeacherPage {
     })
   }
 
+  editStudentAndTeacher(){
+      this.navCtrl.push(CourseSTPage,  { courseId: this.courseId });
+  }
+
   getProgress(cid){
     let paramObj = {
       courseId: cid
@@ -177,7 +182,4 @@ export class TeacherPage {
     });
   }
 
-  goBack() {
-    this.navCtrl.pop();
-  }
 }

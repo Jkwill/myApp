@@ -37,10 +37,38 @@ export class TeacherService{
     return this.httpRequestService.get(url);
   }
 
+  getCourseStudent(paramObj){
+    let url: string = this.httpRequestService.listStudent + "?" + this.httpRequestService.serialize(paramObj);
+    return this.httpRequestService.get(url);
+  }
+
+  getCourseTeacher(paramObj){
+    let url: string = this.httpRequestService.listTeacher + "?" + this.httpRequestService.serialize(paramObj);
+    return this.httpRequestService.get(url);
+  }
+
   saveSection(model)
   {
     let url:string = this.httpRequestService.saveSection;
     let param = this.httpRequestService.serialize(model);
     return this.httpRequestService.post(url, param);
   }
+  addNewTeacher(paramObj){
+    let url: string = this.httpRequestService.addNewTeacher + "?" + this.httpRequestService.serialize(paramObj);
+    return this.httpRequestService.get(url);
+  }
+  addSingleStudent(paramObj){
+    let url: string = this.httpRequestService.addSingleStudent + "?" + this.httpRequestService.serialize(paramObj);
+    return this.httpRequestService.get(url);
+  }
+
+  removeTeacher(paramObj){
+    let url: string = this.httpRequestService.removeTeacher + "?" + this.httpRequestService.serialize(paramObj);
+    return this.httpRequestService.get(url);
+  }
+  removeStudent(paramObj){
+    let url: string = this.httpRequestService.removeStudent + "?" + this.httpRequestService.serialize(paramObj);
+    return this.httpRequestService.get(url);
+  }
+
 }

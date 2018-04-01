@@ -7,25 +7,19 @@
 
 <ion-header>
 
-  <ion-toolbar>
-    <ion-buttons left>
-      <button ion-button (click)="goBack()" icon-start>
-        <ion-icon name="arrow-back"></ion-icon>
-        back
-      </button>
-    </ion-buttons>
-    <ion-title align-items-center>课程</ion-title>
-  </ion-toolbar>
+    <ion-navbar>
+    <ion-title>课程</ion-title>
+  </ion-navbar>
 
 </ion-header>
 <ion-content class="card-background-page">
   <ion-fab top right edge>
-    <button ion-fab color="vibrant" mini><ion-icon name="add"></ion-icon></button>
-    <ion-fab-list>
+    <button ion-fab mini><ion-icon name="add"></ion-icon></button>
+    <ion-fab-list >
       <button ion-fab (click)="pushForm('course')">课程</button>
-      <button (click)="pushForm('section')" ion-fab>章节</button>
+      <button ion-fab (click)="pushForm('section')">章节</button>
       <button ion-fab>考试</button>
-      <button ion-fab>师生</button>
+      <button ion-fab (click)="editStudentAndTeacher()">师生</button>
     </ion-fab-list>
   </ion-fab>
 
@@ -117,7 +111,7 @@
         <ion-item-sliding *ngFor="let item of section.homework">
           <button ion-item  icon-start>
             <ion-icon name="paper" [ngStyle]="{'color': '#4169E1'}" item-start></ion-icon>
-            {{item.name}}--{{item.endDate}}
+            {{item.name}}
           </button>
           <ion-item-options>
             <button ion-button color="primary" icon-start>
