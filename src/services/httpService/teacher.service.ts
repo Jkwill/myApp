@@ -71,4 +71,66 @@ export class TeacherService{
     return this.httpRequestService.get(url);
   }
 
+  formHomework(paramObj)
+  {
+    let url:string = this.httpRequestService.formHomework + "?" +this.httpRequestService.serialize(paramObj);
+    return this.httpRequestService.get(url);
+  }
+
+  saveHomework(model)
+  {
+    let url:string = this.httpRequestService.saveHomework;
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url, param);
+  }
+
+  saveHomeworkAnswer(model)
+  {
+    let url:string = this.httpRequestService.saveHomeworkAnswer;
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url, param);
+  }
+
+  formUnit(param)
+  {
+    let url:string = this.httpRequestService.formUnit + "?" +this.httpRequestService.serialize(param);
+    return this.httpRequestService.get(url);
+  }
+
+  saveUnit(model)
+  {
+    let url:string = this.httpRequestService.saveUnit;
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url, param);
+  }
+
+  initFileUpload(param)
+  {
+    let url :string = this.httpRequestService.initFileUpload + "?" + this.httpRequestService.serialize(param);
+    return this.httpRequestService.get(url);
+  }
+
+  uploadResourse(paramObj) {
+    let url: string = this.httpRequestService.uploadResourse;
+    return this.httpRequestService.resourcePost(url, paramObj);
+  }
+
+  deleteSyllabus(model) {
+    let url:string = this.httpRequestService.deleteSyllabus;
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url, param);
+  }
+
+  deleteReference(model) {
+    let url:string = this.httpRequestService.deleteReference;
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url, param);
+  }
+
+  deleteSlides(model) {
+    let url:string = this.httpRequestService. deleteSlides;
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url, param);
+  }
+
 }

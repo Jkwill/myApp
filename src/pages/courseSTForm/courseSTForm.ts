@@ -66,7 +66,7 @@ export class CourseSTFormPage {
   }
   addNewUser(){
     this.username=this.username.replace(/\s+/g,"");
-    this.name-this.name.replace(/\s+/g,"");
+    this.name = this.name.replace(/\s+/g,"");
     if(this.username==''||this.name==''){
       this.toastCtrl.create({
           message: '用户账号和姓名不能为空',

@@ -4,6 +4,7 @@ import {CourseService} from "../../services/httpService/course.service";
 import {FormPage} from "../form/form";
 import {CourseSTPage} from '../courseST/courseST';
 import {TeacherService} from "../../services/httpService/teacher.service";
+import {FileUploadParam} from "../../model/FileUploadParam";
 
 /**
  * Generated class for the TeacherPage page.
@@ -19,6 +20,7 @@ import {TeacherService} from "../../services/httpService/teacher.service";
 export class TeacherPage {
   courseDetail={};
   courseId:string;
+  fileParam:FileUploadParam = new FileUploadParam('','','');
   courseResource:Object[];
   discussList:any[];
   messageList:Object[];
@@ -32,6 +34,7 @@ export class TeacherPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, public courseService:CourseService,public teacherService:TeacherService, public toastCtrl: ToastController, public platform: Platform) {
     platform.ready().then(() => {
       this.courseId = navParams.get('id');
+      this.initFileUpload(this.courseId);
     });
   }
 
@@ -52,6 +55,16 @@ export class TeacherPage {
   editSection(id)
   {
     this.navCtrl.push(FormPage, { sectionId : id, id:this.courseId, type : 'section' });
+  }
+
+  editHomework(sectionId, homeworkId)
+  {
+    this.navCtrl.push(FormPage, { sectionId:sectionId, homeworkId:homeworkId, fileParam:this.fileParam, type:'homework' })
+  }
+
+  editUnit(sectionId, unitId)
+  {
+    this.navCtrl.push(FormPage, { sectionId:sectionId, unitId:unitId, fileParam:this.fileParam, type:'unit' })
   }
 
 
@@ -126,6 +139,19 @@ export class TeacherPage {
     },error => {
       console.log("error: "+error);
     })
+  }
+
+  initFileUpload(cid)
+  {
+    let paramObj = {
+      courseId : cid
+    };
+    this.teacherService.initFileUpload(paramObj).subscribe( res => {
+      if(res.result == 'success'){
+          this.fileParam = new FileUploadParam(res.coolviewId, res.groupId, res.parentId);
+          console.log(this.fileParam);
+      }
+    }, error => {} );
   }
 
   getMessageList(cid){

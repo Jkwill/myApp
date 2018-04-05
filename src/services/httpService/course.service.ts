@@ -115,7 +115,7 @@ export class CourseService {
 
   uploadResourse(paramObj) {
     let url: string = this.httpRequestService.uploadResourse;
-    return this.httpRequestService.resoursePost(url, paramObj);
+    return this.httpRequestService.resourcePost(url, paramObj);
   }
 
 

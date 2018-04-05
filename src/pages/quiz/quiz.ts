@@ -14,13 +14,13 @@ import { CourseService} from "../../services/httpService/course.service"
   templateUrl: 'quiz.html',
 })
 export class QuizPage {
-  quizs:Object[];
+  quizs:any[];
   sectionName:string;
   correct:string;
   total:string;
   score:string;
   isResult:boolean = false;
-  cucumberMap:Map<string,Set<string>>=new Map();
+  cucumberMap:Map<string,Set<string>> = new Map();
   cucumber:boolean=false;
   sectionId:string;
   constructor(public navCtrl: NavController, public navParams: NavParams,public courseService:CourseService, public platform: Platform) {
@@ -91,7 +91,7 @@ export class QuizPage {
     let formData:URLSearchParams = new URLSearchParams();
     formData.append('sectionId',sectionId);
     for(let i=0;i<this.quizs.length;i++){
-      formData.append('quiz'+(i+1),this.quizs[i].quizId);
+      formData.append('quiz'+(i+1), this.quizs[i].quizId);
       this.cucumberMap.get(this.quizs[i].quizId).forEach(function (element, index, array) {
         formData.append('option'+(this.quizs[i].quizId),element);
         });

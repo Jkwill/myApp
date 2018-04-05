@@ -63,15 +63,24 @@ export class HttpRequestService {
   formAccount:string= '/lms/json/account/';
   saveAccount: string='/lms/json/account/save';//修改个人信息
 
-
   courseThumbnail:string='/lms/json/learning/formThumbnail';//获取课程缩略图
+  initFileUpload:string = '/lms/json/learning/initFileUpload'; //获取文件上传（weblib） 所需的参数（groupId、parentId、cooliewId）
   upload:string = '/lms/json/learning/upload'; //统一的文件上传接口，负责所有的文件上传操作
 
   //教师调用
-  formCourse:string = '/lms/json/creator/formCourse' //用于显示课程详细信息和编辑或新增课程信息
-  saveCourse:string = '/lms/json/creator/saveCourse' //保存课程基本信息
-  formSection:string = '/lms/json/creator/formSection' //用于显示章节详细信息和编辑或新增章节信息
-  saveSection:string = '/lms/json/creator/saveSection' //保存章节基本信息
+  formCourse:string = '/lms/json/creator/formCourse'; //用于显示课程详细信息和编辑或新增课程信息
+  saveCourse:string = '/lms/json/creator/saveCourse'; //保存课程基本信息
+  formSection:string = '/lms/json/creator/formSection'; //用于显示章节详细信息和编辑或新增章节信息
+  saveSection:string = '/lms/json/creator/saveSection'; //保存章节基本信息
+  formHomework:string = '/lms/json/learning/formHomework'; //返回作业基本信息，用于作业的新增或编辑
+  saveHomework:string = '/lms/json/learning/saveHomework';// 保存作业基本信息
+  saveHomeworkAnswer:string = '/lms/json/learning/saveHomeworkAnswer';
+  formUnit:string = '/lms/json/creator/formUnit';
+  saveUnit:string = '/lms/json/creator/saveUnit';
+  deleteSyllabus:string = '/lms/json/creator/deleteSyllabus';
+  deleteReference:string = '/lms/json/creator/deleteReference';
+  deleteSlides:string = '/lms/json/creator/deleteSlides';
+
     constructor(private http: Http) {
 
     }
@@ -103,7 +112,7 @@ export class HttpRequestService {
         .catch((error: any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    resoursePost(url,body): Observable<any> {
+    resourcePost(url,body): Observable<any> {
       return this.http.post(this.host + url, body,
         {
           headers: new Headers({}),

@@ -14,21 +14,7 @@
 
 
 <ion-content padding>
-  <!--<form action="" #pageForm="ngForm" (ngSubmit)="logForm(pageForm)" >-->
-    <!--<ion-row>-->
-      <!--<label for="name">名称</label>-->
-      <!--<input type="text" id="name" name="name" [(ngModel)]="newSection.name" required>-->
-    <!--</ion-row>-->
-    <!--<ion-row>-->
-      <!--<label for="startDate">开始时间</label>-->
-      <!--<input type="date" id="startDate" name="startDate" [(ngModel)]="newSection.startDate" required>-->
-    <!--</ion-row>-->
-    <!--<ion-row>-->
-      <!--<label for="introduction">章节介绍</label>-->
-      <!--<textarea id="introduction" name="introduction" [(ngModel)]="newSection.introduction" rows="5" cols="10"></textarea>-->
-    <!--</ion-row>-->
-    <!--<button ion-button type="submit" full>保存</button>-->
-  <!--</form>-->
+
   <ion-list *ngIf="showSection">
     <ion-item>
       <ion-label>名称</ion-label>
@@ -112,6 +98,102 @@
     </ion-item>
     <ion-item>
       <button ion-button (click)="saveCourse()" block>保存</button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="showHomework">
+    <ion-item>
+      <ion-label>作业名称</ion-label>
+      <ion-input type="text" [(ngModel)]="homeworkInfo.name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>开始时间</ion-label>
+      <ion-datetime displayFormat="YYYY-MM-DDTHH:mm" [(ngModel)]="homeworkInfo.startDate" ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>结束时间</ion-label>
+      <ion-datetime displayFormat="YYYY-MM-DDTHH:mm" [(ngModel)]="homeworkInfo.endDate" ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>作业说明</ion-label>
+      <ion-textarea [(ngModel)]="homeworkInfo.introduction"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>附件</ion-label>
+      <ion-input type="text" [(ngModel)]="homeworkInfo.chFilename" disabled></ion-input>
+    </ion-item>
+    <ion-item>
+      <input type="file" #uploadHomework (change)="homeworkUpload($event)" [ngStyle]="{'display':'none'}"/>
+      <button ion-button (click)="uploadHomework.click()" [ngStyle]="{'width': '40%'}">本地上传</button>
+      <button ion-button [ngStyle]="{'width': '40%'}">WebLib上传</button>
+    </ion-item>
+    <ion-item>
+      <ion-label>答案</ion-label>
+      <ion-input type="text" [(ngModel)]="homeworkInfo.answerName" disabled></ion-input>
+    </ion-item>
+    <ion-item>
+      <input type="file" #uploadAnswer (change)="answerUpload($event)" [ngStyle]="{'display':'none'}"/>
+      <button ion-button (click)="uploadAnswer.click()" [ngStyle]="{'width': '40%'}">本地上传</button>
+      <button ion-button [ngStyle]="{'width': '40%'}">WebLib上传</button>
+    </ion-item>
+    <ion-item>
+      <button ion-button (click)="saveHomework()" block>保存</button>
+    </ion-item>
+  </ion-list>
+
+  <ion-list *ngIf="showUnit">
+    <ion-item>
+      <ion-label>资料名称</ion-label>
+      <ion-input type="text" [(ngModel)]="unit.name"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>显示排序</ion-label>
+      <ion-input type="number" [(ngModel)]="unit.orderId"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>资料PDF</ion-label>
+      <ion-input type="text" [(ngModel)]="unit.syllabusFile" disabled></ion-input>
+    </ion-item>
+    <ion-item>
+      <input type="file" #uploadPdf (change)="pdfUpload($event)" [ngStyle]="{'display':'none'}"/>
+      <button ion-button (click)="uploadPdf.click()" [ngStyle]="{'width': '25%'}">本地上传</button>
+      <button ion-button (click)="deleteSyllabus()" [ngStyle]="{'width': '25%'}">清除</button>
+      <button ion-button [ngStyle]="{'width': '30%'}">WebLib上传</button>
+    </ion-item>
+    <ion-item>
+      <ion-label>资料视频</ion-label>
+      <ion-input type="text" [(ngModel)]="unit.slidesFile" disabled></ion-input>
+    </ion-item>
+    <ion-item>
+      <input type="file" #uploadVideo (change)="videoUpload($event)" [ngStyle]="{'display':'none'}"/>
+      <button ion-button (click)="uploadVideo.click()" [ngStyle]="{'width': '25%'}">本地上传</button>
+      <button ion-button (click)="deleteSlides()" [ngStyle]="{'width': '25%'}">清除</button>
+      <button ion-button [ngStyle]="{'width': '30%'}">WebLib上传</button>
+    </ion-item>
+    <ion-item>
+      <ion-label>辅导材料</ion-label>
+      <ion-input type="text" [(ngModel)]="unit.referenceFile" disabled></ion-input>
+    </ion-item>
+    <ion-item>
+      <input type="file" #uploadFile (change)="fileUpload($event)" [ngStyle]="{'display':'none'}"/>
+      <button ion-button (click)="uploadFile.click()" [ngStyle]="{'width': '25%'}">本地上传</button>
+      <button ion-button (click)="deleteReference()" [ngStyle]="{'width': '25%'}">清除</button>
+      <button ion-button [ngStyle]="{'width': '30%'}">WebLib上传</button>
+    </ion-item>
+    <ion-item>
+      <ion-label>开始时间</ion-label>
+      <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="unit.startDate" ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>结束时间</ion-label>
+      <ion-datetime displayFormat="MMM DD YYYY" [(ngModel)]="unit.endDate" ></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>资料说明</ion-label>
+      <ion-textarea [(ngModel)]="unit.introduction"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <button ion-button (click)="saveUnit()" block>保存</button>
     </ion-item>
   </ion-list>
 

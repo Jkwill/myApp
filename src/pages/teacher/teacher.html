@@ -97,7 +97,7 @@
             {{chapter.name}}
           </button>
           <ion-item-options>
-            <button ion-button color="primary" icon-start>
+            <button ion-button (click)="editUnit(section.id, chapter.id)" color="primary" icon-start>
               <ion-icon name="create"></ion-icon>
               Edit
             </button>
@@ -114,7 +114,7 @@
             {{item.name}}
           </button>
           <ion-item-options>
-            <button ion-button color="primary" icon-start>
+            <button ion-button (click)="editHomework(section.id, item.id)" color="primary" icon-start>
               <ion-icon name="create"></ion-icon>
               Edit
             </button>
@@ -144,13 +144,13 @@
 
         <ion-item>
           <ion-icon name="add-circle" color="primary" item-start></ion-icon>
-          <button ion-button [ngStyle]="{'width': '25%'}" icon-start>
+          <button ion-button (click)="editUnit(section.id,'0')" [ngStyle]="{'width': '25%'}" icon-start>
             教学元素
           </button>
           <button *ngIf="section.quiz!='true'" ion-button  [ngStyle]="{'width': '25%'}" icon-start>
             课堂测验
           </button>
-          <button ion-button [ngStyle]="{'width': '15%'}" icon-start>
+          <button ion-button (click)="editHomework(section.id, '0')" [ngStyle]="{'width': '15%'}" icon-start>
             作业
           </button>
           <button ion-button (click)="editSection(section.id)" [ngStyle]="{'width': '25%'}" icon-start>
