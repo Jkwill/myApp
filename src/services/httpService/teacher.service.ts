@@ -128,7 +128,25 @@ export class TeacherService{
   }
 
   deleteSlides(model) {
-    let url:string = this.httpRequestService. deleteSlides;
+    let url:string = this.httpRequestService.deleteSlides;
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url, param);
+  }
+
+  deleteUnit(model) {
+    let url:string = this.httpRequestService.deleteUnit;
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url, param);
+  }
+
+  deleteHomework(model) {
+    let url:string = this.httpRequestService.deleteHomework;
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url, param);
+  }
+
+  deleteSection(model) {
+    let url:string = this.httpRequestService.deleteSection;
     let param = this.httpRequestService.serialize(model);
     return this.httpRequestService.post(url, param);
   }

@@ -118,5 +118,11 @@ export class CourseService {
     return this.httpRequestService.resourcePost(url, paramObj);
   }
 
+  deleteCourse(model) {
+    let url:string = this.httpRequestService.deleteCourse;
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url, param);
+  }
+
 
 }

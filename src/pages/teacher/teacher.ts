@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform, ToastController} from 'ionic-angular';
+import { NavController, NavParams, Platform, ToastController, AlertController } from 'ionic-angular';
 import {CourseService} from "../../services/httpService/course.service";
 import {FormPage} from "../form/form";
 import {CourseSTPage} from '../courseST/courseST';
@@ -31,7 +31,7 @@ export class TeacherPage {
 
   choose: string = "chapter";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public courseService:CourseService,public teacherService:TeacherService, public toastCtrl: ToastController, public platform: Platform) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public courseService:CourseService,public teacherService:TeacherService, public toastCtrl: ToastController, public alertCtrl: AlertController, public platform: Platform) {
     platform.ready().then(() => {
       this.courseId = navParams.get('id');
       this.initFileUpload(this.courseId);
@@ -67,6 +67,109 @@ export class TeacherPage {
     this.navCtrl.push(FormPage, { sectionId:sectionId, unitId:unitId, fileParam:this.fileParam, type:'unit' })
   }
 
+  deleteSection(id)
+  {
+    let param = {
+      id : id
+    };
+    let confirm = this.alertCtrl.create({
+      title: '将同时删除下属资源，确认删除吗？',
+      buttons: [
+        {
+          text: '确定',
+          handler: () => {
+            this.teacherService.deleteSection(param).subscribe( res => {
+              if(res.result == "success")
+              {
+                this.getCourseResource(this.courseId, "teacher");
+                this.toastCtrl.create({
+                  message: '删除成功',
+                  duration: 1000,
+                  position: 'top'
+                }).present();
+              }
+            } , error => {})
+          }
+        },
+        {
+          text: '取消',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
+  deleteUnit(id)
+  {
+    let param = {
+      id : id
+    };
+    let confirm = this.alertCtrl.create({
+      title: '将同时删除下属资源，确认删除吗？',
+      buttons: [
+        {
+          text: '确定',
+          handler: () => {
+            this.teacherService.deleteUnit(param).subscribe( res => {
+              if(res.result == "success")
+              {
+                this.getCourseResource(this.courseId, "teacher");
+                this.toastCtrl.create({
+                  message: '删除成功',
+                  duration: 1000,
+                  position: 'top'
+                }).present();
+              }
+            } , error => {})
+          }
+        },
+        {
+          text: '取消',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    confirm.present();
+
+  }
+
+  deleteHomework(id)
+  {
+    let param = {
+      id : id
+    };
+    let confirm = this.alertCtrl.create({
+      title: '将同时删除所有学生上传的作业，确认删除吗？',
+      buttons: [
+        {
+          text: '确定',
+          handler: () => {
+            this.teacherService.deleteHomework(param).subscribe( res => {
+              if(res.result == "success")
+              {
+                this.getCourseResource(this.courseId, "teacher");
+                this.toastCtrl.create({
+                  message: '删除成功',
+                  duration: 1000,
+                  position: 'top'
+                }).present();
+              }
+            } , error => {})
+          }
+        },
+        {
+          text: '取消',
+          handler: () => {
+          }
+        }
+      ]
+    });
+    confirm.present();
+
+  }
 
   getDiscussList(cid){
     let paramObj = {

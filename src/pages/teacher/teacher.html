@@ -85,7 +85,20 @@
 
     <div *ngSwitchCase="'chapter'">
       <ion-list *ngFor="let section of courseResource">
-        <ion-list-header>{{section.name}}</ion-list-header>
+        <!--<ion-list-header>{{section.name}}</ion-list-header>-->
+        <ion-item-sliding>
+          <ion-item>{{section.name}}</ion-item>
+          <ion-item-options>
+            <button ion-button (click)="editSection(section.id)" color="primary" icon-start>
+              <ion-icon name="create"></ion-icon>
+              Edit
+            </button>
+            <button ion-button (click)="deleteSection(section.id)" color="secondary" icon-start>
+              <ion-icon name="trash"></ion-icon>
+              Del
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
 
         <ion-item-sliding *ngFor="let chapter of section.unit">
           <button ion-item *ngIf="chapter.slidesType != ''" icon-start>
@@ -101,7 +114,7 @@
               <ion-icon name="create"></ion-icon>
               Edit
             </button>
-            <button ion-button color="secondary" icon-start>
+            <button ion-button (click)="deleteUnit(chapter.id)" color="secondary" icon-start>
               <ion-icon name="trash"></ion-icon>
               Del
             </button>
@@ -118,7 +131,7 @@
               <ion-icon name="create"></ion-icon>
               Edit
             </button>
-            <button ion-button color="secondary" icon-start>
+            <button ion-button (click)="deleteHomework(item.id)" color="secondary" icon-start>
               <ion-icon name="trash"></ion-icon>
               Del
             </button>
@@ -144,18 +157,18 @@
 
         <ion-item>
           <ion-icon name="add-circle" color="primary" item-start></ion-icon>
-          <button ion-button (click)="editUnit(section.id,'0')" [ngStyle]="{'width': '25%'}" icon-start>
+          <button ion-button (click)="editUnit(section.id,'0')" [ngStyle]="{'width': '30%'}" icon-start>
             教学元素
           </button>
-          <button *ngIf="section.quiz!='true'" ion-button  [ngStyle]="{'width': '25%'}" icon-start>
+          <button *ngIf="section.quiz!='true'" ion-button  [ngStyle]="{'width': '30%'}" icon-start>
             课堂测验
           </button>
-          <button ion-button (click)="editHomework(section.id, '0')" [ngStyle]="{'width': '15%'}" icon-start>
+          <button ion-button (click)="editHomework(section.id, '0')" [ngStyle]="{'width': '20%'}" icon-start>
             作业
           </button>
-          <button ion-button (click)="editSection(section.id)" [ngStyle]="{'width': '25%'}" icon-start>
-            编辑章节
-          </button>
+          <!--<button ion-button (click)="editSection(section.id)" [ngStyle]="{'width': '25%'}" icon-start>-->
+            <!--编辑章节-->
+          <!--</button>-->
         </ion-item>
 
       </ion-list>
