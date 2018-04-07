@@ -21,10 +21,10 @@ export class TeacherPage {
   courseDetail={};
   courseId:string;
   fileParam:FileUploadParam = new FileUploadParam('','','');
-  courseResource:Object[];
+  courseResource:any;
   discussList:any[];
   messageList:Object[];
-  homeworkList:Object[];
+  homeworkList = new Array();
   progressList:Object[];
   sectionNum:number = 0;
 
@@ -43,7 +43,6 @@ export class TeacherPage {
     this.getCourseResource(this.courseId, "teacher");
     this.getDiscussList(this.courseId);
     this.getMessageList(this.courseId);
-    this.getHomeworkList(this.courseId);
     this.getProgress(this.courseId);
   }
 
@@ -129,6 +128,7 @@ export class TeacherPage {
       if(res.result=='success'){
         this.courseResource = res.section;
         this.sectionNum = this.courseResource.length;
+        this.getHomeworkList();
       }else{
         this.toastCtrl.create({
           message: '获取课程章节出错',
@@ -167,17 +167,21 @@ export class TeacherPage {
     })
   }
 
-  getHomeworkList(cid){
-    let paramObj = {
-      courseId: cid
-    };
-    this.courseService.listSHomework(paramObj).subscribe( res => {
-      if(res.result=='success') {
-        this.homeworkList=res.homeworkList;
+  getHomeworkList(){
+    for(let i = 0;i<this.sectionNum;i++){
+      let sectionName = this.courseResource[i].name;
+      for(let j=0;j<this.courseResource[i].homework.length;j++){
+        let homeworkName = this.courseResource[i].homework[j].name;
+        let endDate = this.courseResource[i].homework[j].endDate;
+        let homework = {
+          "sectionName":sectionName,
+          "homeworkName":homeworkName,
+          "endDate":endDate
+        }
+        //console.log("sectionName:"+sectionName+" "+"homeworkname:"+homeworkName+" "+"endDate:"+endDate);
+        this.homeworkList.push(homework);
       }
-    },error=>{
-      console.log("error:"+error);
-    })
+    }
   }
 
   editStudentAndTeacher(){
