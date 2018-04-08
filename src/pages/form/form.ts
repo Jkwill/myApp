@@ -309,43 +309,59 @@ export class FormPage {
 
   formCourse(courseId)
   {
-    let param = {
-      courseId : courseId
-    };
-    this.teacherService.formCourse(param).subscribe( res => {
-      if(res.result == 'success' )
-      {
-        this.courseType = res.courseType;
-        this.department = res.departmentType;
-        if(res.isOpen == '1')
-        {
-          this.isOpen = false;
+    if(typeof (courseId) == "undefined"){
+      this.teacherService.createCourse().subscribe( res => {
+        if(res.result == 'success'){
+          this.courseType = res.courseType;
+          this.department = res.departmentType;
         }
-        else
+      } , error => {
+      })
+    }
+    else{
+      let param = {
+        courseId : courseId
+      };
+      this.teacherService.formCourse(param).subscribe( res => {
+        if(res.result == 'success' )
         {
-          this.isOpen = true;
-        }
-        if(res.filepath != '')
-        {
-          this.showImg = true;
-          this.imgSrc = "http://lms.ccnl.scut.edu.cn/lms/custom/"+res.filepath;
-        }
-        else
-        {
-          this.showImg = false;
-        }
-        let startDate:string = res.startDate;
-        startDate = startDate.split(' ')[0];
-        let endDate :string = res.endDate;
-        endDate = endDate.split(' ')[0];
-        let credit:number = parseInt(res.credit);
-        let classHour:number = parseInt(res.classHour);
+          this.courseType = res.courseType;
+          this.department = res.departmentType;
+          if(res.isOpen == '1')
+          {
+            this.isOpen = false;
+          }
+          else
+          {
+            this.isOpen = true;
+          }
+          if(res.filepath != '')
+          {
+            this.showImg = true;
+            this.imgSrc = "http://lms.ccnl.scut.edu.cn/lms/custom/"+res.filepath;
+          }
+          else
+          {
+            this.showImg = false;
+          }
+          let startDate:string = res.startDate;
+          if(startDate != ''){
+            startDate = startDate.split(' ')[0];
+          }
+          let endDate :string = res.endDate;
+          if(endDate != ''){
+            endDate = endDate.split(' ')[0];
+          }
+          let credit:number = parseInt(res.credit);
+          let classHour:number = parseInt(res.classHour);
 
-        this.courseInfo = new CourseInfo(courseId, res.name, res.filepath, res.textbook, credit, classHour, res.introduction, res.isOpen, startDate, endDate, res.type, res.department);
-      }
-    }, error => {
+          this.courseInfo = new CourseInfo(courseId, res.name, res.filepath, res.textbook, credit, classHour, res.introduction, res.isOpen, startDate, endDate, res.type, res.department);
+        }
+      }, error => {
 
-    })
+      })
+    }
+
   }
 
   saveCourse()

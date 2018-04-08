@@ -17,3 +17,14 @@ page-course-center {
     font-family: "Microsoft YaHei";
     font-size: 14px;
 }
+.action-sheets-basic-page {
+  .ion-md-copy {
+    color: #508AE4;
+  }
+  .action-sheet-cancel ion-icon {
+    color: #757575;
+  }
+  .action-sheet-destructive ion-icon {
+    color: #ED4248;
+  }
+}

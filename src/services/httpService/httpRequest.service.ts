@@ -70,16 +70,21 @@ export class HttpRequestService {
   //教师调用
   formCourse:string = '/lms/json/creator/formCourse'; //用于显示课程详细信息和编辑或新增课程信息
   saveCourse:string = '/lms/json/creator/saveCourse'; //保存课程基本信息
+  deleteCourse:string = '/lms/json/creator/deleteCourse';
   formSection:string = '/lms/json/creator/formSection'; //用于显示章节详细信息和编辑或新增章节信息
   saveSection:string = '/lms/json/creator/saveSection'; //保存章节基本信息
+  deleteSection:string = '/lms/json/creator/deleteSection';
   formHomework:string = '/lms/json/learning/formHomework'; //返回作业基本信息，用于作业的新增或编辑
   saveHomework:string = '/lms/json/learning/saveHomework';// 保存作业基本信息
+  deleteHomework:string = '/lms/json/learning/deleteHomework';
   saveHomeworkAnswer:string = '/lms/json/learning/saveHomeworkAnswer';
   formUnit:string = '/lms/json/creator/formUnit';
   saveUnit:string = '/lms/json/creator/saveUnit';
+  deleteUnit:string = '/lms/json/creator/deleteUnit';
   deleteSyllabus:string = '/lms/json/creator/deleteSyllabus';
   deleteReference:string = '/lms/json/creator/deleteReference';
   deleteSlides:string = '/lms/json/creator/deleteSlides';
+
 
     constructor(private http: Http) {
 
