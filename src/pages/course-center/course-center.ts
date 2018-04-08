@@ -3,6 +3,7 @@ import { NavController,ToastController,Platform, AlertController, ActionSheetCon
 import { DetailPage } from '../detail/detail';
 import { TeacherPage } from '../teacher/teacher'
 import { CourseService} from "../../services/httpService/course.service"
+import {FormPage} from "../form/form";
 
 /**
  * Generated class for the CourseCenterPage page.
@@ -29,6 +30,10 @@ export class CourseCenterPage {
 
   ionViewWillEnter(){
     this.getAllCourseList();
+  }
+
+  createCourse() {
+    this.navCtrl.push(FormPage, { type : 'course' });
   }
 
   presentActionSheet(e, id) {

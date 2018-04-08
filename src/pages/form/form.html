@@ -45,7 +45,7 @@
   <ion-list *ngIf="showCourse">
     <ion-item>
       <ion-label>课程名称</ion-label>
-      <ion-input type="text" [(ngModel)]="courseInfo.name"></ion-input>
+      <ion-input type="text" [(ngModel)]="courseInfo.name" required></ion-input>
     </ion-item>
     <ion-item>
       <ion-card>
@@ -82,7 +82,7 @@
     </ion-item>
     <ion-item>
       <ion-label>介绍</ion-label>
-      <ion-textarea [(ngModel)]="courseInfo.introduction"></ion-textarea>
+      <ion-textarea [(ngModel)]="courseInfo.introduction" required></ion-textarea>
     </ion-item>
     <ion-item>
       <ion-label>是否设为公开课</ion-label>

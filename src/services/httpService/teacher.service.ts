@@ -21,8 +21,13 @@ export class TeacherService{
   }
 
   formCourse(paramObj) {
-    let url: string = this.httpRequestService.formCourse + "?" + this.httpRequestService.serialize(paramObj);
+    let url:string = this.httpRequestService.formCourse + "?" + this.httpRequestService.serialize(paramObj);
     return this.httpRequestService.get(url);
+  }
+
+  createCourse() {
+   let url:string = this.httpRequestService.formCourse;
+   return this.httpRequestService.get(url);
   }
 
   saveCourse(model)
