@@ -55,7 +55,6 @@ export class HttpRequestService {
 
   listAllCourse:string= '/lms/json/learning/listAllCourse';//课程列表信息
   listQuiz:string= '/lms/json/learning/listQuiz';//小测试试题列表(学生)
-  formQuiz:string='/lms/json/creator/formQuiz';//小测试试题列表(教师)
   submitQuiz: string='/lms/json/learning/submitQuiz';//提交小测试post
   listQuizResult:string= '/lms/json/learning/listQuizResult';//小测试结果列表
   // listExamResult: '/lms/json/learning/listExamResult',
@@ -84,6 +83,10 @@ export class HttpRequestService {
   deleteSyllabus:string = '/lms/json/creator/deleteSyllabus';
   deleteReference:string = '/lms/json/creator/deleteReference';
   deleteSlides:string = '/lms/json/creator/deleteSlides';
+  formQuiz:string = '/lms/json/creator/formQuiz';//小测试试题列表(教师)
+  saveQuiz:string = '/lms/json/creator/saveQuiz';
+  publishQuiz:string = '/lms/json/creator/publishQuiz';
+  deleteQuiz:string = '/lms/json/creator/deleteQuiz';
 
 
     constructor(private http: Http) {

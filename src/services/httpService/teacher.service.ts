@@ -156,4 +156,27 @@ export class TeacherService{
     return this.httpRequestService.post(url, param);
   }
 
+  formQuiz(param) {
+    let url = this.httpRequestService.formQuiz + "?" + this.httpRequestService.serialize(param);
+    return this.httpRequestService.get(url);
+  }
+
+  saveQuiz(model) {
+    let url = this.httpRequestService.saveQuiz;
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url, param);
+  }
+
+  publishQuiz(model) {
+    let url = this.httpRequestService.publishQuiz;
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url, param);
+  }
+
+  deleteQuiz(model) {
+    let url = this.httpRequestService.deleteQuiz;
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url, param);
+  }
+
 }

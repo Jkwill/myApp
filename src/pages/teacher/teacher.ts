@@ -5,6 +5,7 @@ import {FormPage} from "../form/form";
 import {CourseSTPage} from '../courseST/courseST';
 import {TeacherService} from "../../services/httpService/teacher.service";
 import {FileUploadParam} from "../../model/FileUploadParam";
+import {ExamPage} from "../exam/exam";
 
 /**
  * Generated class for the TeacherPage page.
@@ -44,6 +45,10 @@ export class TeacherPage {
     this.getDiscussList(this.courseId);
     this.getMessageList(this.courseId);
     this.getProgress(this.courseId);
+  }
+
+  pushExam(id) {
+    this.navCtrl.push(ExamPage, { id : id });
   }
 
   pushForm(formType)

@@ -101,7 +101,7 @@
         </ion-item-sliding>
 
         <ion-item-sliding *ngFor="let chapter of section.unit">
-          <button ion-item *ngIf="chapter.slidesType != ''" icon-start>
+          <button ion-item (click)="editUnit(section.id, chapter.id)" *ngIf="chapter.slidesType != ''" icon-start>
             <ion-icon name="logo-youtube" [ngStyle]="{'color': '#4169E1'}" item-start></ion-icon>
             {{chapter.name}}
           </button>
@@ -110,11 +110,11 @@
             {{chapter.name}}
           </button>
           <ion-item-options>
-            <button ion-button (click)="editUnit(section.id, chapter.id)" color="primary" icon-start>
-              <ion-icon name="create"></ion-icon>
-              Edit
-            </button>
-            <button ion-button (click)="deleteUnit(chapter.id)" color="secondary" icon-start>
+            <!--<button ion-button (click)="editUnit(section.id, chapter.id)" color="primary" icon-start>-->
+              <!--<ion-icon name="create"></ion-icon>-->
+              <!--Edit-->
+            <!--</button>-->
+            <button ion-button (click)="deleteUnit(chapter.id)" icon-start>
               <ion-icon name="trash"></ion-icon>
               Del
             </button>
@@ -139,16 +139,12 @@
         </ion-item-sliding>
 
         <ion-item-sliding *ngIf="section.quiz=='true'">
-          <button ion-item icon-start>
+          <button ion-item (click)="pushExam(section.id)" icon-start>
             <ion-icon name="star" [ngStyle]="{'color': '#4169E1'}" item-start></ion-icon>
             小测验
           </button>
           <ion-item-options>
-            <button ion-button color="primary" icon-start>
-              <ion-icon name="create"></ion-icon>
-              Edit
-            </button>
-            <button ion-button color="secondary" icon-start>
+            <button ion-button icon-start>
               <ion-icon name="trash"></ion-icon>
               Del
             </button>
@@ -160,7 +156,7 @@
           <button ion-button (click)="editUnit(section.id,'0')" [ngStyle]="{'width': '30%'}" icon-start>
             教学元素
           </button>
-          <button *ngIf="section.quiz!='true'" ion-button  [ngStyle]="{'width': '30%'}" icon-start>
+          <button *ngIf="section.quiz!='true'" (click)="pushExam(section.id)" ion-button  [ngStyle]="{'width': '30%'}" icon-start>
             课堂测验
           </button>
           <button ion-button (click)="editHomework(section.id, '0')" [ngStyle]="{'width': '20%'}" icon-start>
