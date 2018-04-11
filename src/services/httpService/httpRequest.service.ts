@@ -87,7 +87,13 @@ export class HttpRequestService {
   saveQuiz:string = '/lms/json/creator/saveQuiz';
   publishQuiz:string = '/lms/json/creator/publishQuiz';
   deleteQuiz:string = '/lms/json/creator/deleteQuiz';
-
+  formCourseQuiz:string = '/lms/json/creator/formCourseQuiz';
+  getRandomNumOfCourseExam:string = '/lms/json/creator/getRandomNumOfCourseExam';
+  setRandomNumOfCourseExam:string = '/lms/json/creator/setRandomNumOfCourseExam';
+  listCourseExams:string = '/lms/json/creator/listCourseExams';
+  listCourseRandomExam:string = '/lms/json/learning/listCourseRandomExams';
+  publishCourseExams:string = '/lms/json/creator/publishCourseExams';
+  listStudentScore:string = '/lms/json/learning/listStudentQuizScoreByCourse';
 
     constructor(private http: Http) {
 

@@ -179,4 +179,37 @@ export class TeacherService{
     return this.httpRequestService.post(url, param);
   }
 
+  formCourseQuiz(param) {
+    let url = this.httpRequestService.formCourseQuiz + "?" + this.httpRequestService.serialize(param);
+    return this.httpRequestService.get(url);
+  }
+
+  setRandomExam(model) {
+    let url = this.httpRequestService.setRandomNumOfCourseExam;
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url, param);
+  }
+
+  getRandomExam(param) {
+    let url = this.httpRequestService.getRandomNumOfCourseExam + "?" + this.httpRequestService.serialize(param);
+    return this.httpRequestService.get(url);
+  }
+
+  listStudentScore(param) {
+    let url = this.httpRequestService.listStudentScore + "?" + this.httpRequestService.serialize(param);
+    return this.httpRequestService.get(url);
+  }
+
+  listCoursRandomExams(param) {
+    let url = this.httpRequestService.listCourseRandomExam + "?" + this.httpRequestService.serialize(param);
+    return this.httpRequestService.get(url);
+  }
+
+  publishCourseExams(model) {
+    let url = this.httpRequestService.publishCourseExams;
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url, param);
+  }
+
+
 }

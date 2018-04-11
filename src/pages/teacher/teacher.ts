@@ -6,6 +6,7 @@ import {CourseSTPage} from '../courseST/courseST';
 import {TeacherService} from "../../services/httpService/teacher.service";
 import {FileUploadParam} from "../../model/FileUploadParam";
 import {ExamPage} from "../exam/exam";
+import {FinalExamPage} from "../final-exam/final-exam";
 
 /**
  * Generated class for the TeacherPage page.
@@ -54,6 +55,11 @@ export class TeacherPage {
   pushForm(formType)
   {
     this.navCtrl.push(FormPage, { id : this.courseId, type : formType, order:this.sectionNum });
+  }
+
+  pushFinalExam()
+  {
+    this.navCtrl.push(FinalExamPage, { id : this.courseId });
   }
 
   editSection(id)

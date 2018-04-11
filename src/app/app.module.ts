@@ -33,6 +33,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {TeacherService} from "../services/httpService/teacher.service";
 import {SubjectPage} from "../pages/subject/subject";
+import {FinalExamPage} from "../pages/final-exam/final-exam";
 
 
 
@@ -56,7 +57,8 @@ import {SubjectPage} from "../pages/subject/subject";
     CourseSTPage,
     CourseSTFormPage,
     ExamPage,
-    SubjectPage
+    SubjectPage,
+    FinalExamPage
   ],
   imports: [
     BrowserModule,
@@ -85,7 +87,8 @@ import {SubjectPage} from "../pages/subject/subject";
     CourseSTPage,
     CourseSTFormPage,
     ExamPage,
-    SubjectPage
+    SubjectPage,
+    FinalExamPage
   ],
   providers: [
     StatusBar,
