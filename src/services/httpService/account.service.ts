@@ -52,8 +52,6 @@ export class AccountService {
     return this.httpRequestService.get(url);
   }
 
-
-
   saveAccount(paramObj){
     let url: string = this.httpRequestService.saveAccount;
     return this.httpRequestService.post(url,paramObj);
