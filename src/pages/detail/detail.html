@@ -81,11 +81,11 @@
       <ion-list *ngFor="let section of courseResource">
         <ion-list-header>{{section.name}}</ion-list-header>
         <ion-item *ngFor="let chapter of section.unit">
-          <button ion-item *ngIf="chapter.slidesType != ''" (click)="openVideoPage(chapter.id)" icon-start>
+          <button ion-item *ngIf="chapter.slidesType != ''" (click)="openVideoPage(chapter.id,chapter.name)" icon-start>
             <ion-icon name="logo-youtube" [ngStyle]="{'color': '#4169E1'}" item-start></ion-icon>
             {{chapter.name}}
           </button>
-          <button ion-item *ngIf="chapter.slidesType == ''" (click)="openVideoPage(chapter.id)" icon-start>
+          <button ion-item *ngIf="chapter.slidesType == ''" (click)="openVideoPage(chapter.id,chapter.name)" icon-start>
             <ion-icon name="document" color="secondary" item-start></ion-icon>
             {{chapter.name}}
           </button>
@@ -93,7 +93,7 @@
         <ion-item *ngFor="let item of section.homework">
           <button ion-item  (click)="openHomeworkFromId(item.id)" icon-start>
             <ion-icon name="paper" [ngStyle]="{'color': '#4169E1'}" item-start></ion-icon>
-            课程作业{{item.name}}
+            {{item.name}}
           </button>
         </ion-item>
         <ion-item *ngIf="section.quiz=='true'">

@@ -1,10 +1,7 @@
-<ion-content>
+<ion-content >
       <ion-card *ngFor="let openItem of openItems" >
         <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{openItem.filepath}}">
-        <ion-card-title>{{openItem.name}}</ion-card-title>
-        <ion-card-content>
-          {{openItem.introduction}}
-        </ion-card-content>
+        <ion-card-title padding>{{openItem.name}}</ion-card-title>
         <ion-row>
           <ion-col>
             <button ion-button icon-left clear small>

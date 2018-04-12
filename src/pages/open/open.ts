@@ -57,7 +57,4 @@ export class OpenPage {
     })
   }
 
-  goBack() {
-    this.navCtrl.pop();
-  }
 }

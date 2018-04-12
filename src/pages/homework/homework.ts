@@ -14,6 +14,7 @@ import { CourseService} from "../../services/httpService/course.service"
   templateUrl: 'homework.html',
 })
 export class HomeworkPage {
+  title:string;
   homework;
   parentId;
   groupId;
@@ -23,6 +24,7 @@ export class HomeworkPage {
     this.homework = this.navParams.data.homework;
     this.parentId=this.navParams.data.parentId;
     this.groupId=this.navParams.data.groupId;
+    this.title=this.homework.hName;
   }
 
   upload(e){

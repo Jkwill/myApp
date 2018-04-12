@@ -13,6 +13,7 @@ import { AccountService} from "../../services/httpService/account.service"
   templateUrl: 'video.html',
 })
 export class VideoPage {
+  title:string;
   videoUrl:string;
   syllabus:string;
   pdfSrc:string;
@@ -22,6 +23,7 @@ export class VideoPage {
   hasVideo:boolean = true;
   constructor(public navCtrl: NavController, public navParams: NavParams,public accountService:AccountService,public courseService:CourseService,public platform: Platform) {
     platform.ready().then(() => {
+      this.title=this.navParams.data.name;
           let isLogin:string=localStorage.getItem("isLoginWeblib");
           if(isLogin=="Y"){
               this.getCourseware(this.navParams.data.id);

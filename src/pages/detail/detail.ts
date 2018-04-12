@@ -70,8 +70,8 @@ export class DetailPage {
   }
 
 
-  openVideoPage(uid){
-    this.navCtrl.push(VideoPage,  { id : uid });
+  openVideoPage(uid,name){
+    this.navCtrl.push(VideoPage,  { id : uid,name:name });
   }
 
   getDiscussList(cid){
