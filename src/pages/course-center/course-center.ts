@@ -19,8 +19,10 @@ import {FormPage} from "../form/form";
 export class CourseCenterPage {
 
   segment: string = "study";
-  studyItems:Object[];
-  teachItems:Object[];
+  studyItems:any[];
+  teachItems:any[];
+  studyThumbnails:string[] = [];
+  teachThumbnails:string[] = [];
   constructor(public navCtrl: NavController, public courseService:CourseService,
               public toastCtrl: ToastController, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, public platform: Platform) {
     platform.ready().then(() => {
@@ -112,6 +114,15 @@ export class CourseCenterPage {
       if(res.result=='success'){
         this.studyItems=res.student;
         this.teachItems=res.teacher;
+        // for(let item of this.studyItems){
+        //   this.studyThumbnails.push(item.filepath);
+        // }
+        // for(let item of this.teachItems){
+        //   this.teachThumbnails.push(item.filepath);
+        // }
+        // this.formThumnail(this.studyThumbnails, 'study');
+        // this.formThumnail(this.teachThumbnails, 'teach');
+
       }else{
         this.toastCtrl.create({
           message: '获取课程列表出错',
@@ -127,7 +138,23 @@ export class CourseCenterPage {
       }).present();
       console.log(error);
     });
-
   }
+
+  // formThumnail(filepaths,type)
+  // {
+  //   let width:number = 384;
+  //   let height:number = 216;
+  //   this.courseService.formThumbnail(width, height, filepaths).subscribe( res => {
+  //     if(res.result == "success"){
+  //       if(type == 'study'){
+  //         this.studyThumbnails = res.thumbnail;
+  //       }
+  //       else{
+  //         this.teachThumbnails = res.thumbnail;
+  //       }
+  //     }
+  //   } , error => {})
+  //
+  // }
 
 }

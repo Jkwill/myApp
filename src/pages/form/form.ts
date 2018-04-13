@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {NavController, NavParams, ToastController} from 'ionic-angular';
+import { LoadingController, NavController, NavParams, ToastController} from 'ionic-angular';
 import {TeacherService} from "../../services/httpService/teacher.service";
 import { CourseInfo } from "../../model/CourseInfo"
 import {SectionInfo} from "../../model/SectionInfo";
@@ -36,7 +36,7 @@ export class FormPage {
   homeworkInfo:HomeworkInfo = new HomeworkInfo('', '','','','','','','', '','','','2018-01-01T12:00','2018-01-01T12:00');
   unit:Unit = new Unit('','', '','','','2018-01-01','2018-01-01',0,'','','','','','','','','');
 
-  constructor(public navCtrl: NavController, public teacherService:TeacherService,public toastCtrl: ToastController,  public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public teacherService:TeacherService,public toastCtrl: ToastController, public loadingCtrl: LoadingController, public navParams: NavParams) {
     let formType = this.navParams.get('type');
     let courseId = this.navParams.get('id');
     let sectionId = this.navParams.get('sectionId');
@@ -120,6 +120,10 @@ export class FormPage {
       }).present();
       return;
     }
+    let loading = this.loadingCtrl.create({
+      content: '文件上传中...'
+    });
+    loading.present();
     let formData:FormData = new FormData();
     formData.append('coolviewId', this.fileParam.coolviewId);
     formData.append('groupId', this.fileParam.groupId);
@@ -128,6 +132,7 @@ export class FormPage {
     this.teacherService.uploadResourse(formData).subscribe( res => {
       this.unit.syllabusFile = res.file[0].filename;
       this.unit.syllabus = res.file[0].id;
+      loading.dismiss();
     } , error => {});
   }
 
@@ -143,6 +148,10 @@ export class FormPage {
       }).present();
       return;
     }
+    let loading = this.loadingCtrl.create({
+      content: '视频上传中...'
+    });
+    loading.present();
     let formData:FormData = new FormData();
     formData.append('coolviewId', this.fileParam.coolviewId);
     formData.append('groupId', this.fileParam.groupId);
@@ -152,12 +161,17 @@ export class FormPage {
       this.unit.slidesFile = res.file[0].filename;
       this.unit.slides = res.file[0].id;
       this.unit.slidesType = res.file[0].ext;
+      loading.dismiss();
     } , error => {});
   }
 
   fileUpload(event)
   {
     this.file = event.target.files[0];
+    let loading = this.loadingCtrl.create({
+      content: '文件上传中...'
+    });
+    loading.present();
     let formData:FormData = new FormData();
     formData.append('coolviewId', this.fileParam.coolviewId);
     formData.append('groupId', this.fileParam.groupId);
@@ -166,6 +180,7 @@ export class FormPage {
     this.teacherService.uploadResourse(formData).subscribe( res => {
       this.unit.referenceFile = res.file[0].filename;
       this.unit.reference = res.file[0].id;
+      loading.dismiss();
     } , error => {});
   }
 

@@ -124,5 +124,15 @@ export class CourseService {
     return this.httpRequestService.post(url, param);
   }
 
+  formThumbnail(width, height, thumbnails) {
+    let url: string = this.httpRequestService.courseThumbnail + "?" + "width="+width+"&"+"height="+height;
+    for(let t of thumbnails){
+      let param = "&filepath="+t
+      url += param;
+    }
+    console.log(url);
+    return this.httpRequestService.get(url);
+  }
+
 
 }
