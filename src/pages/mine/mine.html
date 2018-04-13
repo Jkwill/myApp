@@ -7,7 +7,7 @@
 
 
     <ion-list>
-      <ion-item (click)="changePersonalInfo()">
+      <ion-item>
         <ion-avatar item-start>
           <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{userInfo?.photo}}" onerror="this.src='./assets/imgs/person.png'"/>
         </ion-avatar>
@@ -15,7 +15,7 @@
         <h4>{{userInfo?.email}}</h4>
         <p>{{userInfo?.introduction}}</p>
       </ion-item>
-      <button ion-item  icon-start><ion-icon name="person" [ngStyle]="{'color':'#000'}"item-start></ion-icon>个人中心</button>
+      <button ion-item (click)="changePersonalInfo()"  icon-start><ion-icon name="person" [ngStyle]="{'color':'#000'}"item-start></ion-icon>个人信息</button>
       <button ion-item  icon-start><ion-icon name="mail" [ngStyle]="{'color':'#000'}"item-start></ion-icon>私信</button>
       <button ion-item (click)="confirmLogout()" icon-start><ion-icon name="exit" [ngStyle]="{'color':'#000'}"item-start></ion-icon>退出账号</button>
     </ion-list>

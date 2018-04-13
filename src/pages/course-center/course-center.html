@@ -27,7 +27,6 @@
         <ion-item *ngFor="let teachItem of teachItems;let i = index" (click)="openTeacherPage(teachItem.id)" (press)="presentActionSheet($event, teachItem.id)">
           <ion-thumbnail item-start>
             <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{teachThumbnails[i]}}" onerror="this.src='./assets/imgs/course.png'">
-            <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{teachItem.filepath}}" >
           </ion-thumbnail>
           <h3>{{teachItem.name}}</h3>
           <p>{{teachItem.introduction}}</p>
