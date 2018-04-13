@@ -9,7 +9,7 @@
     <ion-list>
       <ion-item (click)="changePersonalInfo()">
         <ion-avatar item-start>
-          <img src="../../assets/imgs/tou.jpg" alt="">
+          <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{userInfo?.photo}}" onerror="this.src='./assets/imgs/person.png'"/>
         </ion-avatar>
         <h2 >{{userInfo?.username}}</h2>
         <h4>{{userInfo?.email}}</h4>

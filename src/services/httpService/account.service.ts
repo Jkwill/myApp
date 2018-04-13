@@ -3,6 +3,7 @@ import {Injectable} from "@angular/core";
 
 @Injectable()
 export class AccountService {
+  timer;
   constructor(private httpRequestService: HttpRequestService) {
 
   }
@@ -55,6 +56,21 @@ export class AccountService {
   saveAccount(paramObj){
     let url: string = this.httpRequestService.saveAccount;
     return this.httpRequestService.post(url,paramObj);
+  }
+
+  keepConnection(){
+    this.timer=setInterval(()=>{
+        let paramObj = {
+        };
+        this.weblibLoginStatus(paramObj).subscribe(res=>{
+           },error=>{
+            console.log("error: "+error);
+          });
+    },6000) 
+  }
+
+  closeConnection(){
+    clearInterval(this.timer);
   }
 
 }

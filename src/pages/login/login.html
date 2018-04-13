@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-content>
-
+  <img src="./assets/imgs/login.jpg">
   <ion-list>
 
     <ion-item>
@@ -27,5 +27,12 @@
   <div padding>
     <button ion-button color="primary" (click)="logIn()" block>登录</button>
   </div>
+  
+  <ion-item no-lines>
+  <button ion-button item-right (click)="changeHost()" clear small>
+  <div>更改服务器</div>
+  <ion-icon name="arrow-forward"></ion-icon>
+  </button>
+  </ion-item>
 
 </ion-content>

@@ -24,7 +24,7 @@
   </ion-fab>
 
   <ion-card>
-    <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{courseDetail.filepath}}"/>
+    <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{courseDetail.filepath}}" onerror="this.src='./assets/imgs/course.png'"/>
     <div class="card-title">{{courseDetail.name}}</div>
     <div class="card-subtitle">{{courseDetail.startDateString}} - {{courseDetail.endDateString}}</div>
   </ion-card>
@@ -111,7 +111,7 @@
         <ion-card>
           <ion-item>
             <ion-avatar item-start>
-              <img src="../../assets/imgs/tou.jpg">
+              <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{discuss?.photo}}" onerror="this.src='./assets/imgs/person.png'">
             </ion-avatar>
             <h2>{{discuss.creatorName}}</h2>
             <p>{{discuss.content}}</p>
