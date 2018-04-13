@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { ToastController,ModalController} from 'ionic-angular';
+import { ToastController,ModalController,NavController} from 'ionic-angular';
 import { Platform } from 'ionic-angular';
 import { BackButtonService } from "../../services/uiService/backButton.service";
 import { AccountService} from "../../services/httpService/account.service"
-
+import { ChangeHostPage } from  "../changeHost/changeHost"
 import {TabsPage} from "../tabs/tabs";
 
 /**
@@ -22,7 +22,7 @@ export class LoginPage {
   username:string;
   password:string;
 
-  constructor(public modalCtrl: ModalController,   private backButtonService: BackButtonService,
+  constructor(public navCtrl: NavController,public modalCtrl: ModalController,   private backButtonService: BackButtonService,
               public platform: Platform, public toastCtrl: ToastController,private accountService:AccountService,
   ) {
     platform.ready().then(() => {
@@ -45,7 +45,9 @@ export class LoginPage {
     }
 
   }
-
+  changeHost(){
+    this.navCtrl.push(ChangeHostPage);
+  }
 
   logIn() {
     if (this.username.length == 0) {

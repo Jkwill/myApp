@@ -5,6 +5,7 @@ import { CourseCenterPage } from '../course-center/course-center';
 import { MinePage } from '../mine/mine';
 import { HomePage } from '../home/home';
 import { BackButtonService } from "../../services/uiService/backButton.service";
+import { AccountService} from "../../services/httpService/account.service"
 
 @Component({
   templateUrl: 'tabs.html'
@@ -12,8 +13,9 @@ import { BackButtonService } from "../../services/uiService/backButton.service";
 export class TabsPage {
   @ViewChild('myTabs') tabRef: Tabs;
   tabRoots: Object[];
+  timer;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public backButtonService: BackButtonService,
+  constructor(private accountService:AccountService,public navCtrl: NavController, public navParams: NavParams,public backButtonService: BackButtonService,
               public platform: Platform) {
 
     this.tabRoots = [
@@ -35,6 +37,7 @@ export class TabsPage {
     ];
     platform.ready().then(() => {
       this.backButtonService.registerBackButtonAction(this.tabRef);
+      accountService.keepConnection();
     });
   }
   ionViewWillEnter() {

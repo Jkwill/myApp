@@ -135,6 +135,10 @@ export class HttpRequestService {
       ).map(res => res.json());
     }
 
+    setHost(host){
+      this.host=host;
+    }
+
 
     //对象参数序列化
     serialize(paramObj){

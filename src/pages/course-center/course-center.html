@@ -16,7 +16,7 @@
     <ion-list *ngSwitchCase="'study'">
       <ion-item  *ngFor="let studyItem of studyItems" (click)="openDetailPageOfStu(studyItem.id)" >
         <ion-thumbnail item-start>
-          <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{studyItem.filepath}}">
+          <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{studyItem.filepath}}"  onerror="this.src='./assets/imgs/course.png'">
         </ion-thumbnail>
         <h3>{{studyItem.name}}</h3>
         <p>{{studyItem.introduction}}</p>
@@ -27,7 +27,7 @@
     <ion-list *ngSwitchCase="'teach'">
         <ion-item *ngFor="let teachItem of teachItems" (click)="openTeacherPage(teachItem.id)" (press)="presentActionSheet($event, teachItem.id)">
           <ion-thumbnail item-start>
-            <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{teachItem.filepath}}">
+            <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{teachItem.filepath}}" onerror="this.src='./assets/imgs/course.png'">
           </ion-thumbnail>
           <h3>{{teachItem.name}}</h3>
           <p>{{teachItem.introduction}}</p>
