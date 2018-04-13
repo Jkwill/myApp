@@ -114,14 +114,16 @@ export class CourseCenterPage {
       if(res.result=='success'){
         this.studyItems=res.student;
         this.teachItems=res.teacher;
-        // for(let item of this.studyItems){
-        //   this.studyThumbnails.push(item.filepath);
-        // }
-        // for(let item of this.teachItems){
-        //   this.teachThumbnails.push(item.filepath);
-        // }
-        // this.formThumnail(this.studyThumbnails, 'study');
-        // this.formThumnail(this.teachThumbnails, 'teach');
+        this.studyThumbnails = [];
+        this.teachThumbnails = [];
+        for(let item of this.studyItems){
+          this.studyThumbnails.push(item.filepath);
+        }
+        for(let item of this.teachItems){
+          this.teachThumbnails.push(item.filepath);
+        }
+        this.formThumnail(this.studyThumbnails, 'study');
+        this.formThumnail(this.teachThumbnails, 'teach');
 
       }else{
         this.toastCtrl.create({
@@ -140,21 +142,21 @@ export class CourseCenterPage {
     });
   }
 
-  // formThumnail(filepaths,type)
-  // {
-  //   let width:number = 384;
-  //   let height:number = 216;
-  //   this.courseService.formThumbnail(width, height, filepaths).subscribe( res => {
-  //     if(res.result == "success"){
-  //       if(type == 'study'){
-  //         this.studyThumbnails = res.thumbnail;
-  //       }
-  //       else{
-  //         this.teachThumbnails = res.thumbnail;
-  //       }
-  //     }
-  //   } , error => {})
-  //
-  // }
+  formThumnail(filepaths,type)
+  {
+    let width:number = 384;
+    let height:number = 216;
+    this.courseService.formThumbnail(width, height, filepaths).subscribe( res => {
+      if(res.result == "success"){
+        if(type == 'study'){
+          this.studyThumbnails = res.thumbnail;
+        }
+        else{
+          this.teachThumbnails = res.thumbnail;
+        }
+      }
+    } , error => {})
+
+  }
 
 }

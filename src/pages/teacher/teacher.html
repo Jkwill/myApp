@@ -24,7 +24,7 @@
   </ion-fab>
 
   <ion-card>
-    <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{courseDetail.filepath}}"/>
+    <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{courseDetail.filepath}}" [ngStyle]="{'height':'200px'}"/>
     <div class="card-title">{{courseDetail.name}}</div>
     <div class="card-subtitle">{{courseDetail.startDateString}} - {{courseDetail.endDateString}}</div>
   </ion-card>

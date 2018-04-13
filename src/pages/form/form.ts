@@ -51,6 +51,9 @@ export class FormPage {
       this.showUnit = false;
       this.showCourse = true;
       this.formCourse(courseId);
+      if(typeof(courseId) == "undefined"){
+        this.title = "创建课程";
+      }
     }
     else if(formType == 'section')
     {
@@ -109,8 +112,8 @@ export class FormPage {
 
   pdfUpload(event) {
     this.file = event.target.files[0];
-    let type = this.file.name.split('.')[1];
-    console.log(type);
+    let arr = this.file.name.split('.');
+    let type = arr[arr.length-1];
     if(type != 'pdf')
     {
       this.toastCtrl.create({
@@ -138,7 +141,8 @@ export class FormPage {
 
   videoUpload(event) {
     this.file = event.target.files[0];
-    let type = this.file.name.split('.')[1];
+    let arr = this.file.name.split('.');
+    let type = arr[arr.length-1];
     if(type != 'mp4' && type != 'avi' && type != 'rmvb')
     {
       this.toastCtrl.create({
@@ -232,9 +236,14 @@ export class FormPage {
 
   imageUploaded(event) {
     this.file = event.target.files[0];
-    let type = this.file.type.split('/')[0];
-    if (type !='image') {
-      alert('请上传图片');
+    let arr = this.file.name.split('.');
+    let type = arr[arr.length-1];
+    if (type !='jpeg' && type != 'jpg' && type != 'png' && type != 'gif') {
+      this.toastCtrl.create({
+        message: "请上传jpg,jpeg,png或gif格式的图片",
+        duration: 2000,
+        position: 'top'
+      }).present();
       return;
     }
     let size = Math.round(this.file.size / 1024 / 1024);
@@ -266,7 +275,8 @@ export class FormPage {
 
   homeworkUpload(event) {
     this.file = event.target.files[0];
-    let type = this.file.name.split('.')[1];
+    let arr = this.file.name.split('.');
+    let type = arr[arr.length-1];
     if(this.isDoc(type))
     {
       let formData:FormData = new FormData();
@@ -291,7 +301,8 @@ export class FormPage {
 
   answerUpload(event) {
     this.file = event.target.files[0];
-    let type = this.file.name.split('.')[1];
+    let arr = this.file.name.split('.');
+    let type = arr[arr.length-1];
     if(this.isDoc(type))
     {
       let formData:FormData = new FormData();
@@ -381,6 +392,7 @@ export class FormPage {
 
   saveCourse()
   {
+    let paramObj:any;
     if(this.isOpen)
     {
       this.courseInfo.isOpen = '2'
@@ -393,7 +405,25 @@ export class FormPage {
     {
       this.courseInfo.filename = '';
     }
-    this.teacherService.saveCourse(this.courseInfo).subscribe( res => {
+    if(this.title == "创建课程"){
+      paramObj = {
+        name : this.courseInfo.name,
+        filename : this.courseInfo.filename,
+        textbook : this.courseInfo.textbook,
+        credit : this.courseInfo.credit,
+        classHour : this.courseInfo.classHour,
+        introduction : this.courseInfo.introduction,
+        isOpen : this.courseInfo.isOpen,
+        startDate : this.courseInfo.startDate,
+        endDate : this.courseInfo.endDate,
+        type : this.courseInfo.type,
+        department : this.courseInfo.department
+      }
+    }
+    else{
+      paramObj = this.courseInfo;
+    }
+    this.teacherService.saveCourse(paramObj).subscribe( res => {
       if(res.result == 'success')
       {
         this.toastCtrl.create({
