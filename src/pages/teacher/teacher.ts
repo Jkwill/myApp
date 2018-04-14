@@ -378,6 +378,7 @@ export class TeacherPage {
   }
 
   getHomeworkList(){
+    this.homeworkList = new Array();
     for(let i = 0;i<this.sectionNum;i++){
       let sectionName = this.courseResource[i].name;
       for(let j=0;j<this.courseResource[i].homework.length;j++){

@@ -108,9 +108,10 @@ export class CourseService {
     return this.httpRequestService.post(url, paramObj);
   }
 
-  submitHomework(paramObj) {
+  submitHomework(model) {
     let url: string = this.httpRequestService.submitHomework;
-    return this.httpRequestService.post(url, paramObj);
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url, param);
   }
 
   uploadResourse(paramObj) {
