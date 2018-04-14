@@ -45,7 +45,6 @@ export class HttpRequestService {
   getCourseWare:string= '/lms/json/learning/getCourseware';//教学元素的课件资源
   listDiscuss:string="/lms/json/learning/listDiscuss";
   listSHomework:string="/lms/json/learning/listSHomework";
-  listMessage:string="/lms/json/learning/listMessage";
   listOpenResource: string = "/lms/json/learning/listOpenResource" //获取某一公开课的详细信息
   joinOpenCourse: string = "/lms/json/learning/joinOpenCourse"  //加入某一门公开课
   quitOpenCourse: string = "/lms/json/learning/quitOpenCourse" //退出某一门公开课
@@ -94,6 +93,10 @@ export class HttpRequestService {
   listCourseRandomExam:string = '/lms/json/learning/listCourseRandomExams';
   publishCourseExams:string = '/lms/json/creator/publishCourseExams';
   listStudentScore:string = '/lms/json/learning/listStudentQuizScoreByCourse';
+  listMessage:string = '/lms/json/learning/listMessage';
+  saveMessage:string = '/lms/json/learning/saveMessage';
+  deleteMessage:string = '/lms/json/learning/deleteMessage'
+
 
     constructor(private http: Http) {
 

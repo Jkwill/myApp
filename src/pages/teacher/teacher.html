@@ -68,16 +68,26 @@
     </div>
 
     <div *ngSwitchCase="'message'">
+      <button ion-button (click)="addMessage()" block small>发布新通知</button>
+      <div *ngIf="addNewMessage" >
+        <ion-item>
+          <ion-textarea [(ngModel)]="newMessage.content" [ngStyle]="{'height':'80px','border':'1px solid grey'}"></ion-textarea>
+        </ion-item>
+        <ion-item  text-center>
+          <button ion-button (click)="saveMessage('')" small>保存</button>
+          <button ion-button (click)="closeAddNew()" small>取消</button>
+        </ion-item>
+      </div>
+
       <ion-list *ngFor="let message of messageList">
-        <ion-card>
+        <ion-card (press)="presentManager($event,message)">
           <ion-item>
-            <ion-icon name="notifications" [ngStyle]="{'color': '#4169E1'}"></ion-icon>
-            <h2 >
-              {{message.content}}
-            </h2>
-            <p >课程：{{message.courseName}}</p>
-            <p >发布人：{{message.creatorName}} 老师</p>
-            <p >发布时间：{{message.createDate}}</p>
+            <ion-avatar item-start>
+              <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{message.photo}}">
+            </ion-avatar>
+            <h3>{{message.creatorName}}</h3>
+            <p>{{message.content}}</p>
+            <ion-note [ngStyle]="{'font-size':'12px'}" item-end>{{message.createDate}}</ion-note>
           </ion-item>
         </ion-card>
       </ion-list>

@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, Platform, ToastController, AlertController } from 'ionic-angular';
+import {
+  NavController, NavParams, Platform, ToastController, AlertController,
+  ActionSheetController
+} from 'ionic-angular';
 import {CourseService} from "../../services/httpService/course.service";
 import {FormPage} from "../form/form";
 import {CourseSTPage} from '../courseST/courseST';
@@ -8,6 +11,7 @@ import {FileUploadParam} from "../../model/FileUploadParam";
 import {ExamPage} from "../exam/exam";
 import {FinalExamPage} from "../final-exam/final-exam";
 import {VideoPage} from "../video/video";
+import {Message} from "../../model/Message";
 
 /**
  * Generated class for the TeacherPage page.
@@ -26,15 +30,16 @@ export class TeacherPage {
   fileParam:FileUploadParam = new FileUploadParam('','','');
   courseResource:any;
   discussList:any[];
-  messageList:Object[];
+  messageList:Message[];
   homeworkList = new Array();
   progressList:Object[];
   sectionNum:number = 0;
-
-
+  newMessage:Message = new Message('','','','','');
+  addNewMessage:boolean = false;
   choose: string = "chapter";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public courseService:CourseService,public teacherService:TeacherService, public toastCtrl: ToastController, public alertCtrl: AlertController, public platform: Platform) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public courseService:CourseService,public teacherService:TeacherService,
+              public toastCtrl: ToastController, public alertCtrl: AlertController,  public actionSheetCtrl: ActionSheetController, public platform: Platform) {
     platform.ready().then(() => {
       this.courseId = navParams.get('id');
       this.initFileUpload(this.courseId);
@@ -277,13 +282,99 @@ export class TeacherPage {
     let paramObj = {
       courseId: cid
     };
+    this.messageList = [];
     this.courseService.listMessage(paramObj).subscribe( res => {
       if(res.result=='success') {
-        this.messageList=res.message;
+        let mList:any[]=res.message;
+        for(let message of mList){
+          let date = message.createDate.split(' ');
+          let createDate = date[0].substr(5)+' '+date[1].substr(0,5);
+          let m:Message = new Message(message.id, message.content, message.creatorName, message.photo, createDate);
+          this.messageList.push(m);
+        }
       }
     },error=>{
       console.log("error:"+error);
     })
+  }
+
+  saveMessage() {
+    let param = {
+      messageId : this.newMessage.messageId,
+      courseId : this.courseId,
+      content : this.newMessage.content
+    };
+    this.teacherService.saveMessage(param).subscribe( res => {
+      if(res.result == 'success'){
+        this.addNewMessage = false;
+        this.getMessageList(this.courseId);
+        this.toastCtrl.create({
+          message: '操作完成',
+          duration: 1000,
+          position: 'top'
+        }).present();
+      }
+    }, error => {} );
+  }
+
+  addMessage() {
+    this.addNewMessage = true;
+  }
+
+  closeAddNew(){
+    this.addNewMessage = false;
+  }
+
+  editMessage(message) {
+    this.addNewMessage = true;
+    this.newMessage = message;
+  }
+
+  deleteMessage(message) {
+    let model = {
+      messageId : message.messageId
+    };
+    this.teacherService.deleteMessage(model).subscribe( res => {
+      if(res.result == 'success'){
+        this.getMessageList(this.courseId);
+        this.toastCtrl.create({
+          message: '删除成功',
+          duration: 1000,
+          position: 'top'
+        }).present();
+      }
+    }, error=>{} )
+  }
+
+  presentManager(e, message) {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'options',
+      cssClass: 'action-sheets-basic-page',
+      buttons: [
+        {
+          text: '编辑',
+          role: 'destructive',
+          icon: !this.platform.is('ios') ? 'create' : null,
+          handler: () => {
+            this.editMessage(message);
+          }
+        }, {
+          text: '删除',
+          icon: !this.platform.is('ios') ? 'trash' : null,
+          handler: () => {
+            this.deleteMessage(message);
+          }
+        }, {
+          text: '取消',
+          role: 'cancel',
+          icon: !this.platform.is('ios') ? 'close' : null,
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
 
   getHomeworkList(){

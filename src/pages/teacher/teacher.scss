@@ -36,7 +36,21 @@ page-teacher {
   }
 
 }
+
+.action-sheets-basic-page {
+  .ion-md-copy {
+    color: #508AE4;
+  }
+  .action-sheet-cancel ion-icon {
+    color: #757575;
+  }
+  .action-sheet-destructive ion-icon {
+    color: #ED4248;
+  }
+}
+
 ion-lable{
   font-family: "Microsoft YaHei";
   font-size: 14px;
 }
+

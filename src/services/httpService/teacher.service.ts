@@ -211,5 +211,17 @@ export class TeacherService{
     return this.httpRequestService.post(url, param);
   }
 
+  saveMessage(model) {
+    let url = this.httpRequestService.saveMessage;
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url, param);
+  }
+
+  deleteMessage(model) {
+    let url = this.httpRequestService.deleteMessage;
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url, param);
+  }
+
 
 }
