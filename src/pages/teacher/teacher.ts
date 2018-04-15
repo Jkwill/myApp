@@ -34,7 +34,7 @@ export class TeacherPage {
   homeworkList = new Array();
   progressList:Object[];
   sectionNum:number = 0;
-  newMessage:Message = new Message('','','','','');
+  newMessage:Message = new Message('','','','','',false);
   addNewMessage:boolean = false;
   choose: string = "chapter";
 
@@ -289,7 +289,7 @@ export class TeacherPage {
         for(let message of mList){
           let date = message.createDate.split(' ');
           let createDate = date[0].substr(5)+' '+date[1].substr(0,5);
-          let m:Message = new Message(message.id, message.content, message.creatorName, message.photo, createDate);
+          let m:Message = new Message(message.id, message.content, message.creatorName, message.photo, createDate,false);
           this.messageList.push(m);
         }
       }
@@ -325,6 +325,14 @@ export class TeacherPage {
     this.addNewMessage = false;
   }
 
+  expand(message){
+    message.expand = true;
+  }
+
+  packUp(message){
+    message.expand = false;
+  }
+
   editMessage(message) {
     this.addNewMessage = true;
     this.newMessage = message;
@@ -346,37 +354,6 @@ export class TeacherPage {
     }, error=>{} )
   }
 
-  presentManager(e, message) {
-    let actionSheet = this.actionSheetCtrl.create({
-      title: 'options',
-      cssClass: 'action-sheets-basic-page',
-      buttons: [
-        {
-          text: '编辑',
-          role: 'destructive',
-          icon: !this.platform.is('ios') ? 'create' : null,
-          handler: () => {
-            this.editMessage(message);
-          }
-        }, {
-          text: '删除',
-          icon: !this.platform.is('ios') ? 'trash' : null,
-          handler: () => {
-            this.deleteMessage(message);
-          }
-        }, {
-          text: '取消',
-          role: 'cancel',
-          icon: !this.platform.is('ios') ? 'close' : null,
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        }
-      ]
-    });
-    actionSheet.present();
-  }
-
   getHomeworkList(){
     this.homeworkList = new Array();
     for(let i = 0;i<this.sectionNum;i++){
@@ -389,7 +366,6 @@ export class TeacherPage {
           "homeworkName":homeworkName,
           "endDate":endDate
         }
-        //console.log("sectionName:"+sectionName+" "+"homeworkname:"+homeworkName+" "+"endDate:"+endDate);
         this.homeworkList.push(homework);
       }
     }

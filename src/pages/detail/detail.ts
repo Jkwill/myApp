@@ -5,6 +5,7 @@ import { QuizPage } from '../quiz/quiz'
 import { HomeworkPage } from '../homework/homework'
 import { CourseService} from "../../services/httpService/course.service"
 import {OpenPage} from "../open/open";
+import {Message} from "../../model/Message";
 
 /**
  * Generated class for the DetailPage page.
@@ -21,7 +22,7 @@ export class DetailPage {
   courseDetail={};
   courseResource:Object[];
   discussList:any[];
-  messageList:Object[];
+  messageList:Message[];
   homeworkList:any;
   groupId:string;
   parentId:string;
@@ -116,18 +117,34 @@ export class DetailPage {
     this.navCtrl.push(QuizPage, { id: sectionId, ifFin:ifFinished });
 
   }
+
+  expand(message){
+    message.expand = true;
+  }
+
+  packUp(message){
+    message.expand = false;
+  }
   getMessageList(cid){
     let paramObj = {
       courseId: cid
     };
+    this.messageList = [];
     this.courseService.listMessage(paramObj).subscribe( res => {
       if(res.result=='success') {
-        this.messageList=res.message;
+        let mList:any[]=res.message;
+        for(let message of mList){
+          let date = message.createDate.split(' ');
+          let createDate = date[0].substr(5)+' '+date[1].substr(0,5);
+          let m:Message = new Message(message.id, message.content, message.creatorName, message.photo, createDate,false);
+          this.messageList.push(m);
+        }
       }
     },error=>{
       console.log("error:"+error);
     })
   }
+
   getHomeworkList(cid){
     let paramObj = {
       courseId: cid

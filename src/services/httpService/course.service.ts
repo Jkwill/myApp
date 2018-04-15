@@ -131,7 +131,6 @@ export class CourseService {
       let param = "&filepath="+t
       url += param;
     }
-    console.log(url);
     return this.httpRequestService.get(url);
   }
 

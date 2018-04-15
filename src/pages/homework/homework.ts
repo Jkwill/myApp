@@ -35,8 +35,6 @@ export class HomeworkPage {
     if(e.target.files[0]&&this.isHomework(type)){
       const file = e.target.files[0];
 
-      let attach,attachType;
-
       let formData:FormData = new FormData();
       formData.append('groupId',this.groupId);
       formData.append('parentId',this.parentId);

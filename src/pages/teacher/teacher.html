@@ -80,16 +80,32 @@
       </div>
 
       <ion-list *ngFor="let message of messageList">
-        <ion-card (press)="presentManager($event,message)">
-          <ion-item>
-            <ion-avatar item-start>
-              <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{message.photo}}">
-            </ion-avatar>
-            <h3>{{message.creatorName}}</h3>
-            <p>{{message.content}}</p>
-            <ion-note [ngStyle]="{'font-size':'12px'}" item-end>{{message.createDate}}</ion-note>
-          </ion-item>
+        <ion-card>
+          <ion-item-sliding>
+            <ion-item (click)="expand(message)">
+              <ion-avatar item-start>
+                <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{message.photo}}">
+              </ion-avatar>
+              <h3>{{message.creatorName}}</h3>
+              <p>{{message.content}}</p>
+              <ion-note [ngStyle]="{'font-size':'12px'}" item-end>{{message.createDate}}</ion-note>
+            </ion-item>
+            <ion-item-options [ngStyle]="{'width':'100px'}">
+              <button ion-button (click)="editMessage(message)" color="primary">
+                编辑
+              </button>
+              <button ion-button (click)="deleteMessage(message)" [ngStyle]="{'background-color':'#F00000'}">
+                删除
+              </button>
+            </ion-item-options>
+          </ion-item-sliding>
+          <div *ngIf="message.expand">
+            <ion-card-content>
+              <p>{{message.content}}<span [ngStyle]="{'margin-left':'10px'}" (click)="packUp(message)">[收起<ion-icon name="arrow-up"></ion-icon>]</span></p>
+            </ion-card-content>
+          </div>
         </ion-card>
+
       </ion-list>
     </div>
 
