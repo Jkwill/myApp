@@ -14,12 +14,13 @@ export class MinePage {
               public platform: Platform,public alertCtrl: AlertController) {
 
   }
-  ionViewWillEnter(){ 
+  ionViewWillEnter(){
     this.getUserInfo();
   }
   getUserInfo() {
     this.accountService.getUserInfo().subscribe(res=>{
       this.userInfo=res;
+      this.userInfo.photo = "http://lms.ccnl.scut.edu.cn/lms/custom/"+this.userInfo.photo;
     },error=>{
       console.log("error:"+error);
     })

@@ -66,11 +66,18 @@ export class AccountService {
            },error=>{
             console.log("error: "+error);
           });
-    },6000) 
+    },6000)
   }
 
   closeConnection(){
     clearInterval(this.timer);
+  }
+
+  upload(file) {
+    let url:string = this.httpRequestService.upload;
+    let formData:FormData = new FormData();
+    formData.append('filedata',file,file.name);
+    return this.httpRequestService.postFile(url,formData);
   }
 
 }

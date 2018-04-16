@@ -51,7 +51,8 @@
       <ion-card>
         <img *ngIf="showImg" src="{{imgSrc}}" alt="">
         <ion-card-content>
-          <input *ngIf="!showImg" type="file" (change)="imageUploaded($event)">
+          <input #imageUpload  type="file" (change)="imageUploaded($event)" [ngStyle]="{'display':'none'}">
+          <button ion-button *ngIf="!showImg" (click)="imageUpload.click()" small block>上传课程背景</button>
           <button ion-button *ngIf="showImg" (click)="imageRemoved()" small block>删除</button>
         </ion-card-content>
       </ion-card>

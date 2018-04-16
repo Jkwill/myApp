@@ -246,11 +246,6 @@ export class FormPage {
       }).present();
       return;
     }
-    let size = Math.round(this.file.size / 1024 / 1024);
-    if (size > 10) {
-      alert('图片大小不得超过3M');
-      return;
-    };
     var reader = new FileReader(); //新建FileReader对象
     reader.readAsDataURL(this.file); //读取为base64
     var that = this;

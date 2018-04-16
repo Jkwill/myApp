@@ -35,7 +35,7 @@
       <ion-list *ngFor="let section of openSection">
         <ion-list-header>{{section.name}}</ion-list-header>
         <ion-item-sliding *ngFor="let chapter of section.unit">
-          <button ion-item icon-start>
+          <button (click)="displayTip()" ion-item icon-start>
             <ion-icon name="logo-youtube" [ngStyle]="{'color': '#4169E1'}" item-start></ion-icon>
             {{chapter.name}}
           </button>
