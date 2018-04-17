@@ -23,6 +23,8 @@ import { CourseSTPage } from "../pages/courseST/courseST";
 import { CourseSTFormPage } from "../pages/courseSTForm/courseSTForm";
 import { ExamPage } from "../pages/exam/exam";
 import { ChangeHostPage } from "../pages/changeHost/changeHost";
+import { CorrectionPage } from "../pages/correction/correction";
+import { CorrectionDetailPage } from "../pages/correctionDetail/correctionDetail";
 
 import { BackButtonService } from '../services/uiService/backButton.service';
 import { HttpRequestService } from '../services/httpService/httpRequest.service';
@@ -58,7 +60,9 @@ import {FinalExamPage} from "../pages/final-exam/final-exam";
     ExamPage,
     ChangeHostPage,
     SubjectPage,
-    FinalExamPage
+    FinalExamPage,
+    CorrectionPage,
+    CorrectionDetailPage
   ],
   imports: [
     BrowserModule,
@@ -88,7 +92,9 @@ import {FinalExamPage} from "../pages/final-exam/final-exam";
     ExamPage,
     SubjectPage,
     FinalExamPage,
-    ChangeHostPage
+    ChangeHostPage,
+    CorrectionPage,
+    CorrectionDetailPage
   ],
   providers: [
     StatusBar,

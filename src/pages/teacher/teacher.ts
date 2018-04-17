@@ -5,6 +5,7 @@ import {
 } from 'ionic-angular';
 import {CourseService} from "../../services/httpService/course.service";
 import {FormPage} from "../form/form";
+import { CorrectionPage } from "../correction/correction";
 import {CourseSTPage} from '../courseST/courseST';
 import {TeacherService} from "../../services/httpService/teacher.service";
 import {FileUploadParam} from "../../model/FileUploadParam";
@@ -85,6 +86,11 @@ export class TeacherPage {
   editUnit(sectionId, unitId)
   {
     this.navCtrl.push(FormPage, { sectionId:sectionId, unitId:unitId, fileParam:this.fileParam, type:'unit' })
+  }
+
+  openCorrection(index){
+    let homeworkId = this.homeworkList[index].id;
+    this.navCtrl.push(CorrectionPage,{id:homeworkId,courseId:this.courseId});
   }
 
   deleteSection(id)
@@ -361,10 +367,12 @@ export class TeacherPage {
       for(let j=0;j<this.courseResource[i].homework.length;j++){
         let homeworkName = this.courseResource[i].homework[j].name;
         let endDate = this.courseResource[i].homework[j].endDate;
+        let id = this.courseResource[i].homework[j].id;
         let homework = {
           "sectionName":sectionName,
           "homeworkName":homeworkName,
-          "endDate":endDate
+          "endDate":endDate,
+          "id":id
         }
         this.homeworkList.push(homework);
       }

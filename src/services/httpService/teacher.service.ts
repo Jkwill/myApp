@@ -223,5 +223,31 @@ export class TeacherService{
     return this.httpRequestService.post(url, param);
   }
 
+  getHomeworkTable(param){
+    let url = this.httpRequestService.getHomeworkTable + "?" + this.httpRequestService.serialize(param);
+    return this.httpRequestService.get(url);
+  }
+
+  saveScore(model){
+    let url  = this.httpRequestService.saveScore;
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url,param);
+  }
+
+  removeHomework(param){
+    let url = this.httpRequestService.removeHomework + "?" +this.httpRequestService.serialize(param);
+    return this.httpRequestService.get(url);
+  }
+
+  tutorSubmit(param,paramObj){
+    let url: string = this.httpRequestService.uploadResourse + "?" + this.httpRequestService.serialize(param);
+    return this.httpRequestService.resourcePost(url, paramObj);
+  }
+
+  submitHomework(model){
+    let url: string = this.httpRequestService.submitHomework;
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url, param);
+  }
 
 }
