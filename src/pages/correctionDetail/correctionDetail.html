@@ -1,0 +1,25 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>批改作业</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+<ion-card>
+          <ion-item>
+          <p class="detail-p">账号：{{student.account}}</p>
+          <p class="detail-p">姓名：{{student.name}}</p>
+          <p class="detail-p">作业提交时间：{{student.createDate}}</p>
+          <p class="detail-p">分数：
+              <input class="detail-input" type="text" [(ngModel)]="score">
+              <button class="detail-button" ion-button (click)=saveScore()>确定</button>
+          </p>
+          <p class="detail-p">助教提交：<input type="file" (change)="upload($event)"></p>
+          <button ion-button (click)=removeHomework()>作业移除</button>
+          <button ion-button>预览作业</button>
+          </ion-item>
+        </ion-card>
+</ion-content>

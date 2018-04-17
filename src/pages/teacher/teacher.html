@@ -52,8 +52,8 @@
   </ion-toolbar>
   <div [ngSwitch]="choose">
     <div *ngSwitchCase="'homework'">
-      <ion-list *ngFor="let homework of homeworkList">
-        <ion-card>
+      <ion-list *ngFor="let homework of homeworkList;let i=index">
+        <ion-card (click)=openCorrection(i)>
           <ion-item>
             <h2 >
               <ion-icon name="paper" [ngStyle]="{'color': '#4169E1'}"></ion-icon>

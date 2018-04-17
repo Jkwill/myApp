@@ -95,8 +95,10 @@ export class HttpRequestService {
   listStudentScore:string = '/lms/json/learning/listStudentQuizScoreByCourse';
   listMessage:string = '/lms/json/learning/listMessage';
   saveMessage:string = '/lms/json/learning/saveMessage';
-  deleteMessage:string = '/lms/json/learning/deleteMessage'
-
+  deleteMessage:string = '/lms/json/learning/deleteMessage';
+  getHomeworkTable:string = '/lms/json/learning/checkHomeworkWithoutFilter';
+  saveScore:string = '/lms/json/learning/saveHS';
+  removeHomework:string = '/lms/json/learning/deleteHomeworkStudent';
 
     constructor(private http: Http) {
 
