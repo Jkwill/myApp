@@ -28,7 +28,7 @@ export class FormPage {
   fileParam:FileUploadParam;
   imgSrc:string;
   showImg:boolean = false;
-  courseInfo:CourseInfo = new CourseInfo(' ',' ','',' ',0,0,' ',' ','2018-01-01','2018-03-24', ' ', ' ');
+  courseInfo:CourseInfo = new CourseInfo('','','','',0,0,'','','2018-01-01','2018-03-24', '', '');
   isOpen:boolean = false;
   courseType:Object[];
   department:Object[];
@@ -388,6 +388,14 @@ export class FormPage {
   saveCourse()
   {
     let paramObj:any;
+    if(this.courseInfo.name == ''||this.courseInfo.introduction == ''){
+      this.toastCtrl.create({
+        message: "信息填写不全",
+        duration: 1000,
+        position: 'top'
+      }).present();
+      return;
+    }
     if(this.isOpen)
     {
       this.courseInfo.isOpen = '2'
@@ -456,6 +464,14 @@ export class FormPage {
   saveSection()
   {
     //console.log(this.sectionInfo);
+    if(this.sectionInfo.name == ''){
+      this.toastCtrl.create({
+        message: "信息填写不全",
+        duration: 1000,
+        position: 'top'
+      }).present();
+      return;
+    }
     this.teacherService.saveSection(this.sectionInfo).subscribe( res => {
       if(res.result == 'success') {
         this.toastCtrl.create({
@@ -497,6 +513,14 @@ export class FormPage {
 
   saveHomework()
   {
+    if(this.homeworkInfo.name == ''){
+      this.toastCtrl.create({
+        message: "信息填写不全",
+        duration: 1000,
+        position: 'top'
+      }).present();
+      return;
+    }
     if(this.homeworkInfo.startDate != '')
     {
       let d1 = this.homeworkInfo.startDate.split('T');
@@ -562,7 +586,14 @@ export class FormPage {
 
   saveUnit()
   {
-    console.log(this.unit);
+    if(this.unit.name == ''){
+      this.toastCtrl.create({
+        message: "信息填写不全",
+        duration: 1000,
+        position: 'top'
+      }).present();
+      return;
+    }
     this.teacherService.saveUnit(this.unit).subscribe( res => {
       if(res.result == 'success'){
         this.toastCtrl.create({

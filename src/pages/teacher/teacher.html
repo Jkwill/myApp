@@ -115,13 +115,11 @@
         <ion-item-sliding>
           <ion-item>{{section.name}}</ion-item>
           <ion-item-options>
-            <button ion-button (click)="editSection(section.id)" color="primary" icon-start>
-              <ion-icon name="create"></ion-icon>
-              Edit
+            <button ion-button (click)="editSection(section.id)" color="primary">
+              编辑
             </button>
-            <button ion-button (click)="deleteSection(section.id)" color="secondary" icon-start>
-              <ion-icon name="trash"></ion-icon>
-              Del
+            <button ion-button (click)="deleteSection(section.id)" color="secondary">
+              删除
             </button>
           </ion-item-options>
         </ion-item-sliding>
@@ -136,13 +134,11 @@
             {{chapter.name}}
           </button>
           <ion-item-options>
-            <button ion-button (click)="editUnit(section.id, chapter.id)" color="primary" icon-start>
-              <ion-icon name="create"></ion-icon>
-              Edit
+            <button ion-button (click)="editUnit(section.id, chapter.id)" color="primary">
+              编辑
             </button>
-            <button ion-button (click)="deleteUnit(chapter.id)" color="secondary" icon-start>
-              <ion-icon name="trash"></ion-icon>
-              Del
+            <button ion-button (click)="deleteUnit(chapter.id)" color="secondary">
+              删除
             </button>
           </ion-item-options>
         </ion-item-sliding>
@@ -153,13 +149,11 @@
             {{item.name}}
           </button>
           <ion-item-options>
-            <button ion-button (click)="editHomework(section.id, item.id)" color="primary" icon-start>
-              <ion-icon name="create"></ion-icon>
-              Edit
+            <button ion-button (click)="editHomework(section.id, item.id)" color="primary">
+              编辑
             </button>
-            <button ion-button (click)="deleteHomework(item.id)" color="secondary" icon-start>
-              <ion-icon name="trash"></ion-icon>
-              Del
+            <button ion-button (click)="deleteHomework(item.id)" color="secondary">
+              删除
             </button>
           </ion-item-options>
         </ion-item-sliding>
@@ -170,9 +164,8 @@
             小测验
           </button>
           <ion-item-options>
-            <button ion-button icon-start>
-              <ion-icon name="trash"></ion-icon>
-              Del
+            <button ion-button>
+              删除
             </button>
           </ion-item-options>
         </ion-item-sliding>

@@ -20,6 +20,12 @@
       <ion-label>名称</ion-label>
       <ion-input type="text" [(ngModel)]="sectionInfo.name"></ion-input>
     </ion-item>
+    <div *ngIf="sectionInfo.name == ''" text-right>
+      <span [ngStyle]="{'color':'#F00000'}">
+      <ion-icon name="information-circle" item-start></ion-icon>
+      名称不能为空
+      </span>
+    </div>
     <ion-item>
       <ion-label>介绍</ion-label>
       <ion-textarea [(ngModel)]="sectionInfo.introduction"></ion-textarea>
@@ -47,6 +53,12 @@
       <ion-label>课程名称</ion-label>
       <ion-input type="text" [(ngModel)]="courseInfo.name" required></ion-input>
     </ion-item>
+    <div *ngIf="courseInfo.name == ''" text-right>
+      <span [ngStyle]="{'color':'#F00000'}">
+      <ion-icon name="information-circle" item-start></ion-icon>
+      名称不能为空
+      </span>
+    </div>
     <ion-item>
       <ion-card>
         <img *ngIf="showImg" src="{{imgSrc}}" alt="">
@@ -85,6 +97,12 @@
       <ion-label>介绍</ion-label>
       <ion-textarea [(ngModel)]="courseInfo.introduction" required></ion-textarea>
     </ion-item>
+    <div *ngIf="courseInfo.introduction == ''" text-right>
+      <span [ngStyle]="{'color':'#F00000'}">
+      <ion-icon name="information-circle" item-start></ion-icon>
+      介绍不能为空
+      </span>
+    </div>
     <ion-item>
       <ion-label>是否设为公开课</ion-label>
       <ion-checkbox [(ngModel)]="this.isOpen"></ion-checkbox>
@@ -107,6 +125,12 @@
       <ion-label>作业名称</ion-label>
       <ion-input type="text" [(ngModel)]="homeworkInfo.name"></ion-input>
     </ion-item>
+    <div *ngIf="homeworkInfo.name == ''" text-right>
+      <span [ngStyle]="{'color':'#F00000'}">
+      <ion-icon name="information-circle" item-start></ion-icon>
+      名称不能为空
+      </span>
+    </div>
     <ion-item>
       <ion-label>开始时间</ion-label>
       <ion-datetime displayFormat="YYYY-MM-DDTHH:mm" [(ngModel)]="homeworkInfo.startDate" ></ion-datetime>
@@ -156,30 +180,30 @@
       <ion-input type="text" [(ngModel)]="unit.syllabusFile" disabled></ion-input>
     </ion-item>
     <ion-item>
+      <ion-icon ios="ios-cloud-upload" md="md-cloud-upload" color="primary" item-start></ion-icon>
       <input type="file" #uploadPdf (change)="pdfUpload($event)" [ngStyle]="{'display':'none'}"/>
-      <button ion-button (click)="uploadPdf.click()" [ngStyle]="{'width': '25%'}">本地上传</button>
-      <button ion-button (click)="deleteSyllabus()" [ngStyle]="{'width': '25%'}">清除</button>
-      <button ion-button [ngStyle]="{'width': '30%'}">WebLib上传</button>
+      <button ion-button (click)="uploadPdf.click()" [ngStyle]="{'width': '40%'}">本地上传</button>
+      <button ion-button (click)="deleteSyllabus()" [ngStyle]="{'width': '40%'}">清除</button>
     </ion-item>
     <ion-item>
       <ion-label>资料视频</ion-label>
       <ion-input type="text" [(ngModel)]="unit.slidesFile" disabled></ion-input>
     </ion-item>
     <ion-item>
+      <ion-icon ios="ios-cloud-upload" md="md-cloud-upload" color="primary" item-start></ion-icon>
       <input type="file" #uploadVideo (change)="videoUpload($event)" [ngStyle]="{'display':'none'}"/>
-      <button ion-button (click)="uploadVideo.click()" [ngStyle]="{'width': '25%'}">本地上传</button>
-      <button ion-button (click)="deleteSlides()" [ngStyle]="{'width': '25%'}">清除</button>
-      <button ion-button [ngStyle]="{'width': '30%'}">WebLib上传</button>
+      <button ion-button (click)="uploadVideo.click()" [ngStyle]="{'width': '40%'}">本地上传</button>
+      <button ion-button (click)="deleteSlides()" [ngStyle]="{'width': '40%'}">清除</button>
     </ion-item>
     <ion-item>
       <ion-label>辅导材料</ion-label>
       <ion-input type="text" [(ngModel)]="unit.referenceFile" disabled></ion-input>
     </ion-item>
     <ion-item>
+      <ion-icon ios="ios-cloud-upload" md="md-cloud-upload" color="primary" item-start></ion-icon>
       <input type="file" #uploadFile (change)="fileUpload($event)" [ngStyle]="{'display':'none'}"/>
-      <button ion-button (click)="uploadFile.click()" [ngStyle]="{'width': '25%'}">本地上传</button>
-      <button ion-button (click)="deleteReference()" [ngStyle]="{'width': '25%'}">清除</button>
-      <button ion-button [ngStyle]="{'width': '30%'}">WebLib上传</button>
+      <button ion-button (click)="uploadFile.click()" [ngStyle]="{'width': '40%'}">本地上传</button>
+      <button ion-button (click)="deleteReference()" [ngStyle]="{'width': '40%'}">清除</button>
     </ion-item>
     <ion-item>
       <ion-label>开始时间</ion-label>
