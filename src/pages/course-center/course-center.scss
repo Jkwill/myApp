@@ -1,22 +1,22 @@
 page-course-center {
+  .item-ios ion-thumbnail {
+     min-width:80px;
+     min-height:56px;
+   }
+  .item-ios ion-thumbnail img {
+    width:80px;
+    height:56px;
+  }
+  .item-md ion-thumbnail {
+    min-width:80px;
+    min-height:56px;
+  }
+  .item-md ion-thumbnail img {
+    width:80px;
+    height:56px;
+  }
 
 }
-//.segment-ios .segment-button{
-//    font-family: "Microsoft YaHei";
-//    font-size: 14px;
-//}
-//.item-ios p{
-//    font-family: "Microsoft YaHei";
-//    font-size: 14px;
-//}
-//.item-ios h3{
-//    font-family: "Microsoft YaHei";
-//    font-size: 14px;
-//}
-//.button-inner{
-//    font-family: "Microsoft YaHei";
-//    font-size: 14px;
-//}
 .action-sheets-basic-page {
   .ion-md-copy {
     color: #508AE4;

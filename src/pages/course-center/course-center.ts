@@ -144,8 +144,8 @@ export class CourseCenterPage {
 
   formThumnail(filepaths,type)
   {
-    let width:number = 384;
-    let height:number = 216;
+    let width:number = 80;
+    let height:number = 56;
     this.courseService.formThumbnail(width, height, filepaths).subscribe( res => {
       if(res.result == "success"){
         if(type == 'study'){

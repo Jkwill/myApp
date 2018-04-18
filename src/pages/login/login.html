@@ -9,12 +9,12 @@
   <ion-list>
 
     <ion-item>
-      <ion-label floating>Username</ion-label>
+      <ion-label >Username</ion-label>
       <ion-input type="text" [(ngModel)]="username"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label floating>Password</ion-label>
+      <ion-label >Password</ion-label>
       <ion-input type="password" [(ngModel)]="password"></ion-input>
     </ion-item>
 
@@ -27,12 +27,16 @@
   <div padding>
     <button ion-button color="primary" (click)="logIn()" block>登录</button>
   </div>
-  
+
   <ion-item no-lines>
   <button ion-button item-right (click)="changeHost()" clear small>
   <div>新增服务器</div>
   <ion-icon name="arrow-forward"></ion-icon>
   </button>
   </ion-item>
+
+  <ion-footer text-center>
+    <p>Copyright 2008-2018 CCNL GD.</p>
+  </ion-footer>
 
 </ion-content>

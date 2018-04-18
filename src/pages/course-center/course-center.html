@@ -24,6 +24,7 @@
     </ion-list>
 
     <ion-list *ngSwitchCase="'teach'">
+      <button ion-button (click)="createCourse()" small  block>创建课程</button>
         <ion-item *ngFor="let teachItem of teachItems;let i = index" (click)="openTeacherPage(teachItem.id)" (press)="presentActionSheet($event, teachItem.id)">
           <ion-thumbnail item-start>
             <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{teachThumbnails[i]}}" onerror="this.src='./assets/imgs/course.png'">
@@ -31,7 +32,6 @@
           <h3>{{teachItem.name}}</h3>
           <p>{{teachItem.introduction}}</p>
         </ion-item>
-      <ion-item><button ion-button (click)="createCourse()" block>创建课程</button></ion-item>
     </ion-list>
 
   </div>
