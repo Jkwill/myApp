@@ -21,12 +21,15 @@ export class LoginPage {
   savePassword:boolean;
   username:string;
   password:string;
+  screen_height:number;
 
   constructor(public navCtrl: NavController,public modalCtrl: ModalController,   private backButtonService: BackButtonService,
               public platform: Platform, public toastCtrl: ToastController,private accountService:AccountService,
   ) {
     platform.ready().then(() => {
       this.backButtonService.registerBackButtonAction(null);
+      this.screen_height =  window.screen.height;
+      console.log(this.screen_height);
     });
   }
 
