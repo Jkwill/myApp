@@ -13,8 +13,7 @@
         </caption>  
         <thead>  
             <tr>  
-                <th>序号</th>  
-                <th>账号</th>  
+                <th>序号</th>   
                 <th>姓名</th>  
                 <th>作业提交时间</th>  
                 <th>分数</th>  
@@ -25,7 +24,6 @@
             <tr *ngFor="let student of students;let i = index;" (click)=openDetail(i)> 
                 <!--后台循环查找往页面添加数据-->  
                 <td>{{i+1}}</td>  
-                <td>{{student.account}}</td>  
                 <td>{{student.name}}</td>  
                 <td>{{student.createDate}}</td>  
                 <td>{{student.score}}</td>  
