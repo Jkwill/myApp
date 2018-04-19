@@ -37,6 +37,7 @@ export class FormPage {
   unit:Unit = new Unit('','', '','','','2018-01-01','2018-01-01',0,'','','','','','','','','');
 
   constructor(public navCtrl: NavController, public teacherService:TeacherService,public toastCtrl: ToastController, public loadingCtrl: LoadingController, public navParams: NavParams) {
+
     let formType = this.navParams.get('type');
     let courseId = this.navParams.get('id');
     let sectionId = this.navParams.get('sectionId');
@@ -71,6 +72,8 @@ export class FormPage {
         this.sectionInfo.courseId = courseId;
         this.sectionInfo.sectionId = '0';
         this.sectionInfo.orderId = orderId;
+        this.sectionInfo.startDate = this.navParams.get('startDate');
+        this.sectionInfo.endDate = this.navParams.get('endDate');
       }
     }
     else if(formType == 'homework'){
@@ -86,6 +89,8 @@ export class FormPage {
         this.homeworkInfo.groupId = this.fileParam.groupId;
         this.homeworkInfo.parentId = this.fileParam.parentId;
         this.homeworkInfo.coolviewId = this.fileParam.coolviewId;
+        this.homeworkInfo.startDate = this.getCurrentDate();
+        this.homeworkInfo.endDate =  this.navParams.get('endDate')+"T12:00";
       }
       else {
         this.formHomework(sectionId, homeworkId);
@@ -103,11 +108,34 @@ export class FormPage {
         this.unit.groupId = this.fileParam.groupId;
         this.unit.parentId = this.fileParam.parentId;
         this.unit.coolviewId = this.fileParam.coolviewId;
+        this.unit.startDate = this.navParams.get('startDate');
+        this.unit.endDate =  this.navParams.get('endDate');
       }
       else {
         this.formUnit(sectionId, unitId);
       }
     }
+  }
+
+  getCurrentDate(){
+    let now = new Date();
+    let month:string;
+    let date:string;
+    if(now.getMonth() < 10){
+      month = '0'+now.getMonth();
+    }
+    else{
+      month = now.getMonth().toString();
+    }
+    if(now.getDate()<10){
+      date = '0'+now.getDate();
+    }
+    else{
+      date = now.getDate().toString();
+    }
+    let nowDate:string = now.getFullYear().toString()+'-'+month+'-'+date+'T'+now.getHours()+":"+now.getMinutes();
+    console.log(nowDate);
+    return nowDate;
   }
 
   pdfUpload(event) {

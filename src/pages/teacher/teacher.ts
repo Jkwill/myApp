@@ -27,6 +27,8 @@ import {Message} from "../../model/Message";
 })
 export class TeacherPage {
   courseDetail={};
+  startDate:string;
+  endDate:string;
   courseId:string;
   fileParam:FileUploadParam = new FileUploadParam('','','');
   courseResource:any;
@@ -65,7 +67,7 @@ export class TeacherPage {
 
   pushForm(formType)
   {
-    this.navCtrl.push(FormPage, { id : this.courseId, type : formType, order:this.sectionNum });
+    this.navCtrl.push(FormPage, { id : this.courseId, type : formType, order:this.sectionNum, startDate:this.startDate, endDate:this.endDate });
   }
 
   pushFinalExam()
@@ -80,12 +82,12 @@ export class TeacherPage {
 
   editHomework(sectionId, homeworkId)
   {
-    this.navCtrl.push(FormPage, { sectionId:sectionId, homeworkId:homeworkId, fileParam:this.fileParam, type:'homework' })
+    this.navCtrl.push(FormPage, { sectionId:sectionId, homeworkId:homeworkId, fileParam:this.fileParam, type:'homework', endDate:this.endDate })
   }
 
   editUnit(sectionId, unitId)
   {
-    this.navCtrl.push(FormPage, { sectionId:sectionId, unitId:unitId, fileParam:this.fileParam, type:'unit' })
+    this.navCtrl.push(FormPage, { sectionId:sectionId, unitId:unitId, fileParam:this.fileParam, type:'unit', startDate:this.startDate, endDate:this.endDate })
   }
 
   openCorrection(index){
@@ -238,6 +240,8 @@ export class TeacherPage {
     this.courseService.courseDetail(paramObj).subscribe( res => {
       if(res.result=='success'){
         this.courseDetail = res;
+        this.startDate = res.startDate.split(' ')[0];
+        this.endDate = res.endDate.split(' ')[0];
       }else{
         this.toastCtrl.create({
           message: '获取课程详情出错',
