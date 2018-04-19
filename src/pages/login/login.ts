@@ -3,6 +3,7 @@ import { ToastController,ModalController,NavController} from 'ionic-angular';
 import { Platform } from 'ionic-angular';
 import { BackButtonService } from "../../services/uiService/backButton.service";
 import { AccountService} from "../../services/httpService/account.service"
+import { HttpRequestService} from "../../services/httpService/httpRequest.service"
 import { ChangeHostPage } from  "../changeHost/changeHost"
 import {TabsPage} from "../tabs/tabs";
 
@@ -22,15 +23,18 @@ export class LoginPage {
   username:string;
   password:string;
   screen_height:number;
+  host:string;
 
-  constructor(public navCtrl: NavController,public modalCtrl: ModalController,   private backButtonService: BackButtonService,
-              public platform: Platform, public toastCtrl: ToastController,private accountService:AccountService,
+  constructor(public navCtrl: NavController,public modalCtrl: ModalController,private backButtonService: BackButtonService,
+              public platform: Platform, public toastCtrl: ToastController,private accountService:AccountService,private httpRequestService:HttpRequestService,
   ) {
     platform.ready().then(() => {
       this.backButtonService.registerBackButtonAction(null);
       this.screen_height =  window.screen.height;
-      console.log(this.screen_height);
     });
+  }
+  ionViewWillEnter(){
+      this.host=this.httpRequestService.getCurrentHost();
   }
 
   ngOnInit() {
@@ -45,6 +49,14 @@ export class LoginPage {
       }else{
         this.savePassword=false;
       }
+    }
+     this.host=localStorage.getItem("currentHost");
+    if(this.host==null){
+      this.host=this.httpRequestService.getDefaultHost();
+      localStorage.setItem("currentHost",this.host);
+      localStorage.setItem("hostItems",this.httpRequestService.getDefaultHostItems());
+    }else{
+      this.httpRequestService.setCurrentHost(this.host);
     }
 
   }
