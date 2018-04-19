@@ -14,6 +14,7 @@ import "rxjs/add/observable/throw";
 export class HttpRequestService {
 
   host: string='http:\/\/lms.ccnl.scut.edu.cn';
+  defaultHost:string='http:\/\/lms.ccnl.scut.edu.cn';
 
   initParam: string='/lms/json/learning/initStoreType';//初始化Common类的三个变量
   loginWeblib:string= '/weblib/login/authenticate.action';
@@ -140,8 +141,17 @@ export class HttpRequestService {
       ).map(res => res.json());
     }
 
-    setHost(host){
+    setCurrentHost(host){
       this.host=host;
+    }
+    getCurrentHost(){
+      return this.host;
+    }
+    getDefaultHost(){
+      return this.defaultHost;
+    }
+    getDefaultHostItems(){
+      return [this.defaultHost,'http:\/\/lms.scn.cn']
     }
 
 

@@ -8,13 +8,18 @@
   <img src="./assets/imgs/login.jpg">
   <ion-list>
 
+  <ion-item >
+    <ion-label >服务器</ion-label>
+    <ion-input disabled='true' type="text" (click)="changeHost()" [(ngModel)]="host"></ion-input>
+  </ion-item> 
+
     <ion-item>
-      <ion-label >Username</ion-label>
+      <ion-label >账号</ion-label>
       <ion-input type="text" [(ngModel)]="username"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label >Password</ion-label>
+      <ion-label >密码</ion-label>
       <ion-input type="password" [(ngModel)]="password"></ion-input>
     </ion-item>
 
@@ -24,16 +29,10 @@
     </ion-item>
   </ion-list>
 
+
   <div padding>
     <button ion-button color="primary" (click)="logIn()" block>登录</button>
   </div>
-
-  <ion-item no-lines>
-  <button ion-button item-right (click)="changeHost()" clear small>
-  <div>新增服务器</div>
-  <ion-icon name="arrow-forward"></ion-icon>
-  </button>
-  </ion-item>
 
 </ion-content>
 <ion-footer text-center>

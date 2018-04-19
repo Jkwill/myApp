@@ -6,28 +6,27 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>更改服务器</ion-title>
+    <ion-title>选择服务器</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
+    <ion-list radio-group [(ngModel)]="currentHost">
 
-  <ion-list>
-
-    <ion-item no-lines>
-      <ion-label>服务器地址</ion-label>
-      <ion-input type="text" [(ngModel)]="host"></ion-input>
-    </ion-item>
-
-    <ion-item no-lines>
-  <button ion-button item-right (click)="setDefaultHost()" clear small>
-  <div>设为默认值</div>
-  </button>
+  <ion-item *ngFor="let hostItem of hostItems" >
+    <ion-label>{{hostItem}}</ion-label>
+    <ion-radio item-start value={{hostItem}}></ion-radio>
+    <button (click)="removeHost(hostItem)" ion-button clear small item-end>删除</button>
   </ion-item>
 
-  </ion-list>
+</ion-list>
+
+<button ion-button (click)="addHost()" clear>
+  新增服务器
+</button>
   <div padding>
     <button ion-button (click)="saveHost()" block>保存</button>
-  </div>
+</div>
+
 
 </ion-content>

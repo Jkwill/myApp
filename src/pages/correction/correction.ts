@@ -45,6 +45,9 @@ export class CorrectionPage{
         for(let i = 0;i<this.students.length;i++){
             if(this.students[i].createDate != ""){
                 this.submit++;
+                let submitDate:string = this.students[i].createDate;
+                this.students[i].createDate = submitDate.substring(0,submitDate.length-2);
+                //this.students[i].createDate = this.students[i].createDate.subString(0,this.students[i].createDate.length-2);
                 if(this.students[i].score == ""){
                     this.notCorrection++;
                 }else{

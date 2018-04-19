@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {  NavController, NavParams,ToastController,LoadingController } from 'ionic-angular';
 import { TeacherService } from "../../services/httpService/teacher.service";
+import { CourseService} from "../../services/httpService/course.service"
 
 @Component({
   selector: 'page-correctionDetail',
@@ -16,7 +17,9 @@ export class CorrectionDetailPage{
     attach;
     attachType;
     attachName;
-    constructor(public navCtrl: NavController,public teacherService:TeacherService, public navParams: NavParams,public toastCtrl: ToastController,public loadingCtrl: LoadingController){
+    spinner;
+    pdfSrc;
+    constructor(public navCtrl: NavController,public teacherService:TeacherService,public courseService:CourseService, public navParams: NavParams,public toastCtrl: ToastController,public loadingCtrl: LoadingController){
         this.student = this.navParams.get('student');
         this.courseId = this.navParams.get('courseId');
         this.initFileUpload(this.courseId);
@@ -119,7 +122,9 @@ export class CorrectionDetailPage{
       attachName:this.attachName
     }
     this.teacherService.submitHomework(dData).subscribe(res =>{
-        this.student.createDate = new Date().toISOString();
+        let string:string = new Date().toISOString();
+        string = string.replace("T"," ");
+        this.student.createDate = string.substring(0,string.length-5);
         this.toastCtrl.create({
           message: res.message,
           duration: 2000,
@@ -127,4 +132,39 @@ export class CorrectionDetailPage{
         }).present();
     })
   }
+
+  homeworkPreview()
+  {
+    this.spinner=true;
+    let paramObj = {
+      id: this.student.attach
+    }
+
+      if (typeof (FileReader) !== 'undefined') {
+      let reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.pdfSrc = e.target.result;
+     };
+
+    let url=this.courseService.getDownloadPDFUrl(paramObj);
+
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function(){
+      if (xmlHttp.readyState==4){
+        if (xmlHttp.status==200) {
+           reader.readAsArrayBuffer(xmlHttp.response);
+        }
+        else{
+        }
+     }
+    }
+    xmlHttp.responseType = 'blob';
+    xmlHttp.open("get",url,true);
+    xmlHttp.send(null);
+  }
+}
+
+afterLoadPDF(){
+   this.spinner=false;
+}
 }
