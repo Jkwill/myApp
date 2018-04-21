@@ -19,6 +19,12 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
+      
+      let isLogin=localStorage.getItem("isLogin");
+      if(isLogin=='false'){
+        this.rootPage=LoginPage;
+        return;
+      }
       this.accountService.ifLogin().subscribe(res=>{
         if(res.result="success"){
           let paramObj = {
@@ -31,13 +37,13 @@ export class MyApp {
                 this.autoLogin();
               }
           },error=>{
-              this.rootPage=LoginPage;
+              this.autoLogin();
           })
         }else{
           this.autoLogin();
         }
       },error=>{
-          this.rootPage=LoginPage;
+          this.autoLogin();
       })
     });
   }
@@ -64,7 +70,8 @@ export class MyApp {
                this.rootPage=LoginPage;
             }
           },error=>{
-            console.log("error: "+error);
+            this.splashScreen.hide();
+            this.rootPage=LoginPage;
           });
         }else{
           this.splashScreen.hide();

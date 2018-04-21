@@ -54,6 +54,7 @@ export class MinePage {
       let result:string=res.result;
       if(result=='success'){
         this.accountService.closeConnection();
+        localStorage.setItem("isLogin",'false');
         let modal = this.modalCtrl.create(LoginPage);
         modal.present();
       }else{

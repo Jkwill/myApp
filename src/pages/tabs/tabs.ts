@@ -38,6 +38,7 @@ export class TabsPage {
     platform.ready().then(() => {
       this.backButtonService.registerBackButtonAction(this.tabRef);
       accountService.keepConnection();
+      localStorage.setItem("isLogin",'true');
     });
   }
   ionViewWillEnter() {
