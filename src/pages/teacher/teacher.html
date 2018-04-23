@@ -45,9 +45,6 @@
       <ion-segment-button value="message">
         通知
       </ion-segment-button>
-      <ion-segment-button value="progress">
-        进度
-      </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
   <div [ngSwitch]="choose">
@@ -190,7 +187,7 @@
     </div>
 
     <div class="list-avatar-page" *ngSwitchCase="'discuss'">
-      <button ion-button block>发表评论</button>
+      <button ion-button block small>发表评论</button>
       <ion-list  *ngFor="let discuss of discussList">
         <ion-card>
           <ion-item>
@@ -211,20 +208,6 @@
             </button>
           </ion-item>
         </ion-card>
-      </ion-list>
-    </div>
-
-    <div class="list-avatar-page" *ngSwitchCase="'progress'">
-      <ion-list *ngFor="let item of progressList">
-        <ion-item>
-          <ion-avatar item-start>
-            <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{item.photo}}" onerror="this.src='./assets/imgs/person.png'">
-          </ion-avatar>
-          <h2>{{item.username}}</h2>
-          <p *ngIf="item.lastLearning != 'null'">最近学习：{{item.lastLearning}}</p>
-          <p *ngIf="item.lastUnit != 'null'">上次学习：{{item.lastUnit}}</p>
-          <ion-note item-end>已学习{{item.finish}}节--{{item.percent}}%</ion-note>
-        </ion-item>
       </ion-list>
     </div>
 

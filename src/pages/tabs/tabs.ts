@@ -37,7 +37,7 @@ export class TabsPage {
     ];
     platform.ready().then(() => {
       this.backButtonService.registerBackButtonAction(this.tabRef);
-      accountService.keepConnection();
+      this.accountService.keepConnection();
       localStorage.setItem("isLogin",'true');
     });
   }

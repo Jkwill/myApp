@@ -35,7 +35,6 @@ export class TeacherPage {
   discussList:any[];
   messageList:Message[];
   homeworkList = new Array();
-  progressList:Object[];
   sectionNum:number = 0;
   newMessage:Message = new Message('','','','','',false);
   addNewMessage:boolean = false;
@@ -54,7 +53,6 @@ export class TeacherPage {
     this.getCourseResource(this.courseId, "teacher");
     this.getDiscussList(this.courseId);
     this.getMessageList(this.courseId);
-    this.getProgress(this.courseId);
   }
 
   openVideoPage(uid){
@@ -386,28 +384,5 @@ export class TeacherPage {
       this.navCtrl.push(CourseSTPage,  { courseId: this.courseId });
   }
 
-  getProgress(cid){
-    let paramObj = {
-      courseId: cid
-    };
-    this.teacherService.listProgress(paramObj).subscribe( res => {
-      console.log(res);
-      if(res.result == "success")
-      {
-        this.progressList = res.progress;
-      }
-      else
-      {
-        this.toastCtrl.create({
-          message: '获取学习进度失败',
-          duration: 1000,
-          position: 'top'
-        }).present();
-      }
-
-    }, error => {
-
-    });
-  }
 
 }
