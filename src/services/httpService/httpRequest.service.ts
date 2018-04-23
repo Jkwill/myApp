@@ -100,6 +100,7 @@ export class HttpRequestService {
   getHomeworkTable:string = '/lms/json/learning/checkHomeworkWithoutFilter';
   saveScore:string = '/lms/json/learning/saveHS';
   removeHomework:string = '/lms/json/learning/deleteHomeworkStudent';
+  copyCourse:string = '/lms/json/creator/copyCourse';
 
     constructor(private http: Http) {
 

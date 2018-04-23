@@ -26,7 +26,7 @@ export class LoginPage {
   host:string;
 
   constructor(public navCtrl: NavController,public modalCtrl: ModalController,private backButtonService: BackButtonService,
-              public platform: Platform, public toastCtrl: ToastController,private accountService:AccountService,private httpRequestService:HttpRequestService,
+              public platform: Platform, public toastCtrl: ToastController,public accountService:AccountService,private httpRequestService:HttpRequestService,
   ) {
     platform.ready().then(() => {
       this.backButtonService.registerBackButtonAction(null);

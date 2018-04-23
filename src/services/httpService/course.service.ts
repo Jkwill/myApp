@@ -134,5 +134,11 @@ export class CourseService {
     return this.httpRequestService.get(url);
   }
 
+  copyCourse(param){
+    let url: string = this.httpRequestService.copyCourse;
+    let paramObj = this.httpRequestService.serialize(param);
+    return this.httpRequestService.post(url, paramObj);
+  }
+
 
 }

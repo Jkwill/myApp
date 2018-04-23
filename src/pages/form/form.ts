@@ -28,7 +28,7 @@ export class FormPage {
   fileParam:FileUploadParam;
   imgSrc:string;
   showImg:boolean = false;
-  courseInfo:CourseInfo = new CourseInfo('','','','',0,0,'','','2018-01-01','2018-03-24', '', '');
+  courseInfo:CourseInfo = new CourseInfo('','','','',0.5,1,'','','2018-01-01','2018-03-24', '', '');
   isOpen:boolean = false;
   courseType:Object[];
   department:Object[];
@@ -54,6 +54,8 @@ export class FormPage {
       this.formCourse(courseId);
       if(typeof(courseId) == "undefined"){
         this.title = "创建课程";
+        this.courseInfo.startDate = this.getCurrentDate('date');
+        this.courseInfo.endDate = this.getCurrentDate('date');
       }
     }
     else if(formType == 'section')
@@ -89,7 +91,7 @@ export class FormPage {
         this.homeworkInfo.groupId = this.fileParam.groupId;
         this.homeworkInfo.parentId = this.fileParam.parentId;
         this.homeworkInfo.coolviewId = this.fileParam.coolviewId;
-        this.homeworkInfo.startDate = this.getCurrentDate();
+        this.homeworkInfo.startDate = this.getCurrentDate('time');
         this.homeworkInfo.endDate =  this.navParams.get('endDate')+"T12:00";
       }
       else {
@@ -117,15 +119,17 @@ export class FormPage {
     }
   }
 
-  getCurrentDate(){
+  getCurrentDate(type){
     let now = new Date();
     let month:string;
     let date:string;
-    if(now.getMonth() < 10){
-      month = '0'+now.getMonth();
+    let nowDate:string;
+    let trueMonth = now.getMonth()+1;
+    if(trueMonth < 10){
+      month = '0'+trueMonth;
     }
     else{
-      month = now.getMonth().toString();
+      month = trueMonth.toString();
     }
     if(now.getDate()<10){
       date = '0'+now.getDate();
@@ -133,9 +137,41 @@ export class FormPage {
     else{
       date = now.getDate().toString();
     }
-    let nowDate:string = now.getFullYear().toString()+'-'+month+'-'+date+'T'+now.getHours()+":"+now.getMinutes();
+    if(type == "time"){
+      nowDate = now.getFullYear().toString()+'-'+month+'-'+date+'T'+now.getHours()+":"+now.getMinutes();
+    }
+    else{
+      nowDate = now.getFullYear().toString()+'-'+month+'-'+date;
+    }
     console.log(nowDate);
     return nowDate;
+  }
+
+  compareDate(start, end){
+    let t1 = start.split('-');
+    let t2 = end.split('-');
+    if(t1[0] < t2[0]){
+      return true;
+    }
+    else if(t1[0] == t2[0]){
+      if(t1[1]<t2[1]){
+        return true;
+      }
+      else if(t1[1]==t2[1]){
+        if(t1[2]<t2[2]){
+          return true;
+        }
+        else {
+          return false;
+        }
+      }
+      else{
+        return false;
+      }
+    }
+    else {
+      return false;
+    }
   }
 
   pdfUpload(event) {
@@ -401,7 +437,7 @@ export class FormPage {
           if(endDate != ''){
             endDate = endDate.split(' ')[0];
           }
-          let credit:number = parseInt(res.credit);
+          let credit:number = parseFloat(res.credit);
           let classHour:number = parseInt(res.classHour);
 
           this.courseInfo = new CourseInfo(courseId, res.name, res.filepath, res.textbook, credit, classHour, res.introduction, res.isOpen, startDate, endDate, res.type, res.department);
@@ -416,9 +452,25 @@ export class FormPage {
   saveCourse()
   {
     let paramObj:any;
-    if(this.courseInfo.name == ''||this.courseInfo.introduction == ''){
+    if(this.courseInfo.name == ''){
       this.toastCtrl.create({
-        message: "信息填写不全",
+        message: "课程名称不能为空",
+        duration: 1000,
+        position: 'top'
+      }).present();
+      return;
+    }
+    if(this.courseInfo.introduction == ''){
+      this.toastCtrl.create({
+        message: "课程介绍不能为空",
+        duration: 1000,
+        position: 'top'
+      }).present();
+      return;
+    }
+    if(!(this.compareDate(this.courseInfo.startDate, this.courseInfo.endDate)&&this.compareDate(this.getCurrentDate('date'),this.courseInfo.endDate))){
+      this.toastCtrl.create({
+        message: "时间输入不合法",
         duration: 1000,
         position: 'top'
       }).present();
@@ -491,10 +543,9 @@ export class FormPage {
 
   saveSection()
   {
-    //console.log(this.sectionInfo);
     if(this.sectionInfo.name == ''){
       this.toastCtrl.create({
-        message: "信息填写不全",
+        message: "章节名称不能为空",
         duration: 1000,
         position: 'top'
       }).present();
@@ -543,7 +594,7 @@ export class FormPage {
   {
     if(this.homeworkInfo.name == ''){
       this.toastCtrl.create({
-        message: "信息填写不全",
+        message: "作业名称不能为空",
         duration: 1000,
         position: 'top'
       }).present();
@@ -616,7 +667,7 @@ export class FormPage {
   {
     if(this.unit.name == ''){
       this.toastCtrl.create({
-        message: "信息填写不全",
+        message: "名称不能为空",
         duration: 1000,
         position: 'top'
       }).present();

@@ -63,21 +63,21 @@
     </ion-item>
     <ion-item>
       <ion-label>课程类别</ion-label>
-      <ion-select [(ngModel)]="courseInfo.type">
+      <ion-select [(ngModel)]="courseInfo.type" cancelText="取消" okText="确定">
         <ion-option  *ngFor="let type of courseType" value="{{type.code}}">{{type.name}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
       <ion-label>认证学分</ion-label>
-      <ion-input type="number" [(ngModel)]="courseInfo.credit"></ion-input>
+      <ion-input type="number" [(ngModel)]="courseInfo.credit" min="0.5" step="0.5"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>总学时</ion-label>
-      <ion-input type="number" [(ngModel)]="courseInfo.classHour"></ion-input>
+      <ion-input type="number" [(ngModel)]="courseInfo.classHour" min="1"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>开课单位</ion-label>
-      <ion-select [(ngModel)]="courseInfo.department">
+      <ion-select [(ngModel)]="courseInfo.department" cancelText="取消" okText="确定">
         <ion-option *ngFor="let unit of department" value="{{unit.code}}">{{unit.name}}</ion-option>
       </ion-select>
     </ion-item>
@@ -124,18 +124,18 @@
       <ion-input type="text" [(ngModel)]="homeworkInfo.chFilename" disabled></ion-input>
     </ion-item>
     <ion-item>
+      <ion-icon ios="ios-cloud-upload" md="md-cloud-upload" color="primary" item-start></ion-icon>
       <input type="file" #uploadHomework (change)="homeworkUpload($event)" [ngStyle]="{'display':'none'}"/>
       <button ion-button (click)="uploadHomework.click()" [ngStyle]="{'width': '40%'}">本地上传</button>
-      <button ion-button [ngStyle]="{'width': '40%'}">WebLib上传</button>
     </ion-item>
     <ion-item>
       <ion-label>答案</ion-label>
       <ion-input type="text" [(ngModel)]="homeworkInfo.answerName" disabled></ion-input>
     </ion-item>
     <ion-item>
+      <ion-icon ios="ios-cloud-upload" md="md-cloud-upload" color="primary" item-start></ion-icon>
       <input type="file" #uploadAnswer (change)="answerUpload($event)" [ngStyle]="{'display':'none'}"/>
       <button ion-button (click)="uploadAnswer.click()" [ngStyle]="{'width': '40%'}">本地上传</button>
-      <button ion-button [ngStyle]="{'width': '40%'}">WebLib上传</button>
     </ion-item>
     <ion-item>
       <button ion-button (click)="saveHomework()" block>保存</button>

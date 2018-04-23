@@ -90,9 +90,8 @@ export class TeacherPage {
     this.navCtrl.push(FormPage, { sectionId:sectionId, unitId:unitId, fileParam:this.fileParam, type:'unit', startDate:this.startDate, endDate:this.endDate })
   }
 
-  openCorrection(index){
-    let homeworkId = this.homeworkList[index].id;
-    this.navCtrl.push(CorrectionPage,{id:homeworkId,courseId:this.courseId});
+  openCorrection(id){
+    this.navCtrl.push(CorrectionPage,{id:id,courseId:this.courseId});
   }
 
   deleteSection(id)

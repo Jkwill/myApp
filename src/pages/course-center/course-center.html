@@ -25,13 +25,23 @@
 
     <ion-list *ngSwitchCase="'teach'">
       <button ion-button (click)="createCourse()" small  block>创建课程</button>
-        <ion-item *ngFor="let teachItem of teachItems;let i = index" (click)="openTeacherPage(teachItem.id)" (press)="presentActionSheet($event, teachItem.id)">
-          <ion-thumbnail item-start>
-            <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{teachThumbnails[i]}}" onerror="this.src='./assets/imgs/course.png'">
-          </ion-thumbnail>
-          <h3>{{teachItem.name}}</h3>
-          <p>{{teachItem.introduction}}</p>
-        </ion-item>
+        <ion-item-sliding *ngFor="let teachItem of teachItems;let i = index">
+          <ion-item (click)="openTeacherPage(teachItem.id)">
+            <ion-thumbnail item-start>
+              <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{teachThumbnails[i]}}" onerror="this.src='./assets/imgs/course.png'">
+            </ion-thumbnail>
+            <h3>{{teachItem.name}}</h3>
+            <p>{{teachItem.introduction}}</p>
+          </ion-item>
+          <ion-item-options>
+            <button ion-button (click)="deleteCourse(teachItem.id)" [ngStyle]="{'background-color':'#F00000'}">
+              删除
+            </button>
+            <button ion-button (click)="copyCourse(teachItem.id)" color="primary">
+              复制
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
     </ion-list>
 
   </div>

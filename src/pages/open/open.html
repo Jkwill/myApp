@@ -28,6 +28,9 @@
       <ion-segment-button value="introduction">
         简介
       </ion-segment-button>
+      <ion-segment-button value="join">
+        加入学习
+      </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
   <div [ngSwitch]="choose">
@@ -56,6 +59,10 @@
           </ion-list>
         </ion-card-content>
       </ion-card>
+    </div>
+
+    <div *ngSwitchCase="'join'">
+      <button ion-button (click)="joinOpenCourse(courseId)" block>加入学习</button>
     </div>
   </div>
 </ion-content>

@@ -38,37 +38,6 @@ export class CourseCenterPage {
     this.navCtrl.push(FormPage, { type : 'course' });
   }
 
-  presentActionSheet(e, id) {
-    let actionSheet = this.actionSheetCtrl.create({
-      title: 'options',
-      cssClass: 'action-sheets-basic-page',
-      buttons: [
-        {
-          text: '删除',
-          role: 'destructive',
-          icon: !this.platform.is('ios') ? 'trash' : null,
-          handler: () => {
-            this.deleteCourse(id);
-          }
-        }, {
-          text: '复制',
-          icon: !this.platform.is('ios') ? 'copy' : null,
-          handler: () => {
-            console.log('Archive clicked');
-          }
-        }, {
-          text: '取消',
-          role: 'cancel',
-          icon: !this.platform.is('ios') ? 'close' : null,
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        }
-      ]
-    });
-    actionSheet.present();
-  }
-
   deleteCourse(id) {
     let model = {
       courseId : id
@@ -157,6 +126,17 @@ export class CourseCenterPage {
       }
     } , error => {})
 
+  }
+
+  copyCourse(id){
+    let param = {
+      courseId : id
+    };
+    this.courseService.copyCourse(param).subscribe( res => {
+      if(res.result == 'success'){
+        this.getAllCourseList();
+      }
+    }, error => {} )
   }
 
 }
