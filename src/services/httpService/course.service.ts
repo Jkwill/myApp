@@ -78,10 +78,7 @@ export class CourseService {
     return this.httpRequestService.host+url;
   }
 
-  doUpvote(paramObj) {
-    let url: string = this.httpRequestService.doUpvote;
-    return this.httpRequestService.post(url, this.httpRequestService.serialize(paramObj));
-  }
+
 
   listQuiz(paramObj) {
     let url: string = this.httpRequestService.listQuiz + "?" + this.httpRequestService.serialize(paramObj);
@@ -140,5 +137,41 @@ export class CourseService {
     return this.httpRequestService.post(url, paramObj);
   }
 
+  saveDiscuss(model){
+    let url:string = this.httpRequestService.saveDiscuss;
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url, param);
+  }
+
+  deleteDiscuss(model){
+    let url:string = this.httpRequestService.deleteDiscuss;
+    let param = this.httpRequestService.serialize(model);
+    return this.httpRequestService.post(url, param);
+  }
+
+  getUnits(param) {
+    let url: string = this.httpRequestService.getUnits + "?" + this.httpRequestService.serialize(param);
+    return this.httpRequestService.get(url);
+  }
+
+  doUpvote(paramObj) {
+    let url: string = this.httpRequestService.doUpvote;
+    return this.httpRequestService.post(url, this.httpRequestService.serialize(paramObj));
+  }
+
+  listReply(param) {
+    let url: string = this.httpRequestService.listReply + "?" + this.httpRequestService.serialize(param);
+    return this.httpRequestService.get(url);
+  }
+
+  saveReply(paramObj) {
+    let url: string = this.httpRequestService.saveReply;
+    return this.httpRequestService.post(url, this.httpRequestService.serialize(paramObj));
+  }
+
+  deleteReply(paramObj) {
+    let url: string = this.httpRequestService.deleteReply;
+    return this.httpRequestService.post(url, this.httpRequestService.serialize(paramObj));
+  }
 
 }

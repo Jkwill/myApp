@@ -61,6 +61,12 @@ export class HttpRequestService {
   listQuizResultStat:string='/lms/json/learning/listQuizResultStat';
   formAccount:string= '/lms/json/account/';
   saveAccount: string='/lms/json/account/save';//修改个人信息
+  saveDiscuss: string = '/lms/json/learning/saveDiscuss';
+  deleteDiscuss: string = '/lms/json/learning/deleteDiscuss';
+  getUnits : string = '/lms/json/course/getUnits';
+  listReply:string = '/lms/json/learning/listReply';
+  saveReply:string = '/lms/json/learning/saveReply';
+  deleteReply:string = '/lms/json/learning/deleteReply';
 
   courseThumbnail:string='/lms/json/learning/formThumbnail';//获取课程缩略图
   initFileUpload:string = '/lms/json/learning/initFileUpload'; //获取文件上传（weblib） 所需的参数（groupId、parentId、cooliewId）

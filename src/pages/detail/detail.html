@@ -116,26 +116,85 @@
     </div>
 
     <div class="list-avatar-page" *ngSwitchCase="'discuss'">
-      <button ion-button block>发表评论</button>
-      <ion-list  *ngFor="let discuss of discussList">
-        <ion-card>
+      <button ion-button (click)="addDiscuss()" block small>发起讨论</button>
+      <div *ngIf="addNewDiscuss">
+        <ion-item>
+          <ion-textarea [(ngModel)]="newDiscuss.content" [ngStyle]="{'height':'80px','border':'1px solid grey'}"></ion-textarea>
+        </ion-item>
+        <ion-item>
+          <ion-label>相关主题</ion-label>
+          <ion-select [(ngModel)]="unitId" cancelText="取消" okText="确定">
+            <ion-option value="0">请选择相关知识点</ion-option>
+            <ion-option  *ngFor="let unit of units" value="{{unit.id}}">{{unit.name}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item  text-center>
+          <button ion-button (click)="saveDiscuss()" small>保存</button>
+          <button ion-button (click)="closeDiscuss()" small>取消</button>
+        </ion-item>
+      </div>
+
+      <ion-list>
+        <ion-card *ngFor="let discuss of discussList">
+          <ion-item-sliding>
+            <ion-item>
+              <ion-avatar item-start>
+                <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{discuss.photo}}">
+              </ion-avatar>
+              <h3>{{discuss.creatorName}}</h3>
+              <p>{{discuss.content}}</p>
+              <ion-note [ngStyle]="{'font-size':'12px'}" item-end>{{discuss.createDate}}</ion-note>
+            </ion-item>
+            <ion-item-options *ngIf="currentUser == discuss.creatorId" [ngStyle]="{'width':'100px'}">
+              <button ion-button (click)="editDiscuss(discuss)" color="primary">
+                编辑
+              </button>
+              <button ion-button (click)="deleteDiscuss(discuss.id)" [ngStyle]="{'background-color':'#F00000'}">
+                删除
+              </button>
+            </ion-item-options>
+          </ion-item-sliding>
           <ion-item>
-            <ion-avatar item-start>
-              <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{discuss?.photo}}" onerror="this.src='./assets/imgs/person.png'">
-            </ion-avatar>
-            <h2>{{discuss.creatorName}}</h2>
-            <p>{{discuss.content}}</p>
-            <ion-note item-end>{{discuss.createDate}}</ion-note>
-          </ion-item>
-          <ion-item>
-            <button ion-button (click)="doUpvote(discuss.id)" small clear icon-start item-end>
+            <button ion-button small clear icon-start item-end>
+              <ion-icon name="attach"></ion-icon>
+              {{discuss.unitName}}
+            </button>
+            <button ion-button (click)="doUpvote(discuss)" small clear icon-start item-end>
               <ion-icon name="thumbs-up"></ion-icon>
               {{discuss.upvoteCount}}
             </button>
-            <button ion-button small clear item-end>
-              <ion-icon name="text">  {{discuss.replyCount}}</ion-icon>
+            <button ion-button (click)="showReplyList(discuss)" small clear icon-start item-end>
+              <ion-icon name="text"> </ion-icon>
+              {{discuss.replyCount}}
             </button>
           </ion-item>
+
+          <ion-item-group *ngIf="discuss.expand">
+            <ion-item-divider text-left color="light">回复:</ion-item-divider>
+            <ion-item-sliding color="light" *ngFor="let reply of replyList">
+              <ion-item>
+                <ion-avatar item-start>
+                  <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{reply.photo}}">
+                </ion-avatar>
+                <h3>{{reply.creatorName}}</h3>
+                <p>{{reply.content}}</p>
+                <ion-note [ngStyle]="{'font-size':'12px'}" item-end>{{reply.createDateString}}</ion-note>
+              </ion-item>
+              <ion-item-options *ngIf="currentUser == reply.creatorId">
+                <button ion-button (click)="deleteReply(reply.id, discuss)" [ngStyle]="{'background-color':'#F00000'}">
+                  删除
+                </button>
+              </ion-item-options>
+            </ion-item-sliding>
+            <button *ngIf="newReply" (click)="addReply()" ion-item icon-start><ion-icon name="text-outline" [ngStyle]="{'padding-left':'8px'}" item-start></ion-icon>发表回复</button>
+            <ion-item *ngIf="!newReply">
+              <ion-textarea [(ngModel)]="replyContent" [ngStyle]="{'height':'80px','border':'1px solid grey'}"></ion-textarea>
+            </ion-item>
+            <ion-item *ngIf="!newReply" text-center>
+              <button ion-button (click)="saveReply(discuss)" small>保存</button>
+              <button ion-button (click)="closeReply()" small>取消</button>
+            </ion-item>
+          </ion-item-group>
         </ion-card>
       </ion-list>
     </div>
