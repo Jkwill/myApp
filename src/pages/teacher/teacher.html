@@ -257,7 +257,7 @@
                 </button>
               </ion-item-options>
             </ion-item-sliding>
-            <button *ngIf="newReply" (click)="addReply()" ion-item icon-start><ion-icon name="text-outline" [ngStyle]="{'padding-left':'8px'}" item-start></ion-icon>发表回复</button>
+            <button *ngIf="newReply" (click)="addReply()" ion-item icon-start><ion-icon name="chatboxes"  [ngStyle]="{'color':'#282828','margin-left':'7px'}" item-start></ion-icon>发表回复</button>
             <ion-item *ngIf="!newReply">
               <ion-textarea [(ngModel)]="replyContent" [ngStyle]="{'height':'80px','border':'1px solid grey'}"></ion-textarea>
             </ion-item>
