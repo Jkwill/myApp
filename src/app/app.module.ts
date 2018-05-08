@@ -49,7 +49,7 @@ class NativeStorageMock extends NativeStorage {
      return new Promise((resolve, reject) => {
         let value=localStorage.getItem(reference);
         if(value==null){
-            resolve();
+            reject();
         }else{
             let array=value.split(',');
             if(array.length>1){

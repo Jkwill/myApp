@@ -62,17 +62,16 @@ export class LoginPage {
       .then(
         data => {
           isSavePasssword=data;
-           if(isSavePasssword==null){
-              this.savePassword=true;
-            }else{
-              if(isSavePasssword=='Y'){
-                this.savePassword=true;
-              }else{
-                this.savePassword=false;
-              }
-            }
+          if(isSavePasssword=='Y'){
+            this.savePassword=true;
+          }else{
+            this.savePassword=false;
+          }
         },
-        error => console.error(error)
+        error => {
+          console.error(error);
+          this.savePassword=true;
+        }
       );
 
       this.nativeStorage.getItem('currentHost')
@@ -80,9 +79,15 @@ export class LoginPage {
         data => {
           currentHost=data;
           this.host=currentHost;
-          if(this.host==null){
-            this.host=this.httpRequestService.getDefaultHost();
-
+          if(this.host!=null){
+            this.httpRequestService.setCurrentHost(this.host);
+          }
+        },
+        error => {
+          console.error(error);
+          // localStorage.setItem("currentHost",this.host);
+            // localStorage.setItem("hostItems",this.httpRequestService.getDefaultHostItems().toString());
+           this.host=this.httpRequestService.getDefaultHost();
             this.nativeStorage.setItem('currentHost', this.host).then(
             () => console.log('Stored currentHost!'),
             error => console.error('Error storing item', error)
@@ -91,13 +96,7 @@ export class LoginPage {
             () => console.log('Stored hostItems!'),
             error => console.error('Error storing item', error)
             );
-            // localStorage.setItem("currentHost",this.host);
-            // localStorage.setItem("hostItems",this.httpRequestService.getDefaultHostItems().toString());
-          }else{
-            this.httpRequestService.setCurrentHost(this.host);
-          }
-        },
-        error => console.error(error)
+        }
       );
 
   }
