@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import {HttpRequestService} from "../../services/httpService/httpRequest.service"
 import { ToastController,NavController,AlertController} from 'ionic-angular';
 
+import { NativeStorage } from '@ionic-native/native-storage';
+
 /**
  * Generated class for the CreateLessionPage page.
  *
@@ -17,9 +19,21 @@ export class ChangeHostPage {
   hostItems;
   currentHost;
   Duesenberg;
-  constructor(public alertCtrl: AlertController,public navCtrl: NavController,public toastCtrl: ToastController,public httpRequestService: HttpRequestService) {
-  	this.hostItems=localStorage.getItem("hostItems").split(',');
-    this.currentHost=localStorage.getItem("currentHost");
+  constructor(public nativeStorage: NativeStorage,public alertCtrl: AlertController,public navCtrl: NavController,public toastCtrl: ToastController,public httpRequestService: HttpRequestService) {
+  	// this.hostItems=localStorage.getItem("hostItems").split(',');
+   //  this.currentHost=localStorage.getItem("currentHost");
+
+      this.nativeStorage.getItem('hostItems')
+      .then(
+        data => this.hostItems=data,
+        error => console.error(error)
+      );
+
+      this.nativeStorage.getItem('currentHost')
+      .then(
+        data => this.currentHost=data,
+        error => console.error(error)
+      );
   }
   addHost(){
   let alert = this.alertCtrl.create({
@@ -43,7 +57,11 @@ export class ChangeHostPage {
         text: '确认',
         handler: data => {
           this.hostItems.push(data.host);
-          localStorage.setItem("hostItems",this.hostItems);
+          //localStorage.setItem("hostItems",this.hostItems);
+           this.nativeStorage.setItem('hostItems', this.hostItems).then(
+          () => console.log('Stored item!'),
+          error => console.error('Error storing item', error)
+          );
         }
       }
     ]
@@ -52,7 +70,11 @@ export class ChangeHostPage {
   }
   saveHost(){
   	this.httpRequestService.setCurrentHost(this.currentHost);
-  	localStorage.setItem("currentHost",this.currentHost);
+  	//localStorage.setItem("currentHost",this.currentHost);
+    this.nativeStorage.setItem('currentHost', this.currentHost).then(
+    () => console.log('Stored item!'),
+    error => console.error('Error storing item', error)
+    );
   	this.toastCtrl.create({
         message: '设置成功',
         duration: 2000,
@@ -83,7 +105,11 @@ export class ChangeHostPage {
           }else{
             let index=this.hostItems.indexOf(host);
             this.hostItems.splice(index, 1);
-            localStorage.setItem("hostItems",this.hostItems);
+            //localStorage.setItem("hostItems",this.hostItems);
+             this.nativeStorage.setItem('hostItems', this.hostItems).then(
+            () => console.log('Stored item!'),
+            error => console.error('Error storing item', error)
+            );
           }
         }
       }

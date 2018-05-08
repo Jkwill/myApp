@@ -8,19 +8,19 @@
 <ion-content>
 
 
-    <ion-item>
-      <ion-label >姓名</ion-label>
-      <ion-input [(ngModel)]="userInfo.name" readonly></ion-input>
-    </ion-item>
   <ion-item>
     <ion-card>
       <img  src="{{userInfo.photo}}" alt="">
       <ion-card-content>
         <input #upload type="file" (change)="imageUploaded($event)" [ngStyle]="{'display':'none'}" >
-        <button ion-button (click)="upload.click()" small block>上传图片</button>
+        <button ion-button (click)="upload.click()" small block>修改头像</button>
       </ion-card-content>
     </ion-card>
   </ion-item>
+    <ion-item>
+      <ion-label >姓名</ion-label>
+      <ion-input [(ngModel)]="userInfo.name" readonly></ion-input>
+    </ion-item>
     <ion-item>
       <ion-label >电子邮件</ion-label>
       <ion-input [(ngModel)]="userInfo.email"></ion-input>

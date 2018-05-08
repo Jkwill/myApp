@@ -24,12 +24,7 @@ export class VideoPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,public accountService:AccountService,public courseService:CourseService,public platform: Platform) {
     platform.ready().then(() => {
       this.title=this.navParams.data.name;
-          let isLogin:string=localStorage.getItem("isLoginWeblib");
-          if(isLogin=="Y"){
-              this.getCourseware(this.navParams.data.id);
-          }else{
-              alert("weblib未登录")
-          }
+       this.getCourseware(this.navParams.data.id);
     });
   }
   viewPDF()

@@ -37,6 +37,30 @@ import {TeacherService} from "../services/httpService/teacher.service";
 import {SubjectPage} from "../pages/subject/subject";
 import {FinalExamPage} from "../pages/final-exam/final-exam";
 
+import { NativeStorage } from '@ionic-native/native-storage';
+
+class NativeStorageMock extends NativeStorage {
+  setItem(reference, value){
+    return new Promise((resolve, reject) => {
+        localStorage.setItem(reference,value.toString());
+    })
+  }
+  getItem(reference){
+     return new Promise((resolve, reject) => {
+        let value=localStorage.getItem(reference);
+        if(value==null){
+            resolve();
+        }else{
+            let array=value.split(',');
+            if(array.length>1){
+                resolve(array);
+            }else{
+                resolve(value);
+            }
+        }
+    })
+  }
+}
 
 
 @NgModule({
@@ -104,6 +128,8 @@ import {FinalExamPage} from "../pages/final-exam/final-exam";
     AccountService,
     CourseService,
     TeacherService,
+    NativeStorage,
+    //{provide: NativeStorage, useClass: NativeStorageMock},
     {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })

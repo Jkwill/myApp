@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import {LoginPage} from "../pages/login/login";
 import {TabsPage} from "../pages/tabs/tabs";
 import {AccountService} from "../services/httpService/account.service";
+import { NativeStorage } from '@ionic-native/native-storage';
 
 @Component({
   templateUrl: 'app.html'
@@ -14,13 +15,29 @@ export class MyApp {
   rootPage:any = "";
 
 
-  constructor(platform: Platform,statusBar: StatusBar,public splashScreen: SplashScreen,public accountService:AccountService) {
+  constructor(public nativeStorage: NativeStorage,platform: Platform,statusBar: StatusBar,public splashScreen: SplashScreen,public accountService:AccountService) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       
-      let isLogin=localStorage.getItem("isLogin");
+      //let isLogin=localStorage.getItem("isLogin");
+      let isLogin;
+      this.nativeStorage.getItem('isLogin')
+      .then(
+        data => {
+          isLogin=data;
+          this.Login(isLogin);
+        },
+        error => {
+          console.error(error);
+          this.rootPage=LoginPage;
+        }
+      );
+    });
+  }
+
+  Login(isLogin){
       if(isLogin=='false'){
         this.rootPage=LoginPage;
         return;
@@ -31,7 +48,7 @@ export class MyApp {
           };
           this.accountService.weblibLoginStatus(paramObj).subscribe(res=>{
             if(res.status=="login"){
-                splashScreen.hide();
+                this.splashScreen.hide();
                 this.rootPage=TabsPage;
               }else{
                 this.autoLogin();
@@ -45,12 +62,31 @@ export class MyApp {
       },error=>{
           this.autoLogin();
       })
-    });
   }
   autoLogin(){
-    let username=localStorage.getItem("username");
-    let password=localStorage.getItem("password");
-    if(username!=null&&password!=null){
+    //let username=localStorage.getItem("username");
+    //let password=localStorage.getItem("password");
+    let username;
+    let password;
+     this.nativeStorage.getItem('username')
+      .then(
+        data => {
+          username=data;
+          this.nativeStorage.getItem('password')
+          .then(
+            data => {
+              password=data;
+              this.LoginWithParam(username,password);
+            },
+            error => console.error(error)
+          );
+        },
+        error => console.error(error)
+      );
+      
+  }
+  LoginWithParam(username,password){
+      if(username!=null&&password!=null){
         let paramObj = {
         username: username,
         password:password

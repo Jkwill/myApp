@@ -4,13 +4,15 @@ import { LoginPage } from "../login/login";
 import { AccountService} from "../../services/httpService/account.service"
 import {PersonalInfoPage} from "../personalInfo/personalInfo";
 
+import { NativeStorage } from '@ionic-native/native-storage';
+
 @Component({
   selector: 'page-mine',
   templateUrl: 'mine.html'
 })
 export class MinePage {
   userInfo;
-  constructor(public navCtrl: NavController,public modalCtrl: ModalController,public toastCtrl: ToastController,public accountService:AccountService,
+  constructor(public nativeStorage: NativeStorage,public navCtrl: NavController,public modalCtrl: ModalController,public toastCtrl: ToastController,public accountService:AccountService,
               public platform: Platform,public alertCtrl: AlertController) {
 
   }
@@ -54,7 +56,11 @@ export class MinePage {
       let result:string=res.result;
       if(result=='success'){
         this.accountService.closeConnection();
-        localStorage.setItem("isLogin",'false');
+        //localStorage.setItem("isLogin",'false');
+        this.nativeStorage.setItem('isLogin', 'false').then(
+            () => console.log('Stored item!'),
+            error => console.error('Error storing item', error)
+            );
         let modal = this.modalCtrl.create(LoginPage);
         modal.present();
       }else{

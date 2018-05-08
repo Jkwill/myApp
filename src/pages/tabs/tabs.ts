@@ -7,6 +7,8 @@ import { HomePage } from '../home/home';
 import { BackButtonService } from "../../services/uiService/backButton.service";
 import { AccountService} from "../../services/httpService/account.service"
 
+import { NativeStorage } from '@ionic-native/native-storage';
+
 @Component({
   templateUrl: 'tabs.html'
 })
@@ -15,7 +17,7 @@ export class TabsPage {
   tabRoots: Object[];
   timer;
 
-  constructor(private accountService:AccountService,public navCtrl: NavController, public navParams: NavParams,public backButtonService: BackButtonService,
+  constructor(public nativeStorage: NativeStorage,private accountService:AccountService,public navCtrl: NavController, public navParams: NavParams,public backButtonService: BackButtonService,
               public platform: Platform) {
 
     this.tabRoots = [
@@ -38,7 +40,11 @@ export class TabsPage {
     platform.ready().then(() => {
       this.backButtonService.registerBackButtonAction(this.tabRef);
       this.accountService.keepConnection();
-      localStorage.setItem("isLogin",'true');
+      //localStorage.setItem("isLogin",'true');
+      this.nativeStorage.setItem('isLogin', 'true').then(
+      () => console.log('Stored item!'),
+      error => console.error('Error storing item', error)
+      );
     });
   }
   ionViewWillEnter() {

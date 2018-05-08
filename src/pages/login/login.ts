@@ -7,6 +7,8 @@ import { HttpRequestService} from "../../services/httpService/httpRequest.servic
 import { ChangeHostPage } from  "../changeHost/changeHost"
 import {TabsPage} from "../tabs/tabs";
 
+import { NativeStorage } from '@ionic-native/native-storage';
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -25,7 +27,7 @@ export class LoginPage {
   screen_height:number;
   host:string;
 
-  constructor(public navCtrl: NavController,public modalCtrl: ModalController,private backButtonService: BackButtonService,
+  constructor(public nativeStorage: NativeStorage,public navCtrl: NavController,public modalCtrl: ModalController,private backButtonService: BackButtonService,
               public platform: Platform, public toastCtrl: ToastController,private accountService:AccountService,private httpRequestService:HttpRequestService,
   ) {
     platform.ready().then(() => {
@@ -39,25 +41,64 @@ export class LoginPage {
 
   ngOnInit() {
 
-    this.username=localStorage.getItem("username");
-    this.password=localStorage.getItem("password");
-    if(localStorage.getItem("isSavePasssword")==null){
-      this.savePassword=true;
-    }else{
-      if(localStorage.getItem("isSavePasssword")=='Y'){
-        this.savePassword=true;
-      }else{
-        this.savePassword=false;
-      }
-    }
-     this.host=localStorage.getItem("currentHost");
-    if(this.host==null){
-      this.host=this.httpRequestService.getDefaultHost();
-      localStorage.setItem("currentHost",this.host);
-      localStorage.setItem("hostItems",this.httpRequestService.getDefaultHostItems().toString());
-    }else{
-      this.httpRequestService.setCurrentHost(this.host);
-    }
+    // this.username=localStorage.getItem("username");
+    // this.password=localStorage.getItem("password");
+    let isSavePasssword;
+    let currentHost;
+     this.nativeStorage.getItem('username')
+      .then(
+        data => {
+          this.username=data;
+        },
+        error => console.error(error)
+      );
+    this.nativeStorage.getItem('password')
+      .then(
+        data => this.password=data,
+        error => console.error(error)
+      );
+
+      this.nativeStorage.getItem('isSavePasssword')
+      .then(
+        data => {
+          isSavePasssword=data;
+           if(isSavePasssword==null){
+              this.savePassword=true;
+            }else{
+              if(isSavePasssword=='Y'){
+                this.savePassword=true;
+              }else{
+                this.savePassword=false;
+              }
+            }
+        },
+        error => console.error(error)
+      );
+
+      this.nativeStorage.getItem('currentHost')
+      .then(
+        data => {
+          currentHost=data;
+          this.host=currentHost;
+          if(this.host==null){
+            this.host=this.httpRequestService.getDefaultHost();
+
+            this.nativeStorage.setItem('currentHost', this.host).then(
+            () => console.log('Stored currentHost!'),
+            error => console.error('Error storing item', error)
+            );
+            this.nativeStorage.setItem('hostItems', this.httpRequestService.getDefaultHostItems()).then(
+            () => console.log('Stored hostItems!'),
+            error => console.error('Error storing item', error)
+            );
+            // localStorage.setItem("currentHost",this.host);
+            // localStorage.setItem("hostItems",this.httpRequestService.getDefaultHostItems().toString());
+          }else{
+            this.httpRequestService.setCurrentHost(this.host);
+          }
+        },
+        error => console.error(error)
+      );
 
   }
   changeHost(){
@@ -86,17 +127,36 @@ export class LoginPage {
         let result:string=res.result;
 
         if(result=='success'){
-          localStorage.setItem("username",this.username);
+          //localStorage.setItem("username",this.username);
+           this.nativeStorage.setItem('username', this.username).then(
+            () => console.log('Stored username!'),
+            error => console.error('Error storing item', error)
+            );
           if(this.savePassword){
-            localStorage.setItem("password",this.password);
-            localStorage.setItem("isSavePasssword",'Y');
+             this.nativeStorage.setItem('password', this.password).then(
+            () => console.log('Stored password!'),
+            error => console.error('Error storing item', error)
+            );
+            this.nativeStorage.setItem('isSavePasssword', 'Y').then(
+            () => console.log('Stored isSavePasssword!'),
+            error => console.error('Error storing item', error)
+            );
+            //localStorage.setItem("password",this.password);
+            //localStorage.setItem("isSavePasssword",'Y');
           }else{
-            localStorage.setItem("password","");
-            localStorage.setItem("isSavePasssword",'N');
+             this.nativeStorage.setItem('password', '').then(
+            () => console.log('Stored item!'),
+            error => console.error('Error storing item', error)
+            );
+            this.nativeStorage.setItem('isSavePasssword', 'N').then(
+            () => console.log('Stored item!'),
+            error => console.error('Error storing item', error)
+            );
+            // localStorage.setItem("password","");
+            // localStorage.setItem("isSavePasssword",'N');
           }
           this.weblibLoginStatus().subscribe(res=>{
             if(res.status=="login"){
-              localStorage.setItem("isLoginWeblib","Y");
               let modal = this.modalCtrl.create(TabsPage);
               modal.present();
             }else{
@@ -146,7 +206,6 @@ export class LoginPage {
     },error =>{
       console.log("error: "+error);
     },()=>{
-      localStorage.setItem("isLoginWeblib","Y");
       let modal = this.modalCtrl.create(TabsPage);
       modal.present();
     });
