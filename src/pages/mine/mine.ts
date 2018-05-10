@@ -12,6 +12,7 @@ import { NativeStorage } from '@ionic-native/native-storage';
 })
 export class MinePage {
   userInfo;
+  photo;
   constructor(public nativeStorage: NativeStorage,public navCtrl: NavController,public modalCtrl: ModalController,public toastCtrl: ToastController,public accountService:AccountService,
               public platform: Platform,public alertCtrl: AlertController) {
 
@@ -22,7 +23,7 @@ export class MinePage {
   getUserInfo() {
     this.accountService.getUserInfo().subscribe(res=>{
       this.userInfo=res;
-      this.userInfo.photo = "http://lms.ccnl.scut.edu.cn/lms/custom/"+this.userInfo.photo;
+      this.photo = "http://lms.ccnl.scut.edu.cn/lms/custom/"+this.userInfo.photo;
     },error=>{
       console.log("error:"+error);
     })

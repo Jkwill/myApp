@@ -9,6 +9,7 @@ import { HttpRequestService} from "../../services/httpService/httpRequest.servic
 })
 export class PersonalInfoPage {
   userInfo;
+  photo:string='';
   password:string="";
   confirmPassword:string="";
   constructor(public accountService:AccountService,
@@ -16,6 +17,8 @@ export class PersonalInfoPage {
               public toastCtrl:ToastController,
               public navParams: NavParams) {
     this.userInfo=this.navParams.data;
+    this.photo=this.userInfo.photo;
+    this.userInfo.photo = "http://lms.ccnl.scut.edu.cn/lms/custom/"+this.userInfo.photo;
   }
 
   imageUploaded(event) {
@@ -26,7 +29,7 @@ export class PersonalInfoPage {
       this.toastCtrl.create({
         message: "请上传jpg,jpeg,png或gif格式的图片",
         duration: 2000,
-        position: 'top'
+        position: 'middle'
       }).present();
       return;
     }
@@ -38,6 +41,7 @@ export class PersonalInfoPage {
       that.accountService.upload(file).subscribe( res => {
         if(res.result == 'success')
         {
+          that.photo=res.file[0].id;
           that.userInfo.filename = res.file[0].id;
         }
       }, error => {
@@ -55,7 +59,7 @@ export class PersonalInfoPage {
     }else{
       let paramObj={
         name:this.userInfo.name,
-        filename:this.userInfo.filename,
+        filename:this.photo,
         email:this.userInfo.email,
         telephone:this.userInfo.phone,
         address:this.userInfo.address,
