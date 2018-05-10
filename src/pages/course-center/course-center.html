@@ -19,7 +19,10 @@
           <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{studyThumbnails[i]}}" onerror="this.src='./assets/imgs/course.png'">
         </ion-thumbnail>
         <h3>{{studyItem.name}}</h3>
-        <p>{{studyItem.introduction}}</p>
+        <p>
+          <span *ngIf="studyItem.courseTeacherString">{{studyItem.courseTeacherString}} /</span>
+          <span>{{studyItem.classHour}}课时</span> 
+        </p>
       </ion-item>
     </ion-list>
 
@@ -31,7 +34,10 @@
               <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{teachThumbnails[i]}}" onerror="this.src='./assets/imgs/course.png'">
             </ion-thumbnail>
             <h3>{{teachItem.name}}</h3>
-            <p>{{teachItem.introduction}}</p>
+            <p>
+              <span *ngIf="teachItem.courseTeacherString">{{teachItem.courseTeacherString}} /</span>
+              <span>{{teachItem.classHour}}课时</span>
+            </p>
           </ion-item>
           <ion-item-options>
             <button ion-button (click)="deleteCourse(teachItem.id)" [ngStyle]="{'background-color':'#F00000'}">
