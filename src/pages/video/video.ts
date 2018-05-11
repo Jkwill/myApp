@@ -21,6 +21,7 @@ export class VideoPage {
   spinner:boolean =false;
   hasPDF:boolean = true;
   hasVideo:boolean = true;
+  videoPlay:boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,public accountService:AccountService,public courseService:CourseService,public platform: Platform) {
     platform.ready().then(() => {
       this.title=this.navParams.data.name;
@@ -59,9 +60,15 @@ export class VideoPage {
   }
 }
 
-afterLoadPDF(){
+  afterLoadPDF(){
    this.spinner=false;
 }
+
+  loadVideo(video:HTMLElement){
+    console.log("loading....");
+    video.style.display = "block";
+    this.videoPlay = true;
+  }
 
 
   getCourseware(uid){
