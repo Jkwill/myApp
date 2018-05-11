@@ -128,8 +128,8 @@ class NativeStorageMock extends NativeStorage {
     AccountService,
     CourseService,
     TeacherService,
-    //NativeStorage,
-    {provide: NativeStorage, useClass: NativeStorageMock},
+    NativeStorage,
+    //{provide: NativeStorage, useClass: NativeStorageMock},
     {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })
