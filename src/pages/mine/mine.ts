@@ -5,17 +5,19 @@ import { AccountService} from "../../services/httpService/account.service"
 import {PersonalInfoPage} from "../personalInfo/personalInfo";
 
 import { NativeStorage } from '@ionic-native/native-storage';
+import {HttpRequestService} from "../../services/httpService/httpRequest.service";
 
 @Component({
   selector: 'page-mine',
   templateUrl: 'mine.html'
 })
 export class MinePage {
-  userInfo;
-  photo;
+  userInfo:any;
+  photo:string;
+  host:string;
   constructor(public nativeStorage: NativeStorage,public navCtrl: NavController,public modalCtrl: ModalController,public toastCtrl: ToastController,public accountService:AccountService,
-              public platform: Platform,public alertCtrl: AlertController) {
-
+              private httpRequestService:HttpRequestService, public platform: Platform,public alertCtrl: AlertController) {
+      this.host = httpRequestService.getCurrentHost();
   }
   ionViewWillEnter(){
     this.getUserInfo();
@@ -23,7 +25,7 @@ export class MinePage {
   getUserInfo() {
     this.accountService.getUserInfo().subscribe(res=>{
       this.userInfo=res;
-      this.photo = "http://lms.ccnl.scut.edu.cn/lms/custom/"+this.userInfo.photo;
+      this.photo = this.host + "/lms/custom/"+this.userInfo.photo;
     },error=>{
       console.log("error:"+error);
     })

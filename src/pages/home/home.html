@@ -1,6 +1,6 @@
 <ion-content >
       <ion-card *ngFor="let openItem of openItems" >
-        <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{openItem.filepath}}" onerror="this.src='./assets/imgs/course.png'">
+        <img src="{{ host }}/lms/custom/{{openItem.filepath}}">
         <ion-card-title padding>{{openItem.name}}</ion-card-title>
         <ion-row>
           <ion-col>

@@ -176,6 +176,9 @@ export class FormPage {
 
   pdfUpload(event) {
     this.file = event.target.files[0];
+    if(typeof(this.file) == "undefined"){
+      return;
+    }
     let arr = this.file.name.split('.');
     let type = arr[arr.length-1];
     if(type != 'pdf')
@@ -205,6 +208,9 @@ export class FormPage {
 
   videoUpload(event) {
     this.file = event.target.files[0];
+    if(typeof(this.file) == "undefined"){
+      return;
+    }
     let arr = this.file.name.split('.');
     let type = arr[arr.length-1];
     if(type != 'mp4' && type != 'avi' && type != 'rmvb')
@@ -236,6 +242,9 @@ export class FormPage {
   fileUpload(event)
   {
     this.file = event.target.files[0];
+    if(typeof(this.file) == "undefined"){
+      return;
+    }
     let loading = this.loadingCtrl.create({
       content: '文件上传中...'
     });
@@ -300,6 +309,9 @@ export class FormPage {
 
   imageUploaded(event) {
     this.file = event.target.files[0];
+    if(typeof(this.file) == "undefined"){
+      return;
+    }
     let arr = this.file.name.split('.');
     let type = arr[arr.length-1];
     if (type !='jpeg' && type != 'jpg' && type != 'png' && type != 'gif') {
@@ -334,6 +346,9 @@ export class FormPage {
 
   homeworkUpload(event) {
     this.file = event.target.files[0];
+    if(typeof(this.file) == "undefined"){
+      return;
+    }
     let arr = this.file.name.split('.');
     let type = arr[arr.length-1];
     if(this.isDoc(type))
@@ -360,6 +375,9 @@ export class FormPage {
 
   answerUpload(event) {
     this.file = event.target.files[0];
+    if(typeof(this.file) == "undefined"){
+      return;
+    }
     let arr = this.file.name.split('.');
     let type = arr[arr.length-1];
     if(this.isDoc(type))

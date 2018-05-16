@@ -11,6 +11,7 @@ import {FinalExamPage} from "../final-exam/final-exam";
 import {VideoPage} from "../video/video";
 import {Message} from "../../model/Message";
 import {Discuss} from "../../model/Discuss"
+import {HttpRequestService} from "../../services/httpService/httpRequest.service";
 
 /**
  * Generated class for the TeacherPage page.
@@ -24,6 +25,7 @@ import {Discuss} from "../../model/Discuss"
   templateUrl: 'teacher.html',
 })
 export class TeacherPage {
+  host:string;
   courseDetail={};
   currentUser:string;
   startDate:string;
@@ -46,9 +48,10 @@ export class TeacherPage {
   replyContent:string;
   choose: string = "chapter";
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public courseService:CourseService,public teacherService:TeacherService,
+  constructor(public navCtrl: NavController, public navParams: NavParams,private httpRequestService:HttpRequestService, public courseService:CourseService,public teacherService:TeacherService,
               public toastCtrl: ToastController, public alertCtrl: AlertController,  public platform: Platform) {
     platform.ready().then(() => {
+      this.host =  httpRequestService.getCurrentHost();
       this.courseId = navParams.get('id');
       this.initFileUpload(this.courseId);
     });

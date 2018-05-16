@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {AlertController, NavController, NavParams, Platform, ViewController} from 'ionic-angular';
 import { CourseService} from "../../services/httpService/course.service"
 import { DetailPage } from "../detail/detail";
+import {HttpRequestService} from "../../services/httpService/httpRequest.service";
 
 /**
  * Generated class for the OpenPage page.
@@ -15,11 +16,13 @@ import { DetailPage } from "../detail/detail";
 })
 export class OpenPage {
   openCourse ={};
+  host:string;
   openSection :Object[];
   courseId: string;
   choose: string = "chapter";
-  constructor(public navCtrl: NavController,public viewCtrl: ViewController,public navParams: NavParams,public courseService:CourseService,public alertCtrl: AlertController, public platform: Platform) {
+  constructor(public navCtrl: NavController,public viewCtrl: ViewController,private httpRequestService:HttpRequestService,public navParams: NavParams,public courseService:CourseService,public alertCtrl: AlertController, public platform: Platform) {
     platform.ready().then(() => {
+      this.host =  httpRequestService.getCurrentHost();
       this.courseId = this.navParams.data.id;
       this.getOpenResourse(this.courseId);
     });

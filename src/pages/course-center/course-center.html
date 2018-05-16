@@ -16,12 +16,12 @@
     <ion-list *ngSwitchCase="'study'">
       <ion-item  *ngFor="let studyItem of studyItems;let i = index" (click)="openDetailPageOfStu(studyItem.id)" >
         <ion-thumbnail item-start>
-          <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{studyThumbnails[i]}}" onerror="this.src='./assets/imgs/course.png'">
+          <img src="{{host}}/lms/custom/{{studyThumbnails[i]}}" onerror="this.src='./assets/imgs/course.png'">
         </ion-thumbnail>
         <h3>{{studyItem.name}}</h3>
         <p>
           <span *ngIf="studyItem.courseTeacherString">{{studyItem.courseTeacherString}} /</span>
-          <span>{{studyItem.classHour}}课时</span> 
+          <span>{{studyItem.classHour}}课时</span>
         </p>
       </ion-item>
     </ion-list>
@@ -31,7 +31,7 @@
         <ion-item-sliding *ngFor="let teachItem of teachItems;let i = index">
           <ion-item (click)="openTeacherPage(teachItem.id)">
             <ion-thumbnail item-start>
-              <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{teachThumbnails[i]}}" onerror="this.src='./assets/imgs/course.png'">
+              <img src="{{host}}/lms/custom/{{teachThumbnails[i]}}" onerror="this.src='./assets/imgs/course.png'">
             </ion-thumbnail>
             <h3>{{teachItem.name}}</h3>
             <p>

@@ -119,9 +119,10 @@
       <ion-label>作业说明</ion-label>
       <ion-textarea [(ngModel)]="homeworkInfo.introduction"></ion-textarea>
     </ion-item>
-    <ion-item>
+    <ion-item (click)="uploadHomework.click()">
       <ion-label>附件</ion-label>
       <ion-input type="text" [(ngModel)]="homeworkInfo.chFilename" disabled></ion-input>
+      <input type="file" #uploadHomework (change)="homeworkUpload($event)" [ngStyle]="{'display':'none'}"/>
     </ion-item>
     <ion-item>
       <ion-icon ios="ios-cloud-upload" md="md-cloud-upload" color="primary" item-start></ion-icon>
@@ -134,8 +135,8 @@
     </ion-item>
     <ion-item>
       <ion-icon ios="ios-cloud-upload" md="md-cloud-upload" color="primary" item-start></ion-icon>
-      <input type="file" #uploadAnswer (change)="answerUpload($event)" [ngStyle]="{'display':'none'}"/>
-      <button ion-button (click)="uploadAnswer.click()" [ngStyle]="{'width': '40%'}">本地上传</button>
+      <input type="file" #uploadAnswer (change)="answerUpload($event)" />
+      <!--<button ion-button (click)="uploadAnswer.click()" [ngStyle]="{'width': '40%'}">本地上传</button>-->
     </ion-item>
     <ion-item>
       <button ion-button (click)="saveHomework()" block>保存</button>
@@ -151,33 +152,42 @@
       <ion-label>显示排序</ion-label>
       <ion-input type="number" [(ngModel)]="unit.orderId"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label>资料PDF</ion-label>
-      <ion-input type="text" [(ngModel)]="unit.syllabusFile" disabled></ion-input>
-    </ion-item>
-    <ion-item>
+    <ion-item-sliding >
+      <ion-item (click)="uploadPdf.click()">
+        <ion-label>资料PDF</ion-label>
+        <ion-input type="text" [(ngModel)]="unit.syllabusFile" disabled></ion-input>
+      </ion-item>
+      <ion-item-options>
+        <button ion-button (click)="deleteSyllabus()">
+          清除
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+    <ion-item [ngStyle]="{'display':'none'}">
       <ion-icon ios="ios-cloud-upload" md="md-cloud-upload" color="primary" item-start></ion-icon>
-      <input type="file" #uploadPdf (change)="pdfUpload($event)" [ngStyle]="{'display':'none'}"/>
+      <input type="file" #uploadPdf (change)="pdfUpload($event)" />
       <button ion-button (click)="uploadPdf.click()" [ngStyle]="{'width': '40%'}">本地上传</button>
       <button ion-button (click)="deleteSyllabus()" [ngStyle]="{'width': '40%'}">清除</button>
     </ion-item>
-    <ion-item>
+    <ion-item [ngStyle]="{'display':'none'}">
+      <input type="file" #uploadVideo (change)="videoUpload($event)"  />
+    </ion-item>
+    <ion-item (click)="uploadVideo.click()" >
       <ion-label>资料视频</ion-label>
       <ion-input type="text" [(ngModel)]="unit.slidesFile" disabled></ion-input>
     </ion-item>
     <ion-item>
       <ion-icon ios="ios-cloud-upload" md="md-cloud-upload" color="primary" item-start></ion-icon>
-      <input type="file" #uploadVideo (change)="videoUpload($event)" [ngStyle]="{'display':'none'}"/>
-      <button ion-button (click)="uploadVideo.click()" [ngStyle]="{'width': '40%'}">本地上传</button>
+      <!--<button ion-button (click)="uploadVideo.click()" [ngStyle]="{'width': '40%'}">本地上传</button>-->
       <button ion-button (click)="deleteSlides()" [ngStyle]="{'width': '40%'}">清除</button>
     </ion-item>
-    <ion-item>
+    <ion-item (click)="uploadFile.click()">
       <ion-label>辅导材料</ion-label>
       <ion-input type="text" [(ngModel)]="unit.referenceFile" disabled></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item [ngStyle]="{'display':'none'}">
       <ion-icon ios="ios-cloud-upload" md="md-cloud-upload" color="primary" item-start></ion-icon>
-      <input type="file" #uploadFile (change)="fileUpload($event)" [ngStyle]="{'display':'none'}"/>
+      <input type="file" #uploadFile (change)="fileUpload($event)" />
       <button ion-button (click)="uploadFile.click()" [ngStyle]="{'width': '40%'}">本地上传</button>
       <button ion-button (click)="deleteReference()" [ngStyle]="{'width': '40%'}">清除</button>
     </ion-item>

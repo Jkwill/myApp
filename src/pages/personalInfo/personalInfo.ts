@@ -18,7 +18,7 @@ export class PersonalInfoPage {
               public navParams: NavParams) {
     this.userInfo=this.navParams.data;
     this.photo=this.userInfo.photo;
-    this.userInfo.photo = "http://lms.ccnl.scut.edu.cn/lms/custom/"+this.userInfo.photo;
+    this.userInfo.photo = httpRequestService.getCurrentHost()+"/lms/custom/"+this.userInfo.photo;
   }
 
   imageUploaded(event) {

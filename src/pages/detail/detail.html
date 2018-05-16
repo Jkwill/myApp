@@ -24,7 +24,7 @@
   </ion-fab>
 
   <ion-card>
-    <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{courseDetail.filepath}}" [ngStyle]="{'height':'200px'}" onerror="this.src='./assets/imgs/course.png'"/>
+    <img src="{{host}}/lms/custom/{{courseDetail.filepath}}" [ngStyle]="{'height':'200px'}" onerror="this.src='./assets/imgs/course.png'"/>
     <div class="card-title">{{courseDetail.name}}</div>
     <div class="card-subtitle">{{courseDetail.startDateString}} - {{courseDetail.endDateString}}</div>
   </ion-card>
@@ -66,7 +66,7 @@
         <ion-card>
             <ion-item (click)="expand(message)">
               <ion-avatar item-start>
-                <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{message.photo}}">
+                <img src="{{host}}/lms/custom/{{message.photo}}">
               </ion-avatar>
               <h3>{{message.creatorName}}</h3>
               <p>{{message.content}}</p>
@@ -139,7 +139,7 @@
           <ion-item-sliding>
             <ion-item>
               <ion-avatar item-start>
-                <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{discuss.photo}}">
+                <img src="{{host}}/lms/custom/{{discuss.photo}}">
               </ion-avatar>
               <h3>{{discuss.creatorName}}</h3>
               <p>{{discuss.content}}</p>
@@ -174,7 +174,7 @@
             <ion-item-sliding color="light" *ngFor="let reply of replyList">
               <ion-item>
                 <ion-avatar item-start>
-                  <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{reply.photo}}">
+                  <img src="{{host}}/lms/custom/{{reply.photo}}">
                 </ion-avatar>
                 <h3>{{reply.creatorName}}</h3>
                 <p>{{reply.content}}</p>

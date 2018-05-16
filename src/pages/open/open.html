@@ -15,7 +15,7 @@
 
 <ion-content padding class="card-background-page">
   <ion-card >
-    <img src="http://lms.ccnl.scut.edu.cn/lms/custom/{{openCourse.filepath}}" onerror="this.src='./assets/imgs/course.png'">
+    <img src="{{ host }}/lms/custom/{{openCourse.filepath}}" onerror="this.src='./assets/imgs/course.png'">
     <div class="card-title">
       <button ion-button outline (click)="joinOpenCourse(courseId)">加入学习</button>
     </div>

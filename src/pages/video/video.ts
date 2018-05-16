@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {  NavController, NavParams, Platform } from 'ionic-angular';
 import { CourseService} from "../../services/httpService/course.service"
 import { AccountService} from "../../services/httpService/account.service"
+import {HttpRequestService} from "../../services/httpService/httpRequest.service";
 /**
  * Generated class for the VideoPage page.
  *
@@ -14,6 +15,7 @@ import { AccountService} from "../../services/httpService/account.service"
 })
 export class VideoPage {
   title:string;
+  host:string;
   videoUrl:string;
   syllabus:string;
   pdfSrc:string;
@@ -22,10 +24,12 @@ export class VideoPage {
   hasPDF:boolean = true;
   hasVideo:boolean = true;
   videoPlay:boolean = false;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public accountService:AccountService,public courseService:CourseService,public platform: Platform) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private httpRequestService:HttpRequestService,public accountService:AccountService,public courseService:CourseService,public platform: Platform) {
     platform.ready().then(() => {
+      this.host =  httpRequestService.getCurrentHost();
       this.title=this.navParams.data.name;
        this.getCourseware(this.navParams.data.id);
+       // this.videoWidth = document.documentElement.clientWidth;
     });
   }
   viewPDF()
@@ -99,7 +103,7 @@ export class VideoPage {
                 weblibSessionId = cookieValue;
               }
             }
-            this.videoUrl = "http://lms.ccnl.scut.edu.cn"+this.courseService.buildVideoUrl(res.filepath, lmsSessionId, weblibSessionId);
+            this.videoUrl = this.host + this.courseService.buildVideoUrl(res.filepath, lmsSessionId, weblibSessionId);
             console.log(".getCourseWare success"+res.syllabus+' '+res.filepath);
           } else if (res.filetype == 'flv') {
             alert("不支持该视频格式")

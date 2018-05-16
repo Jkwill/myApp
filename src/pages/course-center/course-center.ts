@@ -4,6 +4,7 @@ import { DetailPage } from '../detail/detail';
 import { TeacherPage } from '../teacher/teacher'
 import { CourseService} from "../../services/httpService/course.service"
 import {FormPage} from "../form/form";
+import {HttpRequestService} from "../../services/httpService/httpRequest.service";
 
 /**
  * Generated class for the CourseCenterPage page.
@@ -19,14 +20,15 @@ import {FormPage} from "../form/form";
 export class CourseCenterPage {
 
   segment: string = "study";
+  host:string;
   studyItems:any[];
   teachItems:any[];
   studyThumbnails:string[] = [];
   teachThumbnails:string[] = [];
-  constructor(public navCtrl: NavController, public courseService:CourseService,
+  constructor(public navCtrl: NavController, public courseService:CourseService,private httpRequestService:HttpRequestService,
               public toastCtrl: ToastController, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, public platform: Platform) {
     platform.ready().then(() => {
-
+      this.host =  httpRequestService.getCurrentHost();
     });
   }
 

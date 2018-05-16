@@ -7,6 +7,7 @@ import { CourseService} from "../../services/httpService/course.service"
 import {OpenPage} from "../open/open";
 import {Message} from "../../model/Message";
 import {Discuss} from "../../model/Discuss";
+import {HttpRequestService} from "../../services/httpService/httpRequest.service";
 
 /**
  * Generated class for the DetailPage page.
@@ -20,6 +21,7 @@ import {Discuss} from "../../model/Discuss";
   templateUrl: 'detail.html',
 })
 export class DetailPage {
+  host:string;
   courseDetail={};
   currentUser:string;
   courseResource:Object[];
@@ -38,9 +40,10 @@ export class DetailPage {
   replyContent:string;
 
   choose: string = "chapter";
-  constructor(public navCtrl: NavController, public navParams: NavParams, public courseService:CourseService,
+  constructor(public navCtrl: NavController, public navParams: NavParams, public courseService:CourseService,private httpRequestService:HttpRequestService,
     public toastCtrl: ToastController,public platform: Platform,public alertCtrl: AlertController) {
     platform.ready().then(() => {
+      this.host =  httpRequestService.getCurrentHost();
       this.courseId = navParams.get('id');
     });
   }

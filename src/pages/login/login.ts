@@ -24,15 +24,13 @@ export class LoginPage {
   savePassword:boolean;
   username:string;
   password:string;
-  screen_height:number;
   host:string;
 
   constructor(public nativeStorage: NativeStorage,public navCtrl: NavController,public modalCtrl: ModalController,private backButtonService: BackButtonService,
-              public platform: Platform, public toastCtrl: ToastController,private accountService:AccountService,private httpRequestService:HttpRequestService,
+              public platform: Platform, public toastCtrl: ToastController,private accountService:AccountService,private httpRequestService:HttpRequestService
   ) {
     platform.ready().then(() => {
       this.backButtonService.registerBackButtonAction(null);
-      this.screen_height =  window.screen.height;
     });
   }
   ionViewWillEnter(){
