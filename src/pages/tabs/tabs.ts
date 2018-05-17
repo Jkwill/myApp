@@ -49,5 +49,6 @@ export class TabsPage {
   }
   ionViewWillEnter() {
     this.tabRef.select(1);
+    this.accountService.checkLoginStatus();
   }
 }
