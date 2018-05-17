@@ -103,7 +103,7 @@ export class HttpRequestService {
   listMessage:string = '/lms/json/learning/listMessage';
   saveMessage:string = '/lms/json/learning/saveMessage';
   deleteMessage:string = '/lms/json/learning/deleteMessage';
-  getHomeworkTable:string = '/lms/json/learning/checkHomeworkWithoutFilter';
+  getHomeworkTable:string = '/lms/json/learning/checkHomework';
   saveScore:string = '/lms/json/learning/saveHS';
   removeHomework:string = '/lms/json/learning/deleteHomeworkStudent';
   copyCourse:string = '/lms/json/creator/copyCourse';

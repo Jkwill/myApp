@@ -31,6 +31,8 @@ export class CorrectionPage{
         };
         this.teacherService.getHomeworkTable(paramObj).subscribe( res =>{
             if(res.result == "success"){
+                //console.log("homework");
+                //console.log(res);
                 this.students = res.homework;
                 this.initStatistics();
             }
