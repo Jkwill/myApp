@@ -341,6 +341,7 @@ export class FormPage {
   imageRemoved() {
     this.file = null;
     this.imgSrc = '';
+    this.courseInfo.filename = '';
     this.showImg = false;
   }
 

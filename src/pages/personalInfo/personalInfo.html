@@ -6,16 +6,15 @@
 
 </ion-header>
 <ion-content>
-
-
-  <ion-item>
-    <ion-card>
-      <img  src="{{userInfo.photo}}" alt="">
-      <ion-card-content>
-        <input #upload type="file" (change)="imageUploaded($event)" [ngStyle]="{'display':'none'}" >
-        <button ion-button (click)="upload.click()" small block>修改头像</button>
-      </ion-card-content>
-    </ion-card>
+  <ion-item [ngStyle]="{'display':'none'}">
+    <input #upload type="file" (change)="imageUploaded($event)" >
+  </ion-item>
+  <button ion-item (click)="upload.click()">
+    <ion-label>头像</ion-label>
+    <ion-input type="text" placeholder="点击上传头像" [(ngModel)]="photo" disabled></ion-input>
+  </button>
+  <ion-item text-center>
+      <img src="{{userInfo.photo}}" alt="头像">
   </ion-item>
     <ion-item>
       <ion-label >姓名</ion-label>

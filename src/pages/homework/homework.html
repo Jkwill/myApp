@@ -25,8 +25,7 @@
           <p >截止日期：{{homework.deadlineDate}}</p>
           <p >已提交作业：{{homework.hsAttachName}}</p>
           <p>上传作业：
-            <input type="file" #submitHomework (change)="upload($event)" [ngStyle]="{'display':'none'}">
-            <button ion-button (click)="submitHomework.click()" [ngStyle]="{'width': '40%'}">本地上传</button>
+            <input type="file" #submitHomework (change)="upload($event)">
           </p>
           </ion-item>
         </ion-card>
