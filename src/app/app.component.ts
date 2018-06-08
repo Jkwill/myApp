@@ -8,16 +8,15 @@ import {TabsPage} from "../pages/tabs/tabs";
 import {AccountService} from "../services/httpService/account.service";
 import { NativeStorage } from '@ionic-native/native-storage';
 
-declare const window: any;
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   rootPage:any = "";
 
+
   constructor(public nativeStorage: NativeStorage,platform: Platform,statusBar: StatusBar,public splashScreen: SplashScreen,public accountService:AccountService) {
 
-    if (window.cordova) {
       document.addEventListener("deviceready", () => {
         // retrieve the DOM element that had the ng-app attribute
         statusBar.styleLightContent();
@@ -46,21 +45,6 @@ export class MyApp {
         }
 
       }, false);
-    } else {
-      console.log('web 模式');
-      let isLogin;
-      this.nativeStorage.getItem('isLogin')
-        .then(
-          data => {
-            isLogin=data;
-            this.Login(isLogin);
-          },
-          error => {
-            console.error(error);
-            this.rootPage=LoginPage;
-          }
-        );
-    }
 
   }
 
