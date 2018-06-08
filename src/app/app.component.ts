@@ -8,33 +8,60 @@ import {TabsPage} from "../pages/tabs/tabs";
 import {AccountService} from "../services/httpService/account.service";
 import { NativeStorage } from '@ionic-native/native-storage';
 
+declare const window: any;
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   rootPage:any = "";
 
-
   constructor(public nativeStorage: NativeStorage,platform: Platform,statusBar: StatusBar,public splashScreen: SplashScreen,public accountService:AccountService) {
-    platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      
-      //let isLogin=localStorage.getItem("isLogin");
+
+    if (window.cordova) {
+      document.addEventListener("deviceready", () => {
+        // retrieve the DOM element that had the ng-app attribute
+        statusBar.styleLightContent();
+        //延迟隐藏闪屏 防止有白屏
+        window.setTimeout(() => {
+          splashScreen.hide();
+        }, 500);
+
+        let isLogin;
+        this.nativeStorage.getItem('isLogin')
+          .then(
+            data => {
+              isLogin=data;
+              this.Login(isLogin);
+            },
+            error => {
+              console.error(error);
+              this.rootPage=LoginPage;
+            }
+          );
+
+        if (platform.is("ios")) {
+          console.log('this is ios');
+        } else if (platform.is("android")) {
+          console.log('this is android');
+        }
+
+      }, false);
+    } else {
+      console.log('web 模式');
       let isLogin;
       this.nativeStorage.getItem('isLogin')
-      .then(
-        data => {
-          isLogin=data;
-          this.Login(isLogin);
-        },
-        error => {
-          console.error(error);
-          this.rootPage=LoginPage;
-        }
-      );
-    });
+        .then(
+          data => {
+            isLogin=data;
+            this.Login(isLogin);
+          },
+          error => {
+            console.error(error);
+            this.rootPage=LoginPage;
+          }
+        );
+    }
+
   }
 
   Login(isLogin){
@@ -83,7 +110,7 @@ export class MyApp {
         },
         error => console.error(error)
       );
-      
+
   }
   LoginWithParam(username,password){
       if(username!=null&&password!=null){
