@@ -122,7 +122,8 @@ export class CorrectionDetailPage{
       attachName:this.attachName
     }
     this.teacherService.submitHomework(dData).subscribe(res =>{
-        let string:string = new Date().toISOString();
+        let date:Date = new Date(+new Date() + 8 * 3600 * 1000);
+        let string:string = date.toISOString();
         string = string.replace("T"," ");
         this.student.createDate = string.substring(0,string.length-5);
         this.toastCtrl.create({
