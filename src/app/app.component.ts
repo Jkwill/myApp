@@ -24,16 +24,16 @@ export class MyApp {
       //let isLogin=localStorage.getItem("isLogin");
       let isLogin;
       this.nativeStorage.getItem('isLogin')
-      .then(
-        data => {
-          isLogin=data;
-          this.Login(isLogin);
-        },
-        error => {
-          console.error(error);
-          this.rootPage=LoginPage;
-        }
-      );
+        .then(
+          data => {
+            isLogin=data;
+            this.Login(isLogin);
+          },
+          error => {
+            console.error(error);
+            this.rootPage=LoginPage;
+          }
+        );
     });
   }
 
@@ -114,7 +114,7 @@ export class MyApp {
           this.rootPage=LoginPage;
         }
   }
-   loginWeblib(username,password){
+  loginWeblib(username,password){
 
     let weblibLoginParam = "account="+username+"&password="+password;
     this.accountService.loginWeblib(weblibLoginParam).subscribe(res=>{
