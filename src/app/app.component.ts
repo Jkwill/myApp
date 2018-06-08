@@ -20,7 +20,7 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
-      
+      splashScreen.hide();
       //let isLogin=localStorage.getItem("isLogin");
       let isLogin;
       this.nativeStorage.getItem('isLogin')
@@ -83,7 +83,7 @@ export class MyApp {
         },
         error => console.error(error)
       );
-      
+
   }
   LoginWithParam(username,password){
       if(username!=null&&password!=null){
