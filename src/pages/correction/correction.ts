@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {  NavController, NavParams,ToastController,LoadingController } from 'ionic-angular';
 import { TeacherService } from "../../services/httpService/teacher.service";
 import { CorrectionDetailPage } from "../correctionDetail/correctionDetail";
+import { CorrectionPersonPage } from "../correctionPerson/correctionPerson";
 
 @Component({
   selector: 'page-correction',
@@ -15,14 +16,20 @@ export class CorrectionPage{
     notSubmit;
     correction;
     notCorrection;
+    flags;
     constructor(public navCtrl: NavController,public teacherService:TeacherService, public navParams: NavParams,public toastCtrl: ToastController,public loadingCtrl: LoadingController){
         let homeworkId = this.navParams.get('id');
         this.courseId = this.navParams.get('courseId');
         this.getHomework(homeworkId);
+        
     }
     
     openDetail(index){
         this.navCtrl.push(CorrectionDetailPage,{student:this.students[index],courseId:this.courseId});
+    }
+
+    openPerson(index){
+        this.navCtrl.push(CorrectionPersonPage,{student:this.students[index]});
     }
 
     getHomework(homeworkId){
@@ -45,6 +52,7 @@ export class CorrectionPage{
         this.correction = 0;
         this.notCorrection = 0;
         for(let i = 0;i<this.students.length;i++){
+            this.students[i].flag = true;
             if(this.students[i].createDate != ""){
                 this.submit++;
                 let submitDate:string = this.students[i].createDate;
@@ -59,5 +67,28 @@ export class CorrectionPage{
                 this.notSubmit++;
             }
         }
+    }
+
+    modifyScore(index){
+        this.students[index].flag = false;
+    }
+
+    submitScore(index){
+        this.students[index].flag = true;
+        let paramObj = {
+            hsId:this.students[index].id,
+            attach:this.students[index].attach,
+            score:this.students[index].score,
+            comment:this.students[index].comment
+        }
+        this.teacherService.saveScore(paramObj).subscribe( res => {
+            if(res.result == "success"){
+                this.toastCtrl.create({
+                    message: '分数修改成功',
+                    duration: 2000,
+                    position: 'top'
+                }).present();
+            }
+        })
     }
 }

@@ -37,7 +37,7 @@ export class CorrectionDetailPage{
             if(res.result == "success"){
                 this.student.score = this.score;
                 this.toastCtrl.create({
-                    message: '提交成功',
+                    message: '分数修改成功',
                     duration: 2000,
                     position: 'top'
                 }).present();
