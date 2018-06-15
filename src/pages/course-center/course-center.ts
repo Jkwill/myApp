@@ -5,6 +5,7 @@ import { TeacherPage } from '../teacher/teacher'
 import { CourseService} from "../../services/httpService/course.service"
 import {FormPage} from "../form/form";
 import {HttpRequestService} from "../../services/httpService/httpRequest.service";
+import {AccountService} from "../../services/httpService/account.service";
 
 /**
  * Generated class for the CourseCenterPage page.
@@ -25,10 +26,11 @@ export class CourseCenterPage {
   teachItems:any[];
   studyThumbnails:string[] = [];
   teachThumbnails:string[] = [];
-  constructor(public navCtrl: NavController, public courseService:CourseService,private httpRequestService:HttpRequestService,
-              public toastCtrl: ToastController, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, public platform: Platform) {
+  constructor(public navCtrl: NavController, public courseService:CourseService,private httpRequestService:HttpRequestService,public accountService:AccountService,
+              public toastCtrl: ToastController, public alertCtrl: AlertController,  public platform: Platform) {
     platform.ready().then(() => {
       this.host =  httpRequestService.getCurrentHost();
+      this.getUserInfo();
     });
   }
 
@@ -38,6 +40,17 @@ export class CourseCenterPage {
 
   createCourse() {
     this.navCtrl.push(FormPage, { type : 'course' });
+  }
+
+  getUserInfo() {
+    this.accountService.getUserInfo().subscribe( res => {
+        if(res.hasCreator == "true"){
+          this.segment = "teach";
+        }
+        else{
+          this.segment = "study";
+        }
+    } , error => {});
   }
 
   deleteCourse(id) {
