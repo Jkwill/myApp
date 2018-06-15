@@ -1,5 +1,10 @@
 page-open {
-
+  ion-card img{
+    height: 200px;
+  }
+  img{
+    height: 200px;
+  }
 }
 
 .card-background-page {
@@ -16,6 +21,9 @@ page-open {
     color: #fff;
     font-family: "Microsoft YaHei";
     font-size: 14px;
+  }
+  ion-card img{
+    height: 200px;
   }
 
 }

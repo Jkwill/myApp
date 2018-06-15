@@ -25,6 +25,7 @@ import { ExamPage } from "../pages/exam/exam";
 import { ChangeHostPage } from "../pages/changeHost/changeHost";
 import { CorrectionPage } from "../pages/correction/correction";
 import { CorrectionDetailPage } from "../pages/correctionDetail/correctionDetail";
+import { CorrectionPersonPage } from "../pages/correctionPerson/correctionPerson";
 
 import { BackButtonService } from '../services/uiService/backButton.service';
 import { HttpRequestService } from '../services/httpService/httpRequest.service';
@@ -86,7 +87,8 @@ class NativeStorageMock extends NativeStorage {
     SubjectPage,
     FinalExamPage,
     CorrectionPage,
-    CorrectionDetailPage
+    CorrectionDetailPage,
+    CorrectionPersonPage
   ],
   imports: [
     BrowserModule,
@@ -118,7 +120,8 @@ class NativeStorageMock extends NativeStorage {
     FinalExamPage,
     ChangeHostPage,
     CorrectionPage,
-    CorrectionDetailPage
+    CorrectionDetailPage,
+    CorrectionPersonPage
   ],
   providers: [
     StatusBar,

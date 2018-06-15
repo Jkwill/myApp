@@ -7,15 +7,17 @@ table.dataintable {
 }
 table.dataintable th {
   vertical-align:baseline;
-  padding:5px 15px 5px 6px;
+  padding:5px;
   background-color:#FFFFFF;
   border:1px solid #aaa;
-  text-align:left;
+  text-align:center;
 }
 table.dataintable td {
   vertical-align:text-top;
-  padding:6px 15px 6px 6px;
+  padding:5px;
   border:1px solid #aaa;
+  text-align: center;
+  vertical-align: middle;
 }
 table.dataintable tr:nth-child(odd) {
   background-color:#F5F5F5;
@@ -28,5 +30,18 @@ caption.captiontext{
     margin-bottom: 5vw;
 }
 span.score{
-    color: blue;
+    
+}
+.col-7{
+  width: 14.28%;
+}
+page-correction{
+  input.detail-input{
+    width:10vw;
+    text-align: center;
+  }
+  .img{
+    width: 30px;
+    height:30px;
+  }
 }
