@@ -10,7 +10,9 @@ import { CourseService} from "../../services/httpService/course.service"
 
 export class CorrectionPersonPage{
     student;
+    index;
     constructor(public navCtrl: NavController,public teacherService:TeacherService,public courseService:CourseService, public navParams: NavParams,public toastCtrl: ToastController,public loadingCtrl: LoadingController){
         this.student = this.navParams.get('student');
+        this.index = this.navParams.get('index');
     }
 }

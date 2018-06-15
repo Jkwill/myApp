@@ -3,6 +3,7 @@ import {  NavController, NavParams,ToastController,LoadingController } from 'ion
 import { TeacherService } from "../../services/httpService/teacher.service";
 import { CorrectionDetailPage } from "../correctionDetail/correctionDetail";
 import { CorrectionPersonPage } from "../correctionPerson/correctionPerson";
+import { HttpRequestService } from "../../services/httpService/httpRequest.service";
 
 @Component({
   selector: 'page-correction',
@@ -17,11 +18,12 @@ export class CorrectionPage{
     correction;
     notCorrection;
     flags;
-    constructor(public navCtrl: NavController,public teacherService:TeacherService, public navParams: NavParams,public toastCtrl: ToastController,public loadingCtrl: LoadingController){
+    host;
+    constructor(public navCtrl: NavController,private httpRequestService:HttpRequestService,public teacherService:TeacherService, public navParams: NavParams,public toastCtrl: ToastController,public loadingCtrl: LoadingController){
         let homeworkId = this.navParams.get('id');
         this.courseId = this.navParams.get('courseId');
         this.getHomework(homeworkId);
-        
+        this.host = httpRequestService.getCurrentHost();
     }
     
     openDetail(index){
@@ -29,7 +31,7 @@ export class CorrectionPage{
     }
 
     openPerson(index){
-        this.navCtrl.push(CorrectionPersonPage,{student:this.students[index]});
+        this.navCtrl.push(CorrectionPersonPage,{student:this.students[index],index:index});
     }
 
     getHomework(homeworkId){
