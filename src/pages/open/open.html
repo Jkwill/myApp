@@ -16,9 +16,6 @@
 <ion-content padding class="card-background-page">
   <ion-card >
     <img src="{{ host }}/lms/custom/{{openCourse.filepath}}" onerror="this.src='./assets/imgs/course.png'" style="height:200px;">
-    <div class="card-title">
-      <button ion-button outline (click)="joinOpenCourse(courseId)">加入学习</button>
-    </div>
   </ion-card>
   <ion-toolbar no-border-top>
     <ion-segment [(ngModel)]="choose">
